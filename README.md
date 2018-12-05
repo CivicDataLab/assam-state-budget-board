@@ -15,8 +15,7 @@ django CMS requires Django 1.8, 1.9 or 1.10 and Python 2.7, 3.3 or 3.4.
 #### 3) Create and activate a virtual env
 * virtualenv env
 * source env/bin/activate 
-Note that if you’re using Windows, to activate the virtualenv you’ll need:
-* env\Scripts\activate
+* (Note that if you’re using Windows, to activate the virtualenv you’ll need) env\Scripts\activate
 #### 4) Update pip
 * pip install --upgrade pip
 #### 5) Install django-cms
