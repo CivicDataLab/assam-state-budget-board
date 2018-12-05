@@ -63,12 +63,14 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(DATA_DIR, 'media')
 STATIC_ROOT = os.path.join(DATA_DIR, 'static')
-
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'assam_budget_board', 'static'),
 )
 SITE_ID = 1
 
+COMPRESS_ENABLED = True
+COMPRESS_ROOT = STATIC_ROOT   ##django compressor 
+COMPRESS_OFFLINE = True
 
 TEMPLATES = [
     {
@@ -138,6 +140,7 @@ INSTALLED_APPS = (
     'djangocms_snippet',
     'djangocms_googlemap',
     'djangocms_video',
+    'compressor',
     'assam_budget_board'
 )
 
@@ -193,4 +196,10 @@ THUMBNAIL_PROCESSORS = (
     'easy_thumbnails.processors.autocrop',
     'filer.thumbnail_processors.scale_and_crop_with_subject_location',
     'easy_thumbnails.processors.filters'
+)
+
+STATICFILES_FINDERS = (                                       
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
 )
