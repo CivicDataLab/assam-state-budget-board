@@ -13,7 +13,9 @@ django CMS requires Django 1.8, 1.9 or 1.10 and Python 2.7, 3.3 or 3.4.
 $ sudo apt-get install python-pip
 ```
 #### 2) Install virtualenv
+```
 $ pip install virtualenv
+```
 #### 3) Create and activate a virtual env
 ```
 $ virtualenv env  
