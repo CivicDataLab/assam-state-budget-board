@@ -3,60 +3,42 @@
 The Assam State Budget Board is a collaborative effort as part of OpenBudgetsIndia initiative to facilitate an informed discussion on the Assam State Budget, by improving the accessibility of budget data.  
 
 ### Features
-
+List coming Soon!
 
 ### Requirenments
-django CMS requires Django 1.8, 1.9 or 1.10 and Python 2.7, 3.3 or 3.4.
+Refer to Django/Python compatibility for Django-CMS - [Link](http://docs.django-cms.org/en/latest/#django-python-compatibility-table)
+This project uses MySQL as it database. If you want to connect it to different database, you can refer to [Django Documentation](https://docs.djangoproject.com/en/2.1/ref/databases/). SQLite is a good alternative for simpler use cases, which also comes as a default database.   
+
 ### Installation
-#### 1) Install pip
+
 ```
-$ sudo apt-get install python-pip
-```
-#### 2) Install virtualenv
-```
-$ pip install virtualenv
-```
-#### 3) Create and activate a virtual env
-```
+# Setup MySQL. Optional if using MySQL Server
+$ sudo apt-get install mysql-server 
+
+# Setup Development environment
 $ virtualenv env  
 $ source env/bin/activate
+
+# Clone Repo
+$ git clone https://github.com/CivicDataLab/assam-state-budget-board.git #Clone the repository
+$ cd assam-state-budget-board
+
+# Install all dependencies
+$ pip install -r requirements.txt
+
+# Run the server
+$ python manage.py runserver
 ```
-* (Note that if you’re using Windows, to activate the virtualenv you’ll need) env\Scripts\activate
-#### 4) Update pip
+
+##### Create an admin user
 ```
-(env)$ pip install --upgrade pip
+$python manage.py createsuperuser
 ```
-#### 5) Install django-cms
-```
-(env)$ pip install djangocms-installer
-```
-#### 6) Install git
-```
-(env)$ sudo apt install git-all
-```
-#### 7) Clone git repositary
-```
-(env)$ git clone https://github.com/CivicDataLab/assam-state-budget-board.git
-```
-#### 8) Migrate into folder
-```
-(env)$ cd assam-state-budget-board
-```
-#### 10) Install all dependencies
-```
-(env) ~/assam-state-budget-board$ pip install -r requirements.txt
-```
-#### 11) Run the server
-```
-(env) ~/assam-state-budget-board$ python manage.py runserver
-```
-#### 12) open your site using http://localhost:8000/
 
 ### Contribute
-
+Standard OSS rules. 
 
 ### Credits
 
 ### License
-
 The project is licensed under the MIT license.
