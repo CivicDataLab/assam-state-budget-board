@@ -19,8 +19,8 @@ $ sudo apt-get install mysql-server
 $ virtualenv env  
 $ source env/bin/activate
 
-# Clone Repo
-$ git clone https://github.com/CivicDataLab/assam-state-budget-board.git #Clone the repository
+# Clone Repository
+$ git clone https://github.com/CivicDataLab/assam-state-budget-board.git 
 $ cd assam-state-budget-board
 
 # Install all dependencies
@@ -32,7 +32,7 @@ $ python manage.py runserver
 
 ##### Create an admin user
 ```
-$python manage.py createsuperuser
+$ python manage.py createsuperuser
 ```
 
 ### Contribute
