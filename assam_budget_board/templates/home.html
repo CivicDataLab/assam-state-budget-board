@@ -1,0 +1,98 @@
+{% extends "page.html" %}
+{% load cms_tags menu_tags staticfiles  %}
+{% block css_files %} 
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+{% endblock css_files %} 
+
+{% block title %}{% page_attribute "page_title" %}{% endblock title %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">Assam State Budget Board</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    {% show_menu 0 1 1 1 "menu/home_menu.html" %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock navbar %}
+
+{% block page_content %}
+    <!-- Header -->
+    <header class="masthead d-flex">   
+    </header>
+
+
+    <section class="content-section bg-light">
+    </section>
+
+    <section class="content-section bg-primary text-white text-center">        
+    </section>
+
+    <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top" aria-label="ScrollUp Button">
+        <i class="fa fa-angle-up"></i>
+    </a>
+{% endblock page_content %}
+
+{% block js %}
+{{ block.super }}
+<script type="text/javascript">
+    (function($) {
+        "use strict"; // Start of use strict
+
+        // Smooth scrolling using jQuery easing
+        /*$('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function() {
+          if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+            var target = $(this.hash);
+            target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+            if (target.length) {
+              $('html, body').animate({
+                scrollTop: (target.offset().top - 54)
+              }, 2000, "easeInOutExpo");
+              return false;
+            }
+          }
+        });*/
+
+        // Closes responsive menu when a scroll trigger link is clicked
+        $('.js-scroll-trigger').click(function() {
+            $('.navbar-collapse').collapse('hide');
+        });
+
+        // Activate scrollspy to add active class to navbar items on scroll
+        $('body').scrollspy({
+            target: '#mainNav',
+            offset: 56
+        });
+
+        // Collapse Navbar
+        var navbarCollapse = function() {
+            if ($("#mainNav").offset().top > 100) {
+                $("#mainNav").addClass("navbar-shrink");
+            } else {
+                $("#mainNav").removeClass("navbar-shrink");
+            }
+            console.log("here")
+        };
+        // Collapse now if page is not at top
+        navbarCollapse();
+        // Collapse the navbar when page is scrolled
+        $(window).scroll(navbarCollapse);
+
+        // Hide navbar when modals trigger
+        $('.portfolio-modal').on('show.bs.modal', function(e) {
+            $(".navbar").addClass("d-none");
+        })
+        $('.portfolio-modal').on('hidden.bs.modal', function(e) {
+            $(".navbar").removeClass("d-none");
+        })
+
+    })(jQuery); // End of use strict
+    </script>
+{% endblock js %}

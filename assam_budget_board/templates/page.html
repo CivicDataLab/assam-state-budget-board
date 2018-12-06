@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load cms_tags menu_tags sekizai_tags staticfiles compress %}
+<!doctype html>
+<html>
+    <head>
+        <title>{% block title %}This is my new project home page{% endblock title %}</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+        {% compress css %}
+            {% block css_files %} 
+            <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+            {% endblock css_files %} 
+            
+        {% endcompress %}
+        {% render_block "css" %}
+    </head>
+    <body>
+        {% cms_toolbar %}
+        {% block base_wrapper %}
+            {% block navbar %}
+            
+            {% endblock navbar %} 
+
+            {% block outer_wrapper %}
+                <div class="base-page-outer-wrapper">
+                    {% block page_content %} {% endblock page_content %}
+                </div>
+            {% endblock outer_wrapper %}
+            
+            {% block footer %}
+            <footer id="myFooter">
+            
+            </footer>
+            {% endblock footer %}
+        {% endblock base_wrapper %}

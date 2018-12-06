@@ -68,7 +68,7 @@ STATICFILES_DIRS = (
 )
 SITE_ID = 1
 
-COMPRESS_ENABLED = True
+COMPRESS_ENABLED = False
 COMPRESS_ROOT = STATIC_ROOT   ##django compressor 
 COMPRESS_OFFLINE = True
 
@@ -171,7 +171,8 @@ CMS_TEMPLATES = (
     ## Customize this
     ('fullwidth.html', 'Fullwidth'),
     ('sidebar_left.html', 'Sidebar Left'),
-    ('sidebar_right.html', 'Sidebar Right')
+    ('sidebar_right.html', 'Sidebar Right'),
+    ('home.html', 'Homepage')
 )
 
 CMS_PERMISSION = True
