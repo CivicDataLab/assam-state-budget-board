@@ -28,6 +28,19 @@ footer{
     font-weight: 700;
 }
 
+.brand-subtext{
+    font-weight: 100;
+    display: table;
+    font-size: 1em;
+    margin-top: -5px;
+}
+
+/* Placeholder. Replace with d3 generated svg */
+span.brand-text {
+    display: inline-grid;
+}
+
+/* Placeholder End*/
 
 
 #mainNav .navbar-nav .nav-item .nav-link {
@@ -54,7 +67,7 @@ footer{
         border: none;
     }
     #mainNav .navbar-brand {
-        font-size: 1.75em;
+        font-size: 1.45em;
         -webkit-transition: all 0.3s;
         -moz-transition: all 0.3s;
         transition: all 0.3s;
@@ -71,4 +84,8 @@ footer{
         font-size: 1.25em;
         padding: 12px 0;
     }
+}
+
+#cms-top + .base-wrapper nav#mainNav {
+    margin-top: 46px;
 }
