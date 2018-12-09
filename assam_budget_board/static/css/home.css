@@ -5,7 +5,7 @@ html {
 }
 
 body {
-  font-family: 'Source Sans Pro';
+  font-family: 'Libre Franklin';
 }
 
 .btn-xl {
@@ -79,7 +79,7 @@ body {
 
 h1.masthead-head {
     color: white;
-    font-family: "Raleway", sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-size: 24px;
     font-weight: 800;
 }
