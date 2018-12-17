@@ -1,0 +1,4 @@
+header.masthead{
+background : linear-gradient(to right, rgba(0, 29, 46, 0.75) 0%, rgba(0, 28, 45, 0.8) 35%, rgba(0, 27, 43, 0.93) 78%, rgba(0, 27, 42, 0.94));
+min-height:300px;
+}
