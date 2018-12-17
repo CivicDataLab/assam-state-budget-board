@@ -1,12 +1,3 @@
-body,
-html {
-  width: 100%;
-  height: 100%;
-}
-
-body {
-  font-family: 'Libre Franklin';
-}
 
 .btn-xl {
   padding: 1.25rem 2.5rem;
@@ -85,7 +76,7 @@ h1.masthead-head {
 }
 .masthead-intro-description {
     color: white;
-    font-family: "Libre Franklin", sans-serif;
+
     font-size: 15px;
     padding-right: 30px;
     font-weight: 200;
