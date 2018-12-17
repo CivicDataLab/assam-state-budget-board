@@ -56,6 +56,8 @@ USE_L10N = True
 USE_TZ = True
 
 
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
@@ -101,6 +103,7 @@ TEMPLATES = [
 
 
 MIDDLEWARE = (
+    'corsheaders.middleware.CorsMiddleware',
     'cms.middleware.utils.ApphookReloadMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -112,7 +115,7 @@ MIDDLEWARE = (
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
-    'cms.middleware.language.LanguageCookieMiddleware'
+    'cms.middleware.language.LanguageCookieMiddleware',
 )
 
 INSTALLED_APPS = (
@@ -141,6 +144,7 @@ INSTALLED_APPS = (
     'djangocms_googlemap',
     'djangocms_video',
     'compressor',
+    'corsheaders',
     'assam_budget_board'
 )
 
@@ -172,7 +176,8 @@ CMS_TEMPLATES = (
     ('fullwidth.html', 'Fullwidth'),
     ('sidebar_left.html', 'Sidebar Left'),
     ('sidebar_right.html', 'Sidebar Right'),
-    ('home.html', 'Homepage')
+    ('home.html', 'Homepage'),
+    ('content_1.html', 'Content Structure 1')
 )
 
 CMS_PERMISSION = True
@@ -204,3 +209,13 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'compressor.finders.CompressorFinder',
 )
+
+
+CORS_ORIGIN_ALLOW_ALL = True
+#CORS_ALLOW_CREDENTIALS = False
+
+"""CORS_ORIGIN_WHITELIST = (
+    'https://openbudgetsindia.org/',
+    'localhost:8000',
+    '127.0.0.1:9000'
+)"""
