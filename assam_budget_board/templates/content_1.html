@@ -6,72 +6,14 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/template_1.css' %}">
 {% endblock css_files %} 
 
-{# Rethink Navbar inheritance #}
-{% block navbar %}
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top">
-                <img src="{% static 'img/map.png' %}" height="55px">
-                <span class="brand-text">Assam Budget <span class="brand-subtext">2019-2020</span></span></a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fa fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    {% show_menu 0 1 1 1 "menu/home_menu.html" %}
-                </ul>
-            </div>
-        </div>
-    </nav>
-{% endblock navbar %}
 
 
 {% block page_content %}
     <!-- Header -->
     <header class="masthead d-flex">
     </header>
+
+    <section class="dash-section">
+        {% placeholder "alt-text" %}
+    </section>
 {% endblock page_content %}
-
-{% block js %}  
-{{ block.super }}
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script type="text/javascript">
-    var data ;
-	d3.csv("http://127.0.0.1:5000/dataset/c1769a36-71ee-42bf-bf72-831cacd30a1e/resource/cbc064d6-8975-48d3-8f70-0ccc144e95c9/download/63---water-resources.csv", function(json) {
-        data = json
-        console.log(json);
-        var nested_data = d3.nest()
-        .key(function(d) { return d["GRANT NUMBER"]; })
-        .key(function(d) { return d["Major Head"]; })
-        .key(function(d) { return d["Sub-Major Head"]; })
-        .key(function(d) { return d["Minor Head"]; })
-        .key(function(d) { return d["Sub-Minor Head"]; })
-        .key(function(d) { return d["Detailed Head"]; })
-        .key(function(d) { return d["Object Head"]; })
-        .key(function(d) { return d["Voucher Head"]; })
-        .entries(data);
-
-        console.log(nested_data);
-    })
-
-
-    console.log(data)
-    /*
-
-
-
-     var data = {
-    resource_id: 'db2b2864-b34b-497c-bfbf-0e05713f478a', // the resource id
-    limit: 5, // get 5 results
-    q: 'jones' // query for 'jones'
-  };
-  $.ajax({
-    url: 'https://openbudgetsindia.org/api/action/datastore_search',
-    data: data,
-    dataType: 'jsonp',
-    success: function(data) {
-      alert('Total results found: ' + data.result.total)
-    }
-  });*/
-</script>
-{% endblock js %}  
