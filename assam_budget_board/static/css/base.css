@@ -22,7 +22,9 @@ footer {
 #cms-top+.base-wrapper nav#mainNav {
     margin-top: 46px;
 }
-
+a{
+    color:inherit;
+}
 a:link {
     text-decoration: none;
 }

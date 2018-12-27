@@ -31,6 +31,9 @@
 /* Placeholder. Replace with d3 generated svg */
 span.brand-text {
     display: inline-grid;
+    font-size: 1.05em;
+    font-family: 'Raleway', sans-serif;
+
 }
 
 /* Placeholder End*/
