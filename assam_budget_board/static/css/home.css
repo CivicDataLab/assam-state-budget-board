@@ -1,87 +1,88 @@
-
 .btn-xl {
-  padding: 1.25rem 2.5rem;
+    padding: 1.25rem 2.5rem;
 }
 
 .content-section {
-  padding-top: 7.5rem;
-  padding-bottom: 7.5rem;
+    padding-top: 7.5rem;
+    padding-bottom: 7.5rem;
 }
 
 .content-section-heading h2 {
-  font-size: 3rem;
+    font-size: 3rem;
 }
 
 .content-section-heading h3 {
-  font-size: 1rem;
-  text-transform: uppercase;
+    font-size: 1rem;
+    text-transform: uppercase;
 }
 
 
 .text-faded {
-  color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .scroll-to-top {
-  position: fixed;
-  right: 15px;
-  bottom: 15px;
-  display: none;
-  width: 50px;
-  height: 50px;
-  text-align: center;
-  color: white;
-  background: rgba(52, 58, 64, 0.5);
-  line-height: 45px;
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    display: none;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    color: white;
+    background: rgba(52, 58, 64, 0.5);
+    line-height: 45px;
 }
 
-.scroll-to-top:focus, .scroll-to-top:hover {
-  color: white;
+.scroll-to-top:focus,
+.scroll-to-top:hover {
+    color: white;
 }
 
 .scroll-to-top:hover {
-  background: #343a40;
+    background: #343a40;
 }
 
 .scroll-to-top i {
-  font-weight: 800;
+    font-weight: 800;
 }
 
 .masthead {
-  min-height: 30rem;
-  position: relative;
-  display: table;
-  width: 100%;
-  height: auto;
-  padding-top: 8rem;
-  padding-bottom: 8rem;
-  /*background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%), url("../img/bg-masthead.jpg");*/
-  background-color: #333;
-  box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
+    min-height: 30rem;
+    position: relative;
+    display: table;
+    width: 100%;
+    height: auto;
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+    /*background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%), url("../img/bg-masthead.jpg");*/
+    background-color: rgba(6, 4, 4, 0.93);;
+    box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .masthead h1 {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 h1.masthead-head {
     color: white;
     font-family: "Montserrat", sans-serif;
     font-size: 24px;
-    font-weight: 800;
+    font-weight: 700;
 }
+
 .masthead-intro-description {
     color: white;
 
     font-size: 15px;
     padding-right: 30px;
-    font-weight: 200;
+    font-weight: 300;
 }
 
-.masthead .carousel{
-  height:100%;
+.masthead .carousel {
+    height: 100%;
 }

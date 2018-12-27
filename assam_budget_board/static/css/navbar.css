@@ -1,6 +1,6 @@
 /* ~~~~~~ Navbar ~~~~~~~~~*/
 .navbar {
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
 
@@ -21,7 +21,7 @@
     font-weight: 700;
 }
 
-.brand-subtext{
+.brand-subtext {
     font-weight: 100;
     display: table;
     font-size: 1em;
@@ -31,6 +31,9 @@
 /* Placeholder. Replace with d3 generated svg */
 span.brand-text {
     display: inline-grid;
+    font-size: 1.05em;
+    font-family: 'Raleway', sans-serif;
+
 }
 
 /* Placeholder End*/
@@ -59,22 +62,60 @@ span.brand-text {
         transition: padding-top 0.3s, padding-bottom 0.3s;
         border: none;
     }
+
     #mainNav .navbar-brand {
         font-size: 1.45em;
         -webkit-transition: all 0.3s;
         -moz-transition: all 0.3s;
         transition: all 0.3s;
     }
+
     #mainNav .navbar-nav .nav-item .nav-link {
         padding: 1.1em 1em !important;
     }
+
     #mainNav.navbar-shrink {
         padding-top: 0;
         padding-bottom: 0;
-        background-color: #333;
+        background-color: #191717;
     }
+
     #mainNav.navbar-shrink .navbar-brand {
         font-size: 1.25em;
         padding: 12px 0;
     }
+}
+
+ul.dropdown-menu.show li a {
+    color: black;
+    /* width: 100%; */
+    padding: 10px 15px;
+}
+
+ul.dropdown-menu.show li:hover {
+    background: rgba(128, 128, 128, 0.3);
+}
+
+.dropdown-menu:before {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    bottom: 100%;
+    right: 13px;
+    border-width: 0 8px 8px 8px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.1) transparent;
+}
+
+.dropdown-menu:after {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    bottom: 100%;
+    right: 15px;
+    border-width: 0 6px 6px 6px;
+    border-style: solid;
+    border-color: #fff transparent;
 }
