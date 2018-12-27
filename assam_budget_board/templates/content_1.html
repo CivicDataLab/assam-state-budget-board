@@ -3,7 +3,7 @@
 
 {% block css_files %} 
     {{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/template_1.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/content_1.css' %}">
 {% endblock css_files %} 
 
 
@@ -11,6 +11,14 @@
 {% block page_content %}
     <!-- Header -->
     <header class="masthead d-flex">
+    	<div class="container">
+    		<nav aria-label="breadcrumb" class="header-page-breadcrumb">
+		      <ol class="breadcrumb">
+		      	{% show_breadcrumb %}
+		      </ol>
+		    </nav>
+    		<h1 class="grant-title">{% page_attribute "page_title" %}</h1>
+    	</div>
     </header>
 
     <section class="dash-section">
