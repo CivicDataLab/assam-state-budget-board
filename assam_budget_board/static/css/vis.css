@@ -1,0 +1,26 @@
+
+.nvd3 text, .vis text {
+    font: 400 10px Lato, sans-serif;
+}
+.axis {
+    shape-rendering: crispEdges;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+}
+
+rect.background {
+    fill: white;
+}
+
+.summary_vis svg{
+	width: 400px;
+    height: 150px;
+}
+
+.nvd3 .nv-bar rect {
+    fill-opacity: 1;
+}
