@@ -18,7 +18,7 @@
                 <ul class="dropdown-menu">
                     {% if child.get_descendants %}
                         {% for kid in child.get_descendants %}
-                            <li>
+                            <li class="dropdown-item">
                                 <a href="{{ kid.get_absolute_url }}">
                                     {{kid.get_menu_title }}
                                 </a>
