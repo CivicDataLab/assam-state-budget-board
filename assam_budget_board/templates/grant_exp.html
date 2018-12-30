@@ -3,13 +3,35 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/nv.d3.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/vis.css' %}">
 {% endaddtoblock %}
-<div class="row">
-    <div class="col-lg-12">
-        <div class="summary summary-jumbotron">
-            <div class="container">
+<div class="container">
+    <div class="row">
+        <div class="content-main-card col-lg-12">
+            <h3 class="grant-summary-title">Grant Summary </h3>
+            <div class="grant-summary-info">
+                <i class="fas fa-info" data-toggle="modal" data-target="#exampleModal"></i>
+            </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="summary summary-jumbotron">
                 <div class="row">
                     <div class="col-lg-5 offset-lg-1">
-                        <h3 class="grant-summary-title">Grant Summary</h3>
                     </div>
                 </div>
                 <div class="row">
@@ -28,44 +50,44 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-12">
-        <nav aria-label="breadcrumb" class="nav-breadcrumb">
-            <ol class="breadcrumb">
-            </ol>
-        </nav>
-    </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col-md-3 side-col d-none d-md-block ">
-            <div class="side-navbar">
+            <div class="container">
                 <div class="row">
-                    <div class="side-navbar-head">
-                        <div class="back">
-                            <i class="fas fa-level-up-alt"></i>
+                    <nav aria-label="breadcrumb" class="nav-breadcrumb col-lg-12">
+                        <ol class="breadcrumb">
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 side-col d-none d-md-block ">
+                        <div class="side-navbar">
+                            <div class="row">
+                                <div class="side-navbar-head">
+                                    <div class="back">
+                                        <i class="fas fa-level-up-alt"></i>
+                                    </div>
+                                    <div class="side-navbar-title">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="side-navbar-list">
+                                </div>
+                            </div>
                         </div>
-                        <div class="side-navbar-title">
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-lg-6 offset-lg-2">
+                                <div class="select-dropdown"></div>
+                            </div>
+                        </div>
+                        <div class="vis">
+                            <svg></svg>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="side-navbar-list">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-8">
-            <div class="row justify-content-center">
-                <div class="col-10 col-lg-6 ">
-                    <div class="select-dropdown"></div>
-                </div>
-            </div>
-            <div class="vis">
-                <svg></svg>
             </div>
         </div>
     </div>
@@ -132,7 +154,9 @@ function indian_format(x) {
 };
 
 function add_grant_summary(data) {
-    // console.log(data)
+
+    var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+
     var total_expenditure = {}
     total_expenditure["key"] = "Total Expenditure"
     total_expenditure["values"] = []
@@ -148,7 +172,7 @@ function add_grant_summary(data) {
     total_expenditure["values"].push(temp)
 
     d3.select("#be-figures").html(function(d) {
-        var content = "<span class='absolute-figure'>" + currency_symbol + " " + indian_format(data[0].values.be.toFixed(2)) + " <span class='curreny-unit'>" + currency_unit + "</span> </span>| "
+        var content = "<span class='absolute-figure'>" + currency_symbol + " " + indian_format(data[0].values.be.toFixed(2)) + " <span class='curreny-unit'>" + currency_unit + "</span> </span><br>"
         percentage_change = (((data[0].values.be - data[0].values.be_prev) / data[0].values.be_prev) * 100).toFixed(1)
 
         content += "<span class='percentage-figures'>"
@@ -183,9 +207,14 @@ function add_grant_summary(data) {
                 .showControls(false)
                 .showLegend(false);
 
-            chart.height(130).width(400)
+            chart.height(130)
+            chart.yAxis.ticks(5).tickFormat(function(d) {
+                return formatAbbr(d)
+            });
 
-            chart.yAxis.tickFormat(d3.format(',.2f'));
+            if (w < 400) {
+                chart.yAxis.ticks(2)
+            }
 
             d3.select(selection).append("svg")
                 .datum(data)
@@ -221,8 +250,6 @@ function formatAbbr(x) {
     return (v >= .9995e7 ? formatCrore : v >= .9995e5 ? formatLakh : v >= .999e3 ? formatThousand : formatLowerDenom)(x);
 }
 
-var attribute = "2018-19 Budget Estimates"
-
 var max_tick_length = 35;
 
 var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
@@ -230,14 +257,17 @@ var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 
 
 
-var margin = { top: 30, right: 10, bottom: 0, left: 170 },
+var margin = { top: 30, right: 40, bottom: 0, left: 170 },
     width = 460 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
 if (w > 992) {
-    var margin = { top: 30, right: 10, bottom: 0, left: 200 },
+    var margin = { top: 30, right: 20, bottom: 0, left: 200 },
         width = 650 - margin.left - margin.right
 
+} else if (w < 400) {
+    var margin = { top: 30, right: 20, bottom: 0, left: 160 },
+        width = w - margin.left - margin.right - 30
 }
 
 var x = d3.scale.linear()
@@ -366,6 +396,7 @@ function create_breadcrumb(e) {
             .attr("class", "breadcrumb-item")
             .attr("data-level", e.depth)
             .text(e.name)
+            .style("cursor", "pointer")
             .on("click", function() {
                 d3.select(".nav-breadcrumb").select(".breadcrumb")
                     .selectAll("li").filter(function() {

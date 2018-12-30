@@ -17,10 +17,14 @@ rect.background {
 }
 
 .summary_vis svg{
-	width: 400px;
     height: 150px;
 }
 
 .nvd3 .nv-bar rect {
     fill-opacity: 1;
 }
+
+
+.nv-axis .tick line {
+        display:none;
+    }
