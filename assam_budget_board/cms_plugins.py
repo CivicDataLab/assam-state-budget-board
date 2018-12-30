@@ -13,4 +13,12 @@ class ExpenditureGrantPlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context = super(ExpenditureGrantPlugin, self).render(context, instance, placeholder)
+        context.update({
+        	"fiscal_year" : {
+        		"be" : "2018-19 Budget Estimates", 
+        		"actuals" : "2016-17 Actuals",
+				"be_prev" : "2017-18 Budget Estimates",
+				"re" : "2017-18 Revised Estimates"
+        		}
+        	})
         return context
