@@ -89,6 +89,16 @@
                     </div>
                 </div>
             </div>
+            <div class="container">
+                <div class="row">
+                    <div aria-label="Data Table Header" class="data-table-header col-lg-12">
+                        Data Table
+                    </div>
+                </div>
+                <div class="data-table-section">
+                    <!-- Data Table section goes here -->
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -164,7 +174,7 @@ function add_grant_summary(data) {
     temp["label"] = be
     temp["value"] = data[0].values.be
     temp["series"] = 0
-    // console.log(total_expenditure["values"])
+    
     total_expenditure["values"].push(temp)
     temp = {}
     temp["label"] = be_prev
@@ -194,7 +204,7 @@ function add_grant_summary(data) {
     drawbarchart([total_expenditure], ".summary_vis");
 
     function drawbarchart(data, selection) {
-        // console.log(data)
+        
         nv.addGraph(function() {
 
             chart = nv.models.multiBarHorizontalChart()
@@ -226,10 +236,9 @@ function add_grant_summary(data) {
     }
 }
 </script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script type="text/javascript">
 var hierarchy = ["GRANT NUMBER", "Major Head", "Sub Major Head", "Minor Head", "Sub Head", "Sub Sub Head", "Detail Head", "Sub detail Head"]
-
-// console.log(fig_list)
 
 var formatNumber = d3.format(".1f"),
     formatCrore = function(x) {
@@ -253,9 +262,6 @@ function formatAbbr(x) {
 var max_tick_length = 35;
 
 var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-// console.log(w)
-
-
 
 var margin = { top: 30, right: 40, bottom: 0, left: 170 },
     width = 460 - margin.left - margin.right,
@@ -290,6 +296,10 @@ var xAxis = d3.svg.axis()
     .ticks(5)
     .tickFormat(function(d) { return formatAbbr(d); });;
 
+if (w<450){
+ xAxis.ticks(3)   
+}
+console.log(xAxis.ticks)
 var svg = d3.select(".vis").select("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -304,6 +314,23 @@ svg.append("rect")
         up(d);
         //remove_breadcrumb(this, d);
     })
+
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([0, 10])
+  .direction(function(d, i) {
+    console.log(d, i)
+    if(w < 450){ 
+        return 'n'
+    }
+    return "e"
+})
+  .html(function(d) {
+    //Change Value key to selected Fiscal figure
+    return "<strong>Value</strong> : <span>" + d.value + "</span>";
+  })
+
+  svg.call(tip);
 
 svg.append("g")
     .attr("class", "x axis");
@@ -336,7 +363,7 @@ function populate_year_selection(data) {
 
 
 function draw_vis(data, fiscal_year) {
-    // console.log(fiscal_year)
+    
     var nested_data = d3.nest()
         .key(function(d) { return d["GRANT NUMBER"]; })
         .key(function(d) { return d["Major Head"]; })
@@ -350,7 +377,7 @@ function draw_vis(data, fiscal_year) {
         .entries(data);
 
     function renameStuff(d) {
-        // console.log(d)
+        
         d.name = d.key;
         delete d.key;
         if (typeof d.values === "number") {
@@ -365,21 +392,9 @@ function draw_vis(data, fiscal_year) {
 
     var partition = d3.layout.partition()
         .value(function(d) {
-            // console.log(d)
+            
             return parseInt(d.size);
         });
-
-    //var partition = d3.hierarchy(nested_data[0])
-    //.value(function(d) {
-    //    return parseInt(d["2018-19 Budget Estimates"]); });
-
-    //partition(nested_data)
-
-    /*root = d3.hierarchy(nested_data[0])
-        .sum(d => d.size)
-        .sort((a, b) => b.value - a.value);
-    */
-
 
     d3.select(".nav-breadcrumb").select(".breadcrumb").html("")
     root = nested_data[0]
@@ -408,8 +423,8 @@ function create_breadcrumb(e) {
 }
 
 function create_list(d, i) {
-    // console.log(d.parent, d.children, d.depth)
-    // console.log(d)
+    
+    
     if (d.depth <= 0) {
         d3.select(".back").style("display", "none")
     } else {
@@ -424,7 +439,7 @@ function create_list(d, i) {
         d3.select(".side-navbar-title")
             .html(hierarchy[d.depth + 1]).style("opacity", 0).transition().delay(500).style("opacity", 1)
 
-        // console.log(hierarchy[d.depth])
+        
 
         var sidebar_list = d3.select(".side-navbar-list")
             .append("ul")
@@ -440,7 +455,7 @@ function create_list(d, i) {
         list_items.append("a")
             .attr("class", "nav-item")
             .html(function(d) {
-                // console.log(d)
+                
                 return d.name;
             })
             .on("click", function(d) {
@@ -458,7 +473,7 @@ function create_list(d, i) {
 }
 
 function down(d, i) {
-    // console.log(i)
+    
 
     create_list(d, 0)
     create_breadcrumb(d)
@@ -597,7 +612,7 @@ function up(d) {
 }
 
 function remove_breadcrumb(d) {
-    // console.log(d)
+    
     if (d.parent) {
         d3.select(".nav-breadcrumb").select(".breadcrumb").select("li:last-child").transition()
             .delay(250).style("opacity", 0).remove();
@@ -606,7 +621,7 @@ function remove_breadcrumb(d) {
 
 // Creates a set of bars for the given data node, at the specified index.
 function bar(d) {
-    // console.log(d.children.length*barHeight + "px")
+    
     d3.select(".y").select("line")
         .attr("y1", d.children.length * 24 + 5 + "px")
 
@@ -640,7 +655,7 @@ function bar(d) {
         .style("text-anchor", "end")
         .attr("width", "40px")
         .text(function(d) {
-            // console.log(d.name, d.name.length)
+            
             if (d.name.length < max_tick_length) {
                 return d.name;
             } else {
@@ -649,16 +664,18 @@ function bar(d) {
 
         })
         .on("hover", function(d) {
-            // console.log(d)
+            
         });
 
     bar.append("rect")
         .attr("width", function(d) {
-            // console.log(d)
+            
             return x(d.value);
 
         })
-        .attr("height", barHeight);
+        .attr("height", barHeight)
+        .on('mouseover', tip.show)
+      .on('mouseout', tip.hide);
 
 
     return bar;
@@ -676,149 +693,11 @@ function stack(i) {
 
 d3.csv(" {{ instance.url }} ", function(json) {
     data = json
-    // console.log(json)
+    
     draw_vis(json, be)
     populate_year_selection(json);
 
 })
 </script>
-<script type="text/javascript">
-/*
-  hierarchy = ["GRANT NUMBER", "Major Head", "Minor Head"]
-    actuals = "2016-17 Actuals"
-    be_prev = "2017-18 Budget Estimates"
-    re = "2017-18 Revised Estimates"
-    be = "2018-19 Budget Estimates"
 
-
-  d3.csv(" {{ instance.url }} ", function(json) {
-          /*data = json
-          // console.log(json)
-          var nested_data = d3.nest()
-          .key(function(d) { return d["GRANT NUMBER"]; })
-          .key(function(d) { return d["Major Head"]; })
-          .key(function(d) { return d["Sub-Major Head"]; })
-          .key(function(d) { return d["Minor Head"]; })
-          .key(function(d) { return d["Sub-Minor Head"]; })
-          .key(function(d) { return d["Detailed Head"]; })
-          .key(function(d) { return d["Object Head"]; })
-          .key(function(d) { return d["Voucher Head"]; })
-          .rollup(function(leaves) { return d3.sum(leaves, function(d) { return +d["2018-19 Budget Estimates"]; }); })
-          .entries(data);
-          d3.select("#text1").html(nested_data[0].key)
-          // console.log(nested_data)
-          function renameStuff(d) {
-          d.name = d.key; delete d.key;
-          if (typeof d.value === "number"){
-            d.size = d.value;
-        }
-          else {
-            d.values.forEach(renameStuff), d.children = d.values;
-          }
-          delete d.values;
-        }
-
-        renameStuff(nested_data[0])
-        
-          var partition = d3.hierarchy(nested_data[0])
-          //.value(function(d) {
-          //    return parseInt(d["2018-19 Budget Estimates"]); });
-
-          //partition(nested_data)
-
-          root = d3.hierarchy(nested_data[0])
-                  .sum(d => d.size)
-                  .sort((a,b) => b.value - a.value);
-
-      d3.partition(root);
-
-      x.domain([0, root.value]).nice();
-      down(root, 0);
-      
-    
-      // console.log(json)
-      create_list(json, 0)
-
-      })
-
-  function create_list(data, seq){
-
-    // console.log(data)
-
-    hierarchy = ["GRANT NUMBER", "Major Head", "Minor Head"]
-    actuals = "2016-17 Actuals"
-    be_prev = "2017-18 Budget Estimates"
-    re = "2017-18 Revised Estimates"
-    be = "2018-19 Budget Estimates"
-
-    var nested_2 = d3.nest()
-    .key(function(d) { return d["GRANT NUMBER"]; })
-    .key(function(d) { return d["Major Head"]; })
-    .key(function(d) { return d["Sub-Major Head"]; })
-    .key(function(d) { return d["Minor Head"]; })
-    .key(function(d) { return d["Sub-Minor Head"]; })
-    .key(function(d) { return d["Detailed Head"]; })
-    .key(function(d) { return d["Object Head"]; })
-    .key(function(d) { return d["Voucher Head"]; })
-    .entries(data)
-
-    // console.log(nested_2)
-
-    var nested = d3.nest()
-    .key(function(d) { return d[hierarchy[seq]]; })
-    .key(function(d) { return d[hierarchy[seq+1]]; })
-    .rollup(function(v) { 
-      return {
-        act: d3.sum(v, function(d) { return +d[actuals]; }),
-        be: d3.sum(v, function(d) { return +d[be]; }),
-        be_prev: d3.sum(v, function(d) { return +d[be_prev]; }),
-        re:d3.sum(v, function(d) { return +d[re]; })
-    }; })
-      .entries(data);
-
-      // console.log(nested)
-
-
-  generate_sidenavbar(nested_2[0], data);  
-
-  }
-
-  function generate_sidenavbar(data, raw_data){
-    // console.log(data);
-
-    data.rollup(function(v) { 
-      return {
-        act: d3.sum(v, function(d) { return +d[actuals]; }),
-        be: d3.sum(v, function(d) { return +d[be]; }),
-        be_prev: d3.sum(v, function(d) { return +d[be_prev]; }),
-        re:d3.sum(v, function(d) { return +d[re]; })
-    }; })
-
-    d3.select(".side-navbar").html("")
-
-    var sidebar_list = d3.select(".side-navbar")
-    .append("ul")
-    .attr("class","nav flex-column")
-    
-    var list_items = sidebar_list.selectAll("li")
-    .data(data.values)
-    .enter()
-    .append("li")
-    .attr("class","nav-item")
-
-    list_items.append("a")
-    .attr("class", "nav-item")
-    .html(function(d){
-      // console.log(d.key)
-      return d.key;
-    })
-    .on("click", function(d){
-      down(d)
-      //create_list(d)
-    })
-
-  }
-
-*/
-</script>
 {% endaddtoblock %}
