@@ -57,17 +57,10 @@
                 </div>
             </div>
             <div class="row justify-content-md-center collaborators text-center">
-                <div class="col-lg-3">
-                    {#Add Image Placeholders
-                    <img src="{% static 'img/Seal_of_Assam_w.png' %}" style="
-                    #}
-                    
-    width: 75px;">
-                </div>
-                    <div class="col-lg-4">
-                        <img src="https://raw.githubusercontent.com/cbgaindia/design/master/logo_OBI/logo_types/dark_bg_logo/draft_final/logo_with_text/draft_final.png" style="
-    height: 50px;
-        margin-top: 30px;">
+                <div class="col">
+                    <div class="project-contributors-logo">
+                    {% placeholder 'contributors' %}
+                    </div>
                 </div>
             </div>   
         </div>
