@@ -1,0 +1,40 @@
+
+.nvd3 text, .vis text {
+    font: 400 10px Lato, sans-serif;
+}
+.axis {
+    shape-rendering: crispEdges;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+}
+
+rect.background {
+    fill: white;
+}
+
+.summary_vis svg{
+    height: 150px;
+}
+
+.nvd3 .nv-bar rect {
+    fill-opacity: 1;
+}
+
+
+.nv-axis .tick line {
+        display:none;
+    }
+
+    .d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
