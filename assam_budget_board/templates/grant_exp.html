@@ -2,6 +2,7 @@
 {% addtoblock "css" %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/nv.d3.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/vis.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/datatable.css' %}">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
 {% endaddtoblock %}
 <div class="container">
@@ -706,7 +707,6 @@ d3.csv(" {{ instance.url }} ", function(json) {
 d3.csv("{{ instance.url }}", function(data){
 var table_plot = makeTable()
   .datum(data);
-
 d3.select('#container-data').call(table_plot);
   });
 </script>
