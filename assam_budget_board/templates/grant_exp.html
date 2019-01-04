@@ -97,7 +97,7 @@
                         Data Table
                     </div>
                 </div>
-                <div class="data-table-section" id = "container-data">
+                <div class="data-table-section" id='container-data'></div>
                     <!-- Data Table section goes here -->
                 </div>
             </div>
@@ -705,10 +705,9 @@ d3.csv(" {{ instance.url }} ", function(json) {
 </script>
 <script type="text/javascript">
     // Data Table JS goes here
-    d3.csv(" {{ instance.url }} ", function(data){
+d3.csv("{{ instance.url }}", function(data){
 var table_plot = makeTable()
   .datum(data);
-
 d3.select('#container-data').call(table_plot);
   });
 </script>

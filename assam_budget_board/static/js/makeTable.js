@@ -15,9 +15,6 @@ function makeTable() {
 			// I will leave it for now for simplicity. TODO: remove hard-coded id.
 			.attr("id", "exp_table") 
 			.style("visibility", "hidden")
-			.style('width','500px')
-			.style('overflow', 'scroll') // Hide table until style loads;
-			
 	  // Set column names
 	  var colnames = Object.keys(data[0]);
 		if(typeof filter_cols !== 'undefined'){
