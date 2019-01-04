@@ -11,8 +11,6 @@ function makeTable() {
 	  // Create and select table skeleton
 	  var tableSelect = targetDiv.append("table")
 	    .attr("class", "display compact")
-			// you can't have 2 table plots in one page (both will have the same id).
-			// I will leave it for now for simplicity. TODO: remove hard-coded id.
 			.attr("id", "exp_table") 
 			.style("visibility", "hidden")
 	  // Set column names

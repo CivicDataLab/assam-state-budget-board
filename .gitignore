@@ -102,3 +102,12 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# Project
+/public/static
+/public/media
+/sql
+/fcgi/django.fcgi
+/static/css/*.css
+
+media/
