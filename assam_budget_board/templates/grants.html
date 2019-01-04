@@ -1,0 +1,53 @@
+{% extends "page.html" %}
+{% load sekizai_tags cms_tags menu_tags staticfiles %}
+{% block css_files %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'css/content_1.css' %}">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.5/css/selectize.default.min.css">
+{% endblock css_files %}
+{% block page_content %}
+<!-- Header -->
+<header class="masthead d-flex">
+    <div class="container">
+        <nav aria-label="breadcrumb" class="header-page-breadcrumb">
+            <ol class="breadcrumb">
+                {% show_breadcrumb 'menu/custom_breadcrumb.html' %}
+            </ol>
+        </nav>
+        <!--<div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Select a Grant</span>
+              </div>
+              <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+            </div>-->
+        <div class="control-group">
+            <label for="grant-select">Beast:</label>
+            <select class="demo-default" id="grant-select" placeholder="Select a Grant to Explore!">
+                <option value="">Select a Grant to Explore!</option>
+                {% show_sub_menu 1 None 120 "menu/grants_menu.html" %}
+            </select>
+        </div>
+    </div>
+</header>
+<section class="dash-section">
+
+</section>
+
+{% addtoblock "js" %}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.5/js/standalone/selectize.min.js"></script>
+<script type="text/javascript">
+console.log("here")
+$('#grant-select').selectize({
+    sortField: {
+        field: 'text',
+        direction: 'asc'
+    },
+    onChange: function(value) {
+        window.location = value;
+    }
+});
+</script>
+{% endaddtoblock %}
+{% endblock page_content %}
+
+

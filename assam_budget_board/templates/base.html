@@ -52,65 +52,14 @@
             {% endblock base_wrapper %}
         </div>
         {% block js %}     
-            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <script
+              src="https://code.jquery.com/jquery-3.3.1.min.js"
+              integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+              crossorigin="anonymous"></script>
             
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
-            <script src="https://d3js.org/d3.v4.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.20/topojson.min.js"></script>
-
-            <script type="text/javascript">
-
-            var width = 75;
-            var height = 75;
-
-            var projection = d3.geoMercator();
-
-            var path = d3.geoPath()
-                .projection(projection)
-                .pointRadius(2);
-
-            var svg_br = d3.select("svg.nav-logo")
-                .attr("width", width)
-                .attr("height", height);
-
-            var g = svg_br.append("g");
-
-            d3.json("{% static  'js/india-states.json' %}", function(data) {
-                var boundary = centerZoom(data);
-                drawOuterBoundary(data, boundary);
-            })
-
-            function centerZoom(data) {
-                var o = topojson.mesh(data, data.objects.IND_adm1, function(a, b) { return a === b; });
-
-                projection
-                    .scale(1)
-                    .translate([0, 0]);
-
-                var b = path.bounds(o),
-                    s = 1 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
-                    t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
-
-                var p = projection
-                    .scale(s)
-                    .translate(t);
-
-                return o;
-            }
-
-            function drawOuterBoundary(data, boundary) {
-                g.append("path")
-                    .datum(boundary)
-                    .attr("d", path)
-                    .attr("class", "subunit-boundary")
-                    .attr("fill", "none")
-                    .attr("stroke", "#FFF");
-
-            }
-            </script>
 
            
         {% endblock js %}
