@@ -9,63 +9,62 @@
 
 
 
-{% block page_content %}
-    <!-- Header -->
-    <header class="masthead d-flex">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-7">
-                    <div id="carouselExampleFade" class="carousel header-corousel slide carousel-fade" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <div class="row">
-                                    <div class="col-lg-8 offset-lg-2 ">
-                                        <div class="media">
-                                          <i class="fas fa-users"></i>
-                                          <div class="media-body">
-                                            <h3> sTotal Expenditure</h3>
-                                            <div class="header-figures">
-                                                Rs 90,270 crore | <i class="fas fa-arrow-down"></i> 9.2%
-                                            </div>
-                                          </div>
-                                        </div>
 
-                                        
+
+            {% block header-masthead %}
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div id="carouselExampleFade" class="carousel header-corousel slide carousel-fade" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <div class="row">
+                                            <div class="col-lg-8 offset-lg-2 ">
+                                                <div class="media">
+                                                  <i class="fas fa-users"></i>
+                                                  <div class="media-body">
+                                                    <h3> sTotal Expenditure</h3>
+                                                    <div class="header-figures">
+                                                        Rs 90,270 crore | <i class="fas fa-arrow-down"></i> 9.2%
+                                                    </div>
+                                                  </div>
+                                                </div>
+
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="carousel-item">
+                                <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                              </a>
+                                <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                              </a>
                             </div>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                      </a>
-                        <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                      </a>
+                        <div class="col-lg-5">
+                            <h1 class="masthead-head">{% placeholder "Masthead - Heading" %}</h1>
+                            <div class="masthead-intro-description">{% placeholder "Masthead - Introductory Description" %}</div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-5">
-                    <h1 class="masthead-head">{% placeholder "Masthead - Heading" %}</h1>
-                    <div class="masthead-intro-description">{% placeholder "Masthead - Introductory Description" %}</div>
-                </div>
-            </div>
-            <div class="row justify-content-md-center collaborators text-center">
-                <div class="col">
-                    <div class="project-contributors-logo">
-                    {% placeholder 'contributors' %}
-                    </div>
-                </div>
-            </div>   
-        </div>
-    </header>
-
+                    <div class="row justify-content-md-center collaborators text-center">
+                        <div class="col">
+                            <div class="project-contributors-logo">
+                            {% placeholder 'contributors' %}
+                            </div>
+                        </div>
+                    </div>   
+                </div>        
+            {% endblock header-masthead %}
+    {% block page-wrapper %}
 
     <section class="content-section bg-light">
     </section>
@@ -76,7 +75,7 @@
     <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top" aria-label="ScrollUp Button">
         <i class="fa fa-angle-up"></i>
     </a>
-{% endblock page_content %}
+{% endblock page-wrapper %}
 
 {% block js %}
 {{ block.super }}

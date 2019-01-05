@@ -1,12 +1,35 @@
 {% extends "base.html" %}
 {% load cms_tags menu_tags sekizai_tags staticfiles compress %}
 
+{% block css_files %} 
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/content_1.css' %}">
+{% endblock css_files %} 
+
 {% block base_wrapper %}
 
 
     {% block outer_wrapper %}
         <div class="base-page-outer-wrapper">
-            {% block page_content %} {% endblock page_content %}
+
+        	<header class="masthead d-flex">
+		    	<div class="container">
+		    		{% block header-masthead %}
+		    		
+		    		{% endblock header-masthead %}
+		    	</div>
+		    </header>
+		    {% block page-wrapper %}
+		    <section class="dash-section">
+			    <div class="container">
+	        		<div class="content-main-card col-lg-12">
+	            {% block page_content %} 
+
+	            {% endblock page_content %}
+	                </div>
+				</div>
+			</section>
+			{% endblock page-wrapper %}
         </div>
     {% endblock outer_wrapper %}
     

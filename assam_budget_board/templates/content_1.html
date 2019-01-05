@@ -1,27 +1,21 @@
 {% extends "page.html" %}
-{% load cms_tags menu_tags staticfiles  %}
+{% load cms_tags menu_tags staticfiles %}
 
-{% block css_files %} 
-    {{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/content_1.css' %}">
-{% endblock css_files %} 
+{% block css_files %}
+	{{ block.super }}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/content_1.css' %}">
+{% endblock css_files %}
 
-
+<!-- Header -->
+{% block header-masthead %}
+	<nav aria-label="breadcrumb" class="header-page-breadcrumb">
+	    <ol class="breadcrumb">
+	        {% show_breadcrumb 'menu/custom_breadcrumb.html' %}
+	    </ol>
+	</nav>
+	<h1 class="grant-title">{% page_attribute "page_title" %}</h1>
+{% endblock header-masthead %}
 
 {% block page_content %}
-    <!-- Header -->
-    <header class="masthead d-flex">
-    	<div class="container">
-    		<nav aria-label="breadcrumb" class="header-page-breadcrumb">
-		      <ol class="breadcrumb">
-		      	{% show_breadcrumb 'menu/custom_breadcrumb.html' %}
-		      </ol>
-		    </nav>
-    		<h1 class="grant-title">{% page_attribute "page_title" %}</h1>
-    	</div>
-    </header>
-
-    <section class="dash-section">
-        {% placeholder "alt-text" %}
-    </section>
+	{% placeholder "grant placeholder" %}
 {% endblock page_content %}
