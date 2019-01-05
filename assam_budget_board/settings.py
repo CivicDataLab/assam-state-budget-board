@@ -178,7 +178,8 @@ CMS_TEMPLATES = (
     ('sidebar_right.html', 'Sidebar Right'),
     ('home.html', 'Homepage'),
     ('content_1.html', 'Content Structure 1'),
-    ('grants.html', 'All Grants')
+    ('grants.html', 'All Grants'),
+    ('page.html', 'Page')
 )
 
 CMS_PERMISSION = True
