@@ -10,7 +10,7 @@ function makeTable() {
 	function _table(targetDiv) {
 	  // Create and select table skeleton
 	  var tableSelect = targetDiv.append("table")
-	    .attr("class", "display compact")
+	    .attr("class", "table table-striped table-bordered")
 			.attr("id", "exp_table") 
 			.style("visibility", "hidden")
 	  // Set column names

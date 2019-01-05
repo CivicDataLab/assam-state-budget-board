@@ -3,105 +3,99 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/nv.d3.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/vis.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/datatable.css' %}">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 {% endaddtoblock %}
-<div class="container">
-        <div class="content-main-card col-lg-12">
-            <h3 class="grant-summary-title">Grant Summary </h3>
-            <div class="grant-summary-info">
-                <i class="fas fa-info" data-toggle="modal" data-target="#exampleModal"></i>
+<h3 class="grant-summary-title">Grant Summary </h3>
+<div class="grant-summary-info">
+    <i class="fas fa-info" data-toggle="modal" data-target="#exampleModal"></i>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            ...
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
+            <div class="modal-body">
+                ...
             </div>
-            <div class="summary summary-jumbotron">
-                <div class="row">
-                    <div class="col-lg-5 offset-lg-1">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-5 offset-lg-1">
-                        <h5 class="summary-indicator-title">{{ fiscal_year.be }}</h5>
-                        <div class="big-figures" id="be-figures"></div>
-                        <div class="summary_vis"></div>
-                    </div>
-                    <div class="col-lg-5 offset-lg-1">
-                        <h5 class="summary-sec-indicator-title">{{ fiscal_year.be_prev }} </h5>
-                        <div class=" secondary-big-figures" id="be_prev-figures"></div>
-                        <h5 class="summary-sec-indicator-title">{{ fiscal_year.re }} </h5>
-                        <div class=" secondary-big-figures" id="re-figures"></div>
-                        <h5 class="summary-sec-indicator-title">{{ fiscal_year.actuals }} </h5>
-                        <div class="secondary-big-figures" id="actuals-figures"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <nav aria-label="breadcrumb" class="nav-breadcrumb col-lg-12">
-                        <ol class="breadcrumb">
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3 side-col d-none d-md-block ">
-                        <div class="side-navbar">
-                            <div class="row">
-                                <div class="side-navbar-head">
-                                    <div class="back">
-                                        <i class="fas fa-level-up-alt"></i>
-                                    </div>
-                                    <div class="side-navbar-title">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="side-navbar-list">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="row">
-                            <div class="col-lg-6 offset-lg-2">
-                                <div class="select-dropdown"></div>
-                            </div>
-                        </div>
-                        <div class="vis">
-                            <svg></svg>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div aria-label="Data Table Header" class="data-table-header col-lg-12">
-                        Data Table
-                    </div>
-                </div>
-                <div class="data-table-section" id='container-data'></div>
-                    <!-- Data Table section goes here -->
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>
+</div>
+<div class="summary summary-jumbotron">
+    <div class="row">
+        <div class="col-lg-5 offset-lg-1">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5 offset-lg-1">
+            <h5 class="summary-indicator-title">{{ fiscal_year.be }}</h5>
+            <div class="big-figures" id="be-figures"></div>
+            <div class="summary_vis"></div>
+        </div>
+        <div class="col-lg-5 offset-lg-1">
+            <h5 class="summary-sec-indicator-title">{{ fiscal_year.be_prev }} </h5>
+            <div class=" secondary-big-figures" id="be_prev-figures"></div>
+            <h5 class="summary-sec-indicator-title">{{ fiscal_year.re }} </h5>
+            <div class=" secondary-big-figures" id="re-figures"></div>
+            <h5 class="summary-sec-indicator-title">{{ fiscal_year.actuals }} </h5>
+            <div class="secondary-big-figures" id="actuals-figures"></div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <nav aria-label="breadcrumb" class="nav-breadcrumb col-lg-12">
+            <ol class="breadcrumb">
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 side-col d-none d-md-block ">
+            <div class="side-navbar">
+                <div class="row">
+                    <div class="side-navbar-head">
+                        <div class="back">
+                            <i class="fas fa-level-up-alt"></i>
+                        </div>
+                        <div class="side-navbar-title">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="side-navbar-list">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-2">
+                    <div class="select-dropdown"></div>
+                </div>
+            </div>
+            <div class="vis">
+                <svg></svg>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div aria-label="Data Table Header" class="data-table-header col-lg-12">
+            Data Table
+        </div>
+    </div>
+    <div class="data-table-section" id='container-data'></div>
+    <!-- Data Table section goes here -->
 </div>
 {% addtoblock "js" %}
 <script src="https://d3js.org/d3.v3.min.js"></script>
@@ -177,7 +171,7 @@ function add_grant_summary(data) {
     temp["label"] = be
     temp["value"] = data[0].values.be
     temp["series"] = 0
-    
+
     total_expenditure["values"].push(temp)
     temp = {}
     temp["label"] = be_prev
@@ -207,7 +201,7 @@ function add_grant_summary(data) {
     drawbarchart([total_expenditure], ".summary_vis");
 
     function drawbarchart(data, selection) {
-        
+
         nv.addGraph(function() {
 
             chart = nv.models.multiBarHorizontalChart()
@@ -240,6 +234,9 @@ function add_grant_summary(data) {
 }
 </script>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+<!-- Restructure and organize below JS -- >
 <script type="text/javascript">
 var hierarchy = ["GRANT NUMBER", "Major Head", "Sub Major Head", "Minor Head", "Sub Head", "Sub Sub Head", "Detail Head", "Sub detail Head"]
 
@@ -299,8 +296,8 @@ var xAxis = d3.svg.axis()
     .ticks(5)
     .tickFormat(function(d) { return formatAbbr(d); });;
 
-if (w<450){
- xAxis.ticks(3)   
+if (w < 450) {
+    xAxis.ticks(3)
 }
 console.log(xAxis.ticks)
 var svg = d3.select(".vis").select("svg")
@@ -319,21 +316,21 @@ svg.append("rect")
     })
 
 var tip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([0, 10])
-  .direction(function(d, i) {
-    console.log(d, i)
-    if(w < 450){ 
-        return 'n'
-    }
-    return "e"
-})
-  .html(function(d) {
-    //Change Value key to selected Fiscal figure
-    return "<strong>Value</strong> : <span>" + d.value + "</span>";
-  })
+    .attr('class', 'd3-tip')
+    .offset([0, 10])
+    .direction(function(d, i) {
+        console.log(d, i)
+        if (w < 450) {
+            return 'n'
+        }
+        return "e"
+    })
+    .html(function(d) {
+        //Change Value key to selected Fiscal figure
+        return "<strong>Value</strong> : <span>" + d.value + "</span>";
+    })
 
-  svg.call(tip);
+svg.call(tip);
 
 svg.append("g")
     .attr("class", "x axis");
@@ -366,7 +363,7 @@ function populate_year_selection(data) {
 
 
 function draw_vis(data, fiscal_year) {
-    
+
     var nested_data = d3.nest()
         .key(function(d) { return d["GRANT NUMBER"]; })
         .key(function(d) { return d["Major Head"]; })
@@ -380,7 +377,7 @@ function draw_vis(data, fiscal_year) {
         .entries(data);
 
     function renameStuff(d) {
-        
+
         d.name = d.key;
         delete d.key;
         if (typeof d.values === "number") {
@@ -395,7 +392,7 @@ function draw_vis(data, fiscal_year) {
 
     var partition = d3.layout.partition()
         .value(function(d) {
-            
+
             return parseInt(d.size);
         });
 
@@ -426,8 +423,8 @@ function create_breadcrumb(e) {
 }
 
 function create_list(d, i) {
-    
-    
+
+
     if (d.depth <= 0) {
         d3.select(".back").style("display", "none")
     } else {
@@ -442,7 +439,7 @@ function create_list(d, i) {
         d3.select(".side-navbar-title")
             .html(hierarchy[d.depth + 1]).style("opacity", 0).transition().delay(500).style("opacity", 1)
 
-        
+
 
         var sidebar_list = d3.select(".side-navbar-list")
             .append("ul")
@@ -458,7 +455,7 @@ function create_list(d, i) {
         list_items.append("a")
             .attr("class", "nav-item")
             .html(function(d) {
-                
+
                 return d.name;
             })
             .on("click", function(d) {
@@ -476,7 +473,7 @@ function create_list(d, i) {
 }
 
 function down(d, i) {
-    
+
 
     create_list(d, 0)
     create_breadcrumb(d)
@@ -615,7 +612,7 @@ function up(d) {
 }
 
 function remove_breadcrumb(d) {
-    
+
     if (d.parent) {
         d3.select(".nav-breadcrumb").select(".breadcrumb").select("li:last-child").transition()
             .delay(250).style("opacity", 0).remove();
@@ -624,7 +621,7 @@ function remove_breadcrumb(d) {
 
 // Creates a set of bars for the given data node, at the specified index.
 function bar(d) {
-    
+
     d3.select(".y").select("line")
         .attr("y1", d.children.length * 24 + 5 + "px")
 
@@ -658,7 +655,7 @@ function bar(d) {
         .style("text-anchor", "end")
         .attr("width", "40px")
         .text(function(d) {
-            
+
             if (d.name.length < max_tick_length) {
                 return d.name;
             } else {
@@ -667,18 +664,18 @@ function bar(d) {
 
         })
         .on("hover", function(d) {
-            
+
         });
 
     bar.append("rect")
         .attr("width", function(d) {
-            
+
             return x(d.value);
 
         })
         .attr("height", barHeight)
         .on('mouseover', tip.show)
-      .on('mouseout', tip.hide);
+        .on('mouseout', tip.hide);
 
 
     return bar;
@@ -696,19 +693,18 @@ function stack(i) {
 
 d3.csv(" {{ instance.url }} ", function(json) {
     data = json
-    
+
     draw_vis(json, be)
     populate_year_selection(json);
 
 })
 </script>
 <script type="text/javascript">
-    // Data Table JS goes here
-d3.csv("{{ instance.url }}", function(data){
-var table_plot = makeTable()
-  .datum(data);
-d3.select('#container-data').call(table_plot);
-  });
+// Data Table JS goes here
+d3.csv("{{ instance.url }}", function(data) {
+    var table_plot = makeTable()
+        .datum(data);
+    d3.select('#container-data').call(table_plot);
+});
 </script>
-
 {% endaddtoblock %}

@@ -1,5 +1,6 @@
-div.data-table-section{
-    width: 1100px;
-    overflow: scroll;
-    max-width: 100%;
-  }
+div.data-table-section {
+    overflow-x: scroll;
+    margin: 25px 35px;
+    font-size: 14px;
+    padding-bottom: 30px;
+}
