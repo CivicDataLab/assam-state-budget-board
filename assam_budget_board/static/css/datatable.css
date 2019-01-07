@@ -8,3 +8,7 @@ div.data-table-section {
 .table-bordered td, .table-bordered th {
     border: 0px solid #dee2e6;
 }
+.data-table-section thead{
+    background: #2A2C2B url(../img/bg.png);
+    color: white;
+}
