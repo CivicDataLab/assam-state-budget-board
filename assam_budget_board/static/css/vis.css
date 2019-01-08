@@ -1,7 +1,8 @@
-
-.nvd3 text, .vis text {
+.nvd3 text,
+.vis text {
     font: 400 10px Lato, sans-serif;
 }
+
 .axis {
     shape-rendering: crispEdges;
 }
@@ -16,7 +17,7 @@ rect.background {
     fill: white;
 }
 
-.summary_vis svg{
+.summary_vis svg {
     height: 150px;
 }
 
@@ -24,17 +25,61 @@ rect.background {
     fill-opacity: 1;
 }
 
-
 .nv-axis .tick line {
-        display:none;
-    }
-
-    .d3-tip {
-  line-height: 1;
-  font-weight: bold;
-  padding: 12px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  border-radius: 2px;
+    display: none;
 }
 
+.d3-tip {
+    line-height: 1;
+    font-weight: bold;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 2px;
+}
+
+.tooltip-point-title {
+    padding: 10px;
+    border-radius: 4px 4px 0px 0px;
+    background: #1c2128;
+    max-width: 350px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.92);
+    text-align: center;
+    font-size: 12px;
+    overflow-wrap: break-word;
+}
+
+span.tooltip-x-val {
+    padding-right: 20px;
+    font-weight: 400;
+}
+
+span.tooltip-y-value {
+    font-weight: 700;
+    padding-right: 15px;
+    font-size: 13px;
+}
+
+.tooltip-point-body span {
+    padding-left: 10px;
+    vertical-align: bottom;
+}
+
+.legend-color-guide div {
+    width: 15px;
+    height: 15px;
+}
+
+.tooltip-point-body {
+    padding: 8px;
+}
+
+.tooltip-point-title hr {
+    margin: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.nvtooltip {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.19), 0 1px 3px rgba(0, 0, 0, 0.23);
+}
