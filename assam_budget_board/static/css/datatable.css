@@ -1,6 +1,14 @@
 div.data-table-section {
     overflow-x: scroll;
-    margin: 25px 35px;
-    font-size: 14px;
+    margin: 25px 0px;
+    font-size: 12px;
     padding-bottom: 30px;
+}
+
+.table-bordered td, .table-bordered th {
+    border: 0px solid #dee2e6;
+}
+.data-table-section thead{
+    background: #2A2C2B url(../img/bg.png);
+    color: white;
 }
