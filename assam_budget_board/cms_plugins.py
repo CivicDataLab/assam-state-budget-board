@@ -38,18 +38,10 @@ class SmallMultiplesExpPlugin(CMSPluginBase):
 @plugin_pool.register_plugin
 class DataTableExpPlugin(CMSPluginBase):
     model = DataTableExpenditure
-    name = _("Expenditure - Grant")
-    render_template = "grant_exp.html"
+    name = _("Expenditure - DataTable")
+    render_template = "datatable_exp.html"
     cache = True
 
     def render(self, context, instance, placeholder):
         context = super(DataTableExpPlugin, self).render(context, instance, placeholder)
-        context.update({
-        	"fiscal_year" : {
-        		"be" : "2018-19 Budget Estimates", 
-        		"actuals" : "2016-17 Actuals",
-				"be_prev" : "2017-18 Budget Estimates",
-				"re" : "2017-18 Revised Estimates"
-        		}
-        	})
         return context
