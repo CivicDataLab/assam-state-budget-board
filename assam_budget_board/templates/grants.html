@@ -23,7 +23,10 @@
             </select>
         </div>
     </div>
+  
+
 </div>
+
 {% addtoblock "js" %}
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.5/js/standalone/selectize.min.js"></script>
 <script type="text/javascript">
@@ -40,3 +43,14 @@ $('#grant-select').selectize({
 </script>
 {% endaddtoblock %}
 {% endblock header-masthead %}
+{% block page-wrapper %}
+<section class="dash-section">
+	<div class="container">
+	    <div class="content-main-card col-lg-12">
+	        {% block page_content %} 
+            {% placeholder "smallmultiples-exp placeholder" %}
+	        {% endblock page_content %}
+	    </div>
+	</div>
+</section>
+{% endblock page-wrapper %}
