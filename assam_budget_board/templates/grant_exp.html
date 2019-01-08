@@ -132,7 +132,6 @@ const currencyUnit = "Lakhs";
 
 const fiscalYearList = [be, bePrev, re, actuals];
 
-
 let w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 
 const maxTickLength = 35;
@@ -185,8 +184,8 @@ function formatLongNumbertoString(x) {
     }
     i--;
 
-        if (j > 2 && (j % 2 === 1)) {
     for (j = 0; i >= 0; i--, j++) {
+        if (j > 2 && (j % 2 === 1)) {
             arr.push(",");
         }
         arr.push(str[i]);
@@ -232,6 +231,7 @@ function loadGrantSummary(raw_data) {
         let percentageChange = (((data[0].values.be - data[0].values.bePrev) / data[0].values.bePrev) * 100).toFixed(1);
 
         content += "<span class='percentage-figures'>";
+
         if (percentageChange > 0) {
             content += "<i class='fas fa-arrow-up positive-fig'></i> "
         } else {
@@ -340,7 +340,6 @@ function loadHierarchyVis(data, fiscalYear) {
 
     if (w < 450) {
         xAxis.ticks(3);
-
     }
 
     let svg = d3.select(".vis").select("svg")
@@ -395,7 +394,6 @@ function loadHierarchyVis(data, fiscalYear) {
             .text(function(d) {
                 return d;
             });
-
     }
 
     function drawVis(data, fiscalYear) {
@@ -426,15 +424,15 @@ function loadHierarchyVis(data, fiscalYear) {
             }
             delete d.values;
         }
-        renameStuff(nestedData[0]);
 
+        renameStuff(nestedData[0]);
 
         let partition = d3.layout.partition()
             .value(function(d) {
                 return parseInt(d.size);
             });
-        d3.select(".nav-breadcrumb").select(".breadcrumb").html("");
 
+        d3.select(".nav-breadcrumb").select(".breadcrumb").html("");
         
         root = nestedData[0]
         partition.nodes(root);
@@ -495,7 +493,6 @@ function loadHierarchyVis(data, fiscalYear) {
                 .append("li")
                 .attr("class", "nav-item");
 
-
             listItems.append("a")
                 .attr("class", "nav-item")
                 .html(function(d) {
@@ -510,7 +507,6 @@ function loadHierarchyVis(data, fiscalYear) {
 
             d3.select(".side-navbar-list").style("opacity", 0).transition()
                 .delay(550).style("opacity", 1);
-
         }
     }
 
@@ -523,7 +519,6 @@ function loadHierarchyVis(data, fiscalYear) {
 
         // Mark any currently-displayed bars as exiting.
         let exit = svg.selectAll(".enter")
-
             .attr("class", "exit");
 
         // Entering nodes immediately obscure the clicked-on bar, so hide it.
@@ -532,9 +527,7 @@ function loadHierarchyVis(data, fiscalYear) {
 
         // Enter the new bars for the clicked-on data.
         // Per above, entering bars are immediately visible.
-
         let enter = bar(d)
-
             .attr("transform", stack(i))
             .style("opacity", 1);
 
@@ -552,9 +545,7 @@ function loadHierarchyVis(data, fiscalYear) {
             .call(xAxis);
 
         // Transition entering bars to their new position.
-
         let enterTransition = enter.transition()
-
             .duration(duration)
             .delay(function(d, i) { return i * delay; })
             .attr("transform", function(d, i) { return "translate(0," + barHeight * i * 1.2 + ")"; });
@@ -570,7 +561,6 @@ function loadHierarchyVis(data, fiscalYear) {
 
         // Transition exiting bars to fade out.
         let exitTransition = exit.transition()
-
             .duration(duration)
             .style("opacity", 1e-6)
             .remove();
@@ -621,7 +611,6 @@ function loadHierarchyVis(data, fiscalYear) {
 
         // Transition entering bars to fade in over the full duration.
         let enterTransition = enter.transition()
-
             .duration(end)
             .style("opacity", 1);
 
@@ -631,8 +620,8 @@ function loadHierarchyVis(data, fiscalYear) {
             .attr("width", function(d) { return x(d.value); })
             .each("end", function(p) { if (p === d) d3.select(this).style("fill-opacity", null); });
 
+        // Transition exiting bars to the parent's position.
         let exitTransition = exit.selectAll("g").transition()
-
             .duration(duration)
             .delay(function(d, i) { return i * delay; })
             .attr("transform", stack(d.index));
@@ -673,7 +662,6 @@ function loadHierarchyVis(data, fiscalYear) {
         }
 
         let bar = svg.insert("g", ".y.axis")
-
             .attr("class", "enter")
             .attr("transform", "translate(0,5)")
             .selectAll("g")
@@ -749,7 +737,6 @@ function loadDataTable(data){
         data: data,
         columns: tableColumns
     });
-
 }
 
 (function() {
@@ -760,30 +747,6 @@ function loadDataTable(data){
         loadGrantSummary(data);
   
         loadHierarchyVis(data, be);
-
-        d3.select(".dataset-download").attr("href", "{{ instance.url }}")
-
-        //columns:"GRANT NUMBER,BUDGET ENTITY,HEAD OF ACCOUNT,HEAD DESCRIPTION,HEAD DESCRIPTION ASSAMESE",
-        let tableSelect = d3.select('#container-data').append("table")
-        .attr("class", "table table-striped table-bordered")
-            .attr("id", "exp_table") 
-        
-        $('#exp_table').DataTable( {
-            "processing": true,
-            "bLengthChange": false, // Disable page size change
-            data: data,
-            columns: [
-                { "data": "GRANT NUMBER" ,"title" : "GRANT NUMBER" },
-                { "data": "BUDGET ENTITY" ,"title" : "BUDGET ENTITY" },
-                { "data": "HEAD OF ACCOUNT" , "title" : "HEAD OF ACCOUNT" },
-                { "data": "HEAD DESCRIPTION" ,"title" : "HEAD DESCRIPTION" },
-                { "data": "HEAD DESCRIPTION ASSAMESE","title" : "HEAD DESCRIPTION ASSAMESE" },
-                { "data": be , "title" : be},
-                { "data": bePrev ,"title" : bePrev },
-                { "data": re , "title" : re },
-                { "data": actuals , "title" : actuals },  
-            ]
-        });
 
         d3.select(".dataset-download").attr("href", "{{ instance.url }}");
 
