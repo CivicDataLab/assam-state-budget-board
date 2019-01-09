@@ -2,7 +2,7 @@ from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from cms.models.pluginmodel import CMSPlugin
 from django.utils.translation import ugettext_lazy as _
-from .models import ExpenditureGrant, SmallMultipleExpenditure, DataTableExpenditure
+from .models import ExpenditureGrant, AllGrants
 
 @plugin_pool.register_plugin
 class ExpenditureGrantPlugin(CMSPluginBase):
@@ -32,26 +32,14 @@ class ExpenditureGrantPlugin(CMSPluginBase):
 
 @plugin_pool.register_plugin
 class SmallMultiplesExpPlugin(CMSPluginBase):
-    model = SmallMultipleExpenditure
-    name = _("Expenditure - SmallMultiples")
-    render_template = "smallmultiples_exp.html"
+    model = AllGrants
+    name = _("All - Grants")
+    render_template = "all_grants.html"
     cache = True
 
     def render(self, context, instance, placeholder):
         context = super(SmallMultiplesExpPlugin, self).render(context, instance, placeholder)
-        return context
-
-
-@plugin_pool.register_plugin
-class DataTableExpPlugin(CMSPluginBase):
-    model = DataTableExpenditure
-    name = _("Expenditure - DataTable")
-    render_template = "datatable_exp.html"
-    cache = True
-
-    def render(self, context, instance, placeholder):
-        context = super(DataTableExpPlugin, self).render(context, instance, placeholder)
-        tableColumns = "Grant Number"
+        tableColumns = "Grant"
         context.update({
         	"fiscalYear" : {
         		"budget" : "Budget 2018-19", 
@@ -61,3 +49,4 @@ class DataTableExpPlugin(CMSPluginBase):
         		'tableColumns' : tableColumns
         	})
         return context
+
