@@ -51,4 +51,13 @@ class DataTableExpPlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context = super(DataTableExpPlugin, self).render(context, instance, placeholder)
+        tableColumns = "Grant Number"
+        context.update({
+        	"fiscalYear" : {
+        		"budget" : "Budget 2018-19", 
+				"budget_2017" : "Budget 2017-18",
+				"budget_2016" : "Budget 2016-17"
+        		},
+        		'tableColumns' : tableColumns
+        	})
         return context
