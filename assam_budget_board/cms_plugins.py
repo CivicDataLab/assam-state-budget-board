@@ -2,7 +2,9 @@ from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from cms.models.pluginmodel import CMSPlugin
 from django.utils.translation import ugettext_lazy as _
-from .models import ExpenditureGrant, AllGrants
+
+from .models import ExpenditureGrant, AllGrants, BalanceColumn
+
 
 @plugin_pool.register_plugin
 class ExpenditureGrantPlugin(CMSPluginBase):
@@ -50,3 +52,14 @@ class SmallMultiplesExpPlugin(CMSPluginBase):
         	})
         return context
 
+    
+@plugin_pool.register_plugin
+class BalanceColumnPlugin(CMSPluginBase):
+    model = BalanceColumn
+    name = _("Balance Column")
+    render_template = "balance_column.html"
+    cache = True
+
+    def render(self, context, instance, placeholder):
+        context = super(BalanceColumnPlugin, self).render(context, instance, placeholder)
+        return context
