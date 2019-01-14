@@ -44,9 +44,9 @@ class SmallMultiplesExpPlugin(CMSPluginBase):
         tableColumns = "Grant"
         context.update({
         	"fiscalYear" : {
-        		"budget" : "Budget 2018-19", 
-				"budget_2017" : "Budget 2017-18",
-				"budget_2016" : "Budget 2016-17"
+        		"budget" : "2018-19", 
+				"budget_2017" : "2017-18",
+				"budget_2016" : "2016-17"
         		},
         		'tableColumns' : tableColumns
         	})

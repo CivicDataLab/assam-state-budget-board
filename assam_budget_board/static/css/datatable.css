@@ -1,8 +1,11 @@
-div.data-table-section {
+.data-table-section {
     overflow-x: scroll;
-    margin: 25px 35px;
     font-size: 14px;
     padding-bottom: 30px;
+    max-width: 100%;
+    width: 10050px;
+
+    
 }
 
 
