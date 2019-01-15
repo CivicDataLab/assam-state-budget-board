@@ -200,7 +200,7 @@ function formatLongNumbertoString(x) {
 
 function loadGrantSummary(raw_data) {
     let data = d3.nest()
-        .key(function(d) { return d["GRANT NUMBER"]; })
+        .key(function(d) { return d["MAJOR"]; })
         .rollup(function(v) {
             return {
                 act: d3.sum(v, function(d) { return +d[actuals]; }),
@@ -398,10 +398,15 @@ function loadHierarchyVis(data, fiscalYear) {
     }
 
     function drawVis(data, fiscalYear) {
+        for(var i = 0 ;i<data.length; i++){
+            data[i].MAJOR = ""
+        }
+
+        
 
         //Change the Hardcoded attribute
         let nestedData = d3.nest()
-            .key(function(d) { return d["GRANT NUMBER"]; })
+            .key(function(d) { return d["MAJOR"]; })
             .key(function(d) { return d["Major Head"]; })
             .key(function(d) { return d["Sub-Major Head"]; })
             .key(function(d) { return d["Minor Head"]; })
@@ -447,11 +452,12 @@ function loadHierarchyVis(data, fiscalYear) {
 
     function createHeadBreadcrumb(e) {
         if (e.children) {
+          var depth = e.depth
             d3.select(".nav-breadcrumb").select(".breadcrumb")
                 .append("li")
                 .attr("class", "breadcrumb-item")
                 .attr("data-level", e.depth)
-                .text(e.name)
+                .text( e.name)
                 .style("cursor", "pointer")
                 .on("click", function() {
                     d3.select(".nav-breadcrumb").select(".breadcrumb")
@@ -514,7 +520,7 @@ function loadHierarchyVis(data, fiscalYear) {
     function down(d, i) {
         createList(d, 0)
         createHeadBreadcrumb(d)
-
+    console.log(d)
         if (!d.children || this.__transition__) return;
         let end = duration + d.children.length * delay;
 
