@@ -86,3 +86,7 @@ h1.masthead-head {
 .masthead .carousel {
     height: 100%;
 }
+
+.third-section{
+    background: #E9EAE5 url(../img/bg.png);
+}
