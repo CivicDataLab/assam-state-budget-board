@@ -77,16 +77,27 @@ h1.masthead-head {
 
 .masthead-intro-description {
     color: white;
-
-    font-size: 15px;
+    font-size: 17px;
     padding-right: 30px;
-    font-weight: 300;
+    font-weight: 400;
 }
 
 .masthead .carousel {
     height: 100%;
 }
 
+
 .third-section{
     background: #E9EAE5 url(../img/bg.png);
+
+.background-two{
+    background-color: #625b5c;
+}
+
+.background-three{
+    background-color: #a6a6a6;
+}
+
+.background-four{
+    background-color: #d3d3d3;
 }

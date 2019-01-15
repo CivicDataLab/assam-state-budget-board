@@ -7,6 +7,10 @@
 
 {% block title %}{% page_attribute "page_title" %}{% endblock title %}
 
+
+
+
+
             {% block header-masthead %}
                     <div class="row">
                         <div class="col-lg-7">
@@ -22,7 +26,7 @@
                                                 <div class="media">
                                                   <i class="fas fa-users"></i>
                                                   <div class="media-body">
-                                                    <h3> Total Expenditure</h3>
+                                                    <h3> sTotal Expenditure</h3>
                                                     <div class="header-figures">
                                                         Rs 90,270 crore | <i class="fas fa-arrow-down"></i> 9.2%
                                                     </div>
@@ -62,10 +66,78 @@
             {% endblock header-masthead %}
     {% block page-wrapper %}
 
-    <section class="content-section bg-light">
+    <section class="content-section background-two" style="height :400px">  
+           </section>
+    <section class="content-section background-three">
+            {% placeholder 'Balance Column placeholder" %}
     </section>
 
-    <section class="content-section third-section text-white text-center">        
+    <section class="content-section background-four text-white text-center">  
+            <div class="media">
+                    <div class="container">
+                    <div class="row">
+                            <div class="col-sm-3">
+                                    <div class="mr-3 expenditure-image"> {% placeholder 'image-1 placeholder" %}</div>
+                            </div>
+                            <div class="col-sm-3">
+                                    <div class="media-body explorer-text">
+                                    {% placeholder 'text-exp-1 placeholder" %}
+                                    </div>
+                                    <div class="btn-group" role="group" aria-label="...">
+                                            <a href="#" target="_blank">
+                                                <button type="button" class="btn explore-obi">Explore Expenditure</button>
+                                            </a>
+                                        </div>
+                            </div>
+                            <div class="col-sm-3">
+                                    <div class="media-explorer-text">
+                                            {% placeholder 'text-exp-2 placeholder" %}
+                                            </div>
+                                    <div class="btn-group" role="group" aria-label="...">
+                                            <a href="#" target="_blank">
+                                                    <button type="button" class="btn explore-obi">Explore Expenditure</button>
+                                            </a>
+                                    </div>
+                            </div>
+                            <div class="col-sm-3">
+                                    <div class="mr-3 expenditure-image"> {% placeholder 'image-2 placeholder" %}</div>
+                            </div>
+                          </div>
+                       
+               </div>
+               </div>
+               <div class="container">
+                    <div class="row justify-content-md-center">
+                      <div class="col col-lg-6" style="padding-top:100px">
+                            <div class="media">
+                                    {% placeholder 'image-3 placeholder" %}
+                                    <div class="media-body">
+                                            {% placeholder 'text-exp-3 placeholder" %}
+                                            <div class="btn-group" role="group" aria-label="...">
+                                                    <a href="#" target="_blank">
+                                                            <button type="button" class="btn explore-obi">Explore Expenditure</button>
+                                                    </a>
+                                            </div>
+                                        
+                                    </div>
+                                    
+                        </div>
+                      </div>
+                      <div class="col col-lg-6" style="padding-top:100px">
+                            <div class="media">
+                                    <div class="media-body">
+                                            {% placeholder 'text-exp-4 placeholder" %}
+                                            <div class="btn-group" role="group" aria-label="...">
+                                                    <a href="#" target="_blank">
+                                                            <button type="button" class="btn explore-obi">Explore Expenditure</button>
+                                                    </a>
+                                            </div>
+                                    </div>
+                                    {% placeholder 'image-4 placeholder" %}
+                                  </div>
+                      </div>
+                    </div>
+                  </div>
     </section>
 
     <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top" aria-label="ScrollUp Button">

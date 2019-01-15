@@ -4,8 +4,8 @@ from django.db import models
 class ExpenditureGrant(CMSPlugin):
     url = models.URLField(max_length=300)
 
-class SmallMultipleExpenditure(CMSPlugin):
+class AllGrants(CMSPlugin):
     url = models.URLField(max_length=300)
-
-class DataTableExpenditure(CMSPlugin):
+    
+class BalanceColumn(CMSPlugin):
     url = models.URLField(max_length=300)

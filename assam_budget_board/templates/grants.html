@@ -4,6 +4,7 @@
 {% block header-masthead %}
 {% addtoblock "css" %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/grants.css' %}">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 
 {% endaddtoblock %}
 
@@ -47,8 +48,7 @@ $('#grant-select').selectize({
 	<div class="container">
 	    <div class="content-main-card col-lg-12">
 	        {% block page_content %} 
-            {% placeholder "smallmultiples-exp placeholder" %}
-            {% placeholder "datatable-exp placeholder" %}
+            {% placeholder "All - Grants placeholder" %}
 	        {% endblock page_content %}
 	    </div>
 	</div>
