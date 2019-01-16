@@ -9,7 +9,7 @@
 
 {% endaddtoblock %}
 <div class="grant-content-wrapper" style="display: none">
-    <h3 class="grant-summary-title">Grant Summary</h3>
+    <h3 class="grant-summary-title">Grants Summary</h3>
     <div class="grant-summary-info" data-toggle="modal" data-target="#exampleModal">
         <i class="fas fa-info" ></i>
     </div>
@@ -74,7 +74,7 @@ const actuals = "{{ fiscalYear.actuals }}",
 
 const currencySymbol = "&#8377;";
 
-const currencyUnit = "Lakhs";
+const currencyUnit = "Crore";
 
 const fiscalYearList = [be, bePrev, re, actuals];
 
@@ -144,14 +144,23 @@ function formatLongNumbertoString(x) {
 };
 
 function loadGrantSummary(raw_data) {
-    var data = {
+    var final_data = {
         
-        act : d3.sum(raw_data.map(function(d){ return +d[actuals]})),
+        act : d3.sum(raw_data.map(function(d){ return (+d[actuals])})),
         be : d3.sum(raw_data.map(function(d){ return +d[be]})),
         bePrev : d3.sum(raw_data.map(function(d){ return +d[bePrev]})),
         re : d3.sum(raw_data.map(function(d){ return +d[re]}))};
 
-console.log(data)
+    var data = {
+        act : final_data.act*0.01,
+        be : final_data.be*0.01,
+        bePrev : final_data.bePrev*0.01,
+        re : final_data.re*0.01
+
+    }
+console.log(final_data)
+    console.log(data)
+//console.log(data)
     //add_grant_summary(nested_data);
 
     let totalExpenditure = {};
@@ -161,7 +170,7 @@ console.log(data)
     temp["label"] = be;
     temp["value"] = data.be;
     temp["series"] = 0;
-  console.log(totalExpenditure)
+ // console.log(totalExpenditure)
     totalExpenditure["values"].push(temp);
     temp = {};
     temp["label"] = bePrev;
@@ -256,7 +265,7 @@ console.log(data)
 
         d3.select(".dataset-download").attr("href", "{{ instance.url }}");
 
-        loadDataTable(data);
+    
     });
 })();
 </script>
