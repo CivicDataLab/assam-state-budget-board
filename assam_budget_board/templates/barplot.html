@@ -1,1 +1,254 @@
-<h1>Hello</h1>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.6/nv.d3.min.css">
+
+    <style type="text/css">
+    body {
+        font-family: Open Sans, sans-serif;
+    }
+
+    .section-3col-box-wrapper .white-box {
+        position: relative;
+        margin: 0 0 25px;
+        padding-bottom: 25px;
+        /*box-shadow: 0 0 15px rgba(0, 0, 0, .2);*/
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.19), 0 1px 3px rgba(0, 0, 0, 0.23);
+    }
+
+    .white-box {
+        margin: 10px 0 45px;
+        padding: 25px;
+        background: #fff;
+        min-height: 400px;
+    }
+
+    .section-3col-box-wrapper .white-box h2 {
+        font-weight: 600;
+        margin-top: 5px;
+        font-size: 22px;
+    }
+
+    .container.section-3col-box-wrapper {
+        margin-top: -335px;
+    }
+
+    @-moz-document url-prefix() {
+        .container.section-3col-box-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+    }
+
+    .col-lg-12.bg-container {
+        background-color: #1c2127;
+
+        min-height: 350px;
+    }
+
+
+    @media (min-width: 870px) {
+        .section-3col-box-wrapper {
+            text-align: center;
+        }
+        /*.section-3col-box-wrapper .section-col2 {
+            z-index: 2;
+            margin: 0 -30px;
+        }*/
+        .section-col2 .white-box {
+            min-height: 570px;
+        }
+
+        .section-3col-box-wrapper .section-col1,
+        .section-3col-box-wrapper .section-col3 {
+            z-index: 1;
+            margin-top: 25px;
+        }
+
+        .col-sm-4.col-md-4.section-col1 {
+            margin-left: 30px;
+        }
+
+
+
+        .col-sm-4.col-md-4.section-col2 {
+            margin-left: -30px;
+            z-index: 2;
+        }
+        .col-sm-4.col-md-4.section-col3 {
+            margin-left: -30px;
+        }
+    }
+
+    .hr-style-1 {
+        width: 90%;
+        border-color: #000;
+        border: 0;
+        height: 1px;
+        background: #333;
+        background-image: linear-gradient(90deg, #ccc, #333, #ccc);
+    }
+
+    img.obi-logo {
+        text-align: center;
+        margin-top: 30px;
+        width: 90%;
+    }
+
+    p.obi-aim {
+        padding: 20px;
+        font-size: 18px;
+    }
+
+    element.style {}
+
+    .explore-obi {
+        color: #f3f3f3;
+        padding: 10px 20px;
+        background-color: rgb(18, 83, 124);
+        border-color: #ccc;
+        font-size: 16px;
+        font-weight: 600;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.19), 0 1px 3px rgba(0, 0, 0, 0.23);
+    }
+
+    .btn.focus,
+    .btn:focus,
+    .btn:hover {
+        color: white;
+        text-decoration: none;
+    }
+
+    .btn.active.focus,
+    .btn.active:focus,
+    .btn.focus,
+    .btn:active.focus,
+    .btn:active:focus,
+    .btn:focus {
+        outline: 5px auto grey;
+        outline-offset: -2px;
+    }
+
+    .nvd3 text {
+        font: 11px Open Sans, sans-serif;
+    }
+
+    .nvd3 rect {
+        fill-opacity: 1;
+    }
+
+    .receipt-summary-figs,
+    .exp-summary-figs {
+        margin-top: 20px;
+        font-size: 24px;
+        font-weight: 800;
+    }
+
+    .receipt-summary-num,
+    .exp-summary-num {
+        /* font-size: 24px; */
+        /* font-weight: 800; */
+        float: left;
+        margin-left: 10px;
+    }
+
+    .receipt-summary-per-change,
+    .exp-summary-per-change {
+        color: green;
+    }
+
+    .receipt-sub-vis-containner,
+    .exp-sub-vis-containner {
+        text-align: left;
+        margin-top: 30px;
+        font-weight: 700;
+        margin-left: 20px;
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.61);
+    }
+
+    .help-text {
+        text-align: left;
+        margin-left: 20px;
+        font-size: 11px;
+    }
+    </style>
+</head>
+
+<body>
+       
+   <div class="vis">
+       <svg></svg>
+    </div>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.6/nv.d3.min.js"></script> 
+    <script type="text/javascript">
+    d3.csv("{{ instance.url }}", function(data) {
+
+        var dataPlot = data.find(function(d) {
+            return d["{{instance.column}}"] == "{{instance.field}}"
+        })
+  
+        data_plot_arr = [] 
+
+        var node = {}
+        node.key = "{{instance.field}}"
+        node["values"] = []
+
+        var columns = Object.keys(data[0]).filter(function(k){return k!= '{{instance.column}}'})
+        var years = columns
+    
+        years.forEach(function(d) {
+
+            node["values"].push({ "label": d, "value": +dataPlot[d] })
+        })
+        data_plot_arr.push(node);
+
+
+        drawbarchart(data_plot_arr, ".vis")
+
+
+
+        function drawbarchart(data, selection) {
+            nv.addGraph(function() {
+
+                chart = nv.models.multiBarHorizontalChart()
+                    .x(function(d) { return d.label.slice(-7, d.label.length) })
+                    .y(function(d) { return +d.value })
+                    .barColor(["red", "#1f77b4"])
+                    .duration(250)
+                    .margin({ left: 70, right: 35, top: 0, bottom: 20 })
+                    .stacked(false)
+                    .showControls(false)
+                    .showLegend(false);
+
+                
+
+                chart.yAxis.tickFormat(d3.format(',.2f'));
+
+                d3.select(selection).append("svg")
+                    .datum(data)
+                    .call(chart);
+                nv.utils.windowResize(chart.update);
+                chart.dispatch.on('stateChange', function(e) { nv.log('New State:', JSON.stringify(e)); });
+                chart.state.dispatch.on('change', function(state) {
+                    nv.log('state', JSON.stringify(state));
+                });
+                return chart;
+            });
+        }
+    })
+    </script>
+</body>
+
+</html>
