@@ -2,7 +2,7 @@ from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from cms.models.pluginmodel import CMSPlugin
 from django.utils.translation import ugettext_lazy as _
-from .models import ExpenditureGrant, BalanceColumn
+from .models import ExpenditureGrant, BalanceColumn, BarPlot
 
 @plugin_pool.register_plugin
 class ExpenditureGrantPlugin(CMSPluginBase):
@@ -38,4 +38,16 @@ class BalanceColumnPlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context = super(BalanceColumnPlugin, self).render(context, instance, placeholder)
+        return context
+
+
+@plugin_pool.register_plugin
+class BarPlotPlugin(CMSPluginBase):
+    model = BarPlot
+    name = _("Bar Plot")
+    render_template = "barplot.html"
+    cache = True
+
+    def render(self, context, instance, placeholder):
+        context = super(BarPlotPlugin, self).render(context, instance, placeholder)
         return context
