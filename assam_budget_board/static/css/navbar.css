@@ -113,9 +113,16 @@ ul.dropdown-menu.show li:hover {
 .navbar-dark .navbar-nav .nav-link {
     font-weight: 400;
     color: rgba(255, 255, 255, 0.80);
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
 .brand-text {
     font-weight: 700;
     font-size: 1.3rem;
+}
+
+.dropdown-item:hover, .dropdown-item:active {
+    color: #000;
+    font-weight: 900;
+    text-decoration: none;
+    background-color: #ddd;
 }

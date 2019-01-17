@@ -19,19 +19,18 @@ header.masthead {
 
 .nav-breadcrumb {
     margin-bottom: 0px;
-    color: white;
+    color: black;
     padding: .85rem 1rem;
-    background: #211d1d;
+    background: #ddd;
     min-height: 3.6rem;
     /* box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.69), 0 1px 3px rgba(0, 0, 0, 0.63); */
     border-radius: 0px;
-    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    /*-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
     -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 0, 0, 0.7) inset;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 0, 0, 0.7) inset;*/
 }
 
 .nav-breadcrumb ol.breadcrumb {
-    color: white;
     background: transparent;
     padding: 0px;
     margin-bottom: 0px;
@@ -81,6 +80,7 @@ h5.summary-indicator-title {
 .side-navbar-head {
     font-weight: 700;
     font-size: 21px;
+    margin-bottom:15px;
     background: #222222;
     color: white;
 }
@@ -121,7 +121,7 @@ h5.summary-indicator-title {
 }
 
 select#figure-select {
-    margin: 20px 0px;
+    margin: 5px 0px 20px;
 }
 
 .side-navbar-title {
@@ -134,7 +134,7 @@ select#figure-select {
 
     padding: 5px 10px;
     display: inline-block;
-    background: #C89B41;
+    background: #d1ae2b;
     color: black;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
@@ -224,8 +224,8 @@ span.curreny-unit {
     background: #D1AE00;
 }
 
-ol.breadcrumb a:hover,
-ol.breadcrumb li:hover {
+.header-page-breadcrumb ol.breadcrumb a:hover,
+.header-page-breadcrumb ol.breadcrumb li:hover {
 
     color: white;
 }
@@ -292,4 +292,45 @@ ol.breadcrumb li:hover {
     -webkit-transform: scale(1.0);
     transform: scale(1.0);
   }
+}
+
+.section-divider {
+    width: 100%;
+    height: 2px;
+    background: black;
+}
+
+.section-side-title {
+    color: white;
+    /* padding: 0px; */
+    margin-bottom: 20px;
+    background: black;
+}
+.section-side-title-text {
+    display: inline-flex;
+    font-weight: 700;
+    font-size: 1.5rem;
+    padding: 8px 20px 2px;
+}
+.section-side-title-help {
+    display: inline-block;
+    padding: 6px 16px 7px;
+    background: #d1ae2b;
+    color: black;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.section-topbar{
+    background: #211d1d;
+}
+.section-topbar-text{
+    margin-top: 15px;
+    color: white;
+    font-weight: 800;
+    font-size: 20px;
+}
+section.grant-barchart {
+    border-bottom: 10px solid #211d1d;
+    margin-bottom: 23px;
 }

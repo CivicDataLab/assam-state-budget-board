@@ -1,18 +1,28 @@
 .data-table-section {
-    overflow-x: scroll;
-    font-size: 14px;
+	overflow-x:scroll; 
+    font-size: 13px;
     padding-bottom: 30px;
     max-width: 100%;
-    width: 10050px;
-
-    
 }
 
+div.dataTables_wrapper div.dataTables_info {
+    margin-left: 20px;
+}
 
-.table-bordered td, .table-bordered th {
+div.dataTables_wrapper div.dataTables_paginate {
+    margin-right: 20px;
+}
+
+.table-bordered td,
+.table-bordered th {
     border: 0px solid #dee2e6;
 }
-.data-table-section thead{
+
+.data-table-section thead {
     background: #2A2C2B url(../img/bg.png);
     color: white;
+}
+
+div#exp_table_filter {
+    margin-right: 20px;
 }
