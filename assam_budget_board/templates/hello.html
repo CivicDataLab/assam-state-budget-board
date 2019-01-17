@@ -1,0 +1,16 @@
+{% extends "page.html" %}
+{% load cms_tags menu_tags staticfiles  %}
+{% block css_files %} 
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+{% endblock css_files %} 
+
+{% block title %}{% page_attribute "page_title" %}{% endblock title %}
+
+        
+{% block page-wrapper %}
+<div class="col-lg-6">
+{% placeholder 'image-4 placeholder" %}
+                
+</div>
+{% endblock page-wrapper %}
