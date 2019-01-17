@@ -179,6 +179,7 @@ CMS_TEMPLATES = (
     ('home.html', 'Homepage'),
     ('content_1.html', 'Content Structure 1'),
     ('grants.html', 'All Grants'),
+    ('hello.html', 'Hello'),
     ('page.html', 'Page')
 )
 
