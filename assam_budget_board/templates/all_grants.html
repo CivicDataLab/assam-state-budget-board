@@ -1,0 +1,151 @@
+{% load sekizai_tags static %}
+{% addtoblock "css" %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.6/nv.d3.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/nv.d3.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/vis.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/datatable.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+{% endaddtoblock %}
+
+<div class="grant-content-wrapper">
+    <div class="container">
+        <div class="row vis_wrap"></div>
+    </div>
+        <div class="row">
+            <div aria-label="Data Table Header" class="data-table-header col-lg-12">
+                Data Table
+            </div>
+            <div class="data-table-section" id='container-data'>
+                
+            </div>
+        </div>
+        
+    </div>
+</div>
+        </div>
+    </div>
+</div>
+{% addtoblock "js" %}
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.6/nv.d3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="{% static 'js/nv.d3.min.js' %}"></script>
+    <script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+    <script src="{% static 'js/makeTable.js' %}"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+
+<script type="text/javascript">
+    const budget = "{{ fiscalYear.budget }}",
+          budget_2017 = "{{ fiscalYear.budget_2017 }}",
+          budget_2016 = "{{ fiscalYear.budget_2016 }}"
+
+const fiscalYearList = [budget, budget_2017, budget_2016];
+
+function loadDataTable(data){
+
+    let tableSelect = d3.select('#container-data').append("table")
+                        .attr("class", "table table-striped table-bordered")
+                        .attr("id", "exp_table"); 
+
+    let selectedColumns = "{{ tableColumns }}".split(",").concat(fiscalYearList);
+
+    let tableColumns = [];
+    for(let i in selectedColumns){
+        let temp = {}
+        temp["data"] = selectedColumns[i]
+        temp["title"] = selectedColumns[i]
+        tableColumns.push(temp)
+    }
+
+    $('#exp_table').DataTable( {
+        "processing": true,
+        "bLengthChange": false, // Disable page size change
+        data: data,
+        columns: tableColumns
+    });
+}
+
+d3.csv("{{ instance.url }}", function(data){
+
+    var grant_data = d3.nest()
+                       .key(function(d) { return d["Grant"] }) 
+                       .rollup(function(d) {
+                        return d.reduce(function(prev, curr) {
+                        prev["Grant"] = curr["Grant"];
+                        prev[curr["Year"]] = curr["Total_Expenditure"];
+                        return prev;
+                        }, {});
+                    })
+                        .entries(data) 
+                        .map(function(d) { 
+                        return d.values;
+                    });
+                loadDataTable(grant_data)
+
+
+    var grants = d3.nest()
+                   .key(function(d){return d["Grant"]})
+                   .entries(data)
+
+            drawviz(grants)
+        })
+
+    function drawviz(data){
+            var multiple_frame = d3.select(".vis_wrap")
+            .selectAll("div")
+            .data(data)
+            .enter()
+            .append("div")
+            .attr("class", "col-md-3")
+
+            multiple_frame.append("h5")
+            .html(function(d){
+                return d.key
+            })
+
+            multiple_frame.append("svg")
+            .attr("id", function(d){
+                return "grant-" + d.key.split(" ")[0]
+            })
+            .each(function(d, i, j){
+                draw_barchart(d, "grant-" + d.key.split(" ")[0])
+            })
+        }
+
+    function draw_barchart(data, selection){
+            nv.addGraph(function() {
+                chart = nv.models.multiBarHorizontalChart()
+                    .x(function(d) { return d["Year"] })
+                    .y(function(d) { return +parseFloat(d["Total_Expenditure"]) })
+                    .barColor(["#183152", "#D0A825", "26393D"])
+                    .duration(250)
+                    .margin({ left: 130, right: 75, top: 20, bottom: 30 })
+                    .stacked(false)
+                    .showControls(false)
+                    .showLegend(false);
+
+                chart.height(130)
+                /*chart.yAxis.ticks(5).tickFormat(function(d) {
+                    return formatAbbr(d)
+                });*/
+
+            
+                d3.select("svg#" + selection)
+                    .datum([data])
+                    .call(chart);
+                
+                nv.utils.windowResize(chart.update);
+
+                return chart;
+            });
+        }
+    </script>
+{% endaddtoblock %}
+</body>
+
+</html>

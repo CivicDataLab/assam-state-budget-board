@@ -2,7 +2,9 @@ from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from cms.models.pluginmodel import CMSPlugin
 from django.utils.translation import ugettext_lazy as _
-from .models import ExpenditureGrant, Receipts
+from .models import ExpenditureGrant, Receipts, AllGrants
+
+
 
 @plugin_pool.register_plugin
 class ExpenditureGrantPlugin(CMSPluginBase):
@@ -11,10 +13,11 @@ class ExpenditureGrantPlugin(CMSPluginBase):
     render_template = "grant_exp.html"
     cache = True
 
+   
     def render(self, context, instance, placeholder):
         context = super(ExpenditureGrantPlugin, self).render(context, instance, placeholder)
-        headHierarchy = "GRANT NUMBER, Major Head, Sub Major Head, Minor Head, Sub Head, Sub Sub Head, Detail Head, Sub detail Head"
-        tableColumns = "HEAD OF ACCOUNT,BUDGET ENTITY,HEAD DESCRIPTION,HEAD DESCRIPTION ASSAMESE"
+        headHierarchy = "Grant Number, Major Head, Sub Major Head, Minor Head, Sub Head, Sub Sub Head, Detail Head, Sub detail Head"
+        tableColumns = "Head Of Account,Budget Entity,Head Description,Head Description Assamese"
         context.update({
         	"fiscalYear" : {
         		"be" : "2018-19 Budget Estimates", 
@@ -30,6 +33,7 @@ class ExpenditureGrantPlugin(CMSPluginBase):
 
 
 @plugin_pool.register_plugin
+
 class ReceiptsPlugin(CMSPluginBase):
     model = Receipts
     name = _("Receipts")
@@ -52,3 +56,23 @@ class ReceiptsPlugin(CMSPluginBase):
         	})
 
         return context
+
+class SmallMultiplesExpPlugin(CMSPluginBase):
+    model = AllGrants
+    name = _("All - Grants")
+    render_template = "all_grants.html"
+    cache = True
+
+    def render(self, context, instance, placeholder):
+        context = super(SmallMultiplesExpPlugin, self).render(context, instance, placeholder)
+        tableColumns = "Grant"
+        context.update({
+        	"fiscalYear" : {
+        		"budget" : "2018-19", 
+				"budget_2017" : "2017-18",
+				"budget_2016" : "2016-17"
+        		},
+        		'tableColumns' : tableColumns
+        	})
+        return context
+

@@ -2,9 +2,9 @@ header.masthead {
     background: #050303 linear-gradient(90deg, rgba(255, 255, 255, .1) 0, rgba(255, 255, 255, .1) 100%);
     box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
     min-height: 250px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    box-shadow: none;/*0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);*/
     padding-top: 8em;
-    padding-bottom: 2em;
+        padding-bottom: 2em;
     color: white;
 }
 
@@ -252,10 +252,44 @@ ol.breadcrumb li:hover {
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 0, 0, 0.7) inset;
 }
 
-.dataset-download i {
-    margin-right: 10px;
+.spinner {
+  margin: 100px auto 0;
+  width: 70px;
+  text-align: center;
 }
 
-div#exp_table_filter {
-    margin-right: 25px;
+.spinner > div {
+  width: 18px;
+  height: 18px;
+  background-color: #333;
+
+  border-radius: 100%;
+  display: inline-block;
+  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.spinner .bounce1 {
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+
+@-webkit-keyframes sk-bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0) }
+  40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bouncedelay {
+  0%, 80%, 100% { 
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 40% { 
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+  }
 }
