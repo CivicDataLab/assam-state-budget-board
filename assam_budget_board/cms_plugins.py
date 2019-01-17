@@ -16,8 +16,8 @@ class ExpenditureGrantPlugin(CMSPluginBase):
    
     def render(self, context, instance, placeholder):
         context = super(ExpenditureGrantPlugin, self).render(context, instance, placeholder)
-        headHierarchy = "GRANT NUMBER, Major Head, Sub Major Head, Minor Head, Sub Head, Sub Sub Head, Detail Head, Sub detail Head"
-        tableColumns = "HEAD OF ACCOUNT,BUDGET ENTITY,HEAD DESCRIPTION,HEAD DESCRIPTION ASSAMESE"
+        headHierarchy = "Grant Number, Major Head, Sub Major Head, Minor Head, Sub Head, Sub Sub Head, Detail Head, Sub detail Head"
+        tableColumns = "Head Of Account,Budget Entity,Head Description,Head Description Assamese"
         context.update({
         	"fiscalYear" : {
         		"be" : "2018-19 Budget Estimates", 
