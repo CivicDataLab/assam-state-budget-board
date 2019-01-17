@@ -1,0 +1,8 @@
+{% for child in children %}
+<!-- no child pages  -->
+	
+	<li class="nav-item">
+	    <a href="{{ child.get_absolute_url }}" class="nav-link">{{child.get_menu_title }}</a>
+	</li>
+	
+{% endfor %}
