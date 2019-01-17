@@ -51,15 +51,3 @@ class SmallMultiplesExpPlugin(CMSPluginBase):
         		'tableColumns' : tableColumns
         	})
         return context
-
-    
-@plugin_pool.register_plugin
-class BalanceColumnPlugin(CMSPluginBase):
-    model = BalanceColumn
-    name = _("Balance Column")
-    render_template = "balance_column.html"
-    cache = True
-
-    def render(self, context, instance, placeholder):
-        context = super(BalanceColumnPlugin, self).render(context, instance, placeholder)
-        return context
