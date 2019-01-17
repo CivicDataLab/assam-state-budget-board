@@ -5,28 +5,13 @@
 {% addtoblock "css" %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/grants.css' %}">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-
 {% endaddtoblock %}
-
 <nav aria-label="breadcrumb" class="header-page-breadcrumb">
     <ol class="breadcrumb">
         {% show_breadcrumb 'menu/custom_breadcrumb.html' %}
     </ol>
 </nav>
-<div class="row">
-    <div class="col-lg-6">
-        <div class="control-group">
-            <label class="grant-select-label" for="grant-select">Grants</label>
-            <select class="demo-default form-control" id="grant-select" placeholder="Select a Grant to Explore!">
-                <option value="">Select a Grant to Explore!</option>
-                {% show_sub_menu 1 None 120 "menu/grants_menu.html" %}
-            </select>
-        </div>
-    </div>
-  
-
-</div>
-
+<h2 class="page-title">{% page_attribute "page_title" %}</h2>
 {% addtoblock "js" %}
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.5/js/standalone/selectize.min.js"></script>
 <script type="text/javascript">
@@ -45,12 +30,38 @@ $('#grant-select').selectize({
 {% endblock header-masthead %}
 {% block page-wrapper %}
 <section class="dash-section">
-	<div class="container">
-	    <div class="content-main-card col-lg-12">
-	        {% block page_content %} 
+    <div class="container">
+        <div class="content-main-card ">
+            {% block page_content %}
+            <div class=" section-search text-white bg-dark">
+            <div class="row">
+                    
+                        <div class="col-lg-6">
+                            <h3>Select a Grant to Explore</h3>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="control-group">
+                                <select class="demo-default form-control" id="grant-select" placeholder="Search">
+                                    <option value="">Select a Grant to Explore!</option>
+                                    {% show_sub_menu 1 None 120 "menu/grants_menu.html" %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                
+            </div>
+            <div class="section-list">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <ul class="">
+                        {% show_sub_menu 1 None 120 "menu/sub_page_list.html" %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
             {% placeholder "All - Grants placeholder" %}
-	        {% endblock page_content %}
-	    </div>
-	</div>
+            {% endblock page_content %}
+        </div>
+    </div>
 </section>
 {% endblock page-wrapper %}

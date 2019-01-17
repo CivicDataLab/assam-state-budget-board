@@ -1,203 +1,194 @@
 {% extends "page.html" %}
-{% load cms_tags menu_tags staticfiles  %}
-{% block css_files %} 
-    {{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
-{% endblock css_files %} 
-
-{% block title %}{% page_attribute "page_title" %}{% endblock title %}
-
-
-
-
-
-            {% block header-masthead %}
-                    <div class="row">
-                        <div class="col-lg-7">
-                            <div id="carouselExampleFade" class="carousel header-corousel slide carousel-fade" data-ride="carousel">
-                                <ol class="carousel-indicators">
-                                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                                </ol>
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <div class="row">
-                                            <div class="col-lg-8 offset-lg-2 ">
-                                                <div class="media">
-                                                  <i class="fas fa-users"></i>
-                                                  <div class="media-body">
-                                                    <h3> sTotal Expenditure</h3>
-                                                    <div class="header-figures">
-                                                        Rs 90,270 crore | <i class="fas fa-arrow-down"></i> 9.2%
-                                                    </div>
-                                                  </div>
-                                                </div>
-
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="carousel-item">
-                                    </div>
-                                </div>
-                                <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                              </a>
-                                <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                              </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-5">
-                            <h1 class="masthead-head">{% placeholder "Masthead - Heading" %}</h1>
-                            <div class="masthead-intro-description">{% placeholder "Masthead - Introductory Description" %}</div>
-                        </div>
+{% load cms_tags menu_tags staticfiles %}
+{% block css_files %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+{% endblock css_files %}
+{% block title %}
+{% page_attribute "page_title" %}
+{% endblock title %}
+{% block header-masthead %}
+<div class="row">
+    <div class="col-lg-7">
+        {% placeholder "Carousel - Content" %}
+    </div>
+    <div class="col-lg-5">
+        <h1 class="masthead-head">{% placeholder "Masthead - Heading" %}</h1>
+        <div class="masthead-intro-description">{% placeholder "Masthead - Introductory Description" %}</div>
+    </div>
+</div>
+<div class="row justify-content-md-center collaborators text-center">
+    <div class="col">
+        <div class="project-contributors-logo">
+            {% placeholder 'contributors' %}
+        </div>
+    </div>
+</div>
+{% endblock header-masthead %}
+{% block page-wrapper %}
+<section class="content-section section-2 rounded bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="p-3 p-md-5 text-white">
+                <div class="col-md-6 px-0">
+                  <h2 class="section-title">{% placeholder "Section 2 - Title" %}</h2>
+                  <div class="lead my-3">{% placeholder "Section 2 - Text" %}</div>
+                  <div class="button-placeholder">{% placeholder "Section 2 - Link" %}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content-section section-3 ">
+    <div class="container">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="card card-left">
+              <div class="card-body">
+                <h5 class="card-title">{% placeholder "Card 1 - Title" %}</h5>
+                <div class="card-vis"></div>
+                <div class="card-text">{% placeholder "Card 1 - Text Content" %}</div>
+                <div class="button-placeholder">{% placeholder "Card 1 - Link" %}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card ">
+              <div class="card-body card-right">
+                <h5 class="card-title">{% placeholder "Card 2 - Title" %}</h5>
+                <p class="card-text">{% placeholder "Card 2 - Text Content" %}</p>
+                <div class="button-placeholder">{% placeholder "Card 2 - Link" %}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <!--
+    <div class="media">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="mr-3 expenditure-image"> {% placeholder 'image-1 placeholder" %}</div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="media-body explorer-text">
+                        {% placeholder 'text-exp-1 placeholder" %}
                     </div>
-                    <div class="row justify-content-md-center collaborators text-center">
-                        <div class="col">
-                            <div class="project-contributors-logo">
-                            {% placeholder 'contributors' %}
-                            </div>
-                        </div>
-                    </div>   
-                </div>        
-            {% endblock header-masthead %}
-    {% block page-wrapper %}
-
-    <section class="content-section background-two" style="height :400px">  
-           </section>
-    <section class="content-section background-three">
-            {% placeholder 'Balance Column placeholder" %}
-    </section>
-
-    <section class="content-section background-four text-white text-center">  
-            <div class="media">
-                    <div class="container">
-                    <div class="row">
-                            <div class="col-sm-3">
-                                    <div class="mr-3 expenditure-image"> {% placeholder 'image-1 placeholder" %}</div>
-                            </div>
-                            <div class="col-sm-3">
-                                    <div class="media-body explorer-text">
-                                    {% placeholder 'text-exp-1 placeholder" %}
-                                    </div>
-                                    <div class="btn-group" role="group" aria-label="...">
-                                            <a href="#" target="_blank">
+                    <div class="btn-group" role="group" aria-label="...">
+                        <a href="#" target="_blank">
                                                 <button type="button" class="btn explore-obi">Explore Expenditure</button>
                                             </a>
-                                        </div>
-                            </div>
-                            <div class="col-sm-3">
-                                    <div class="media-explorer-text">
-                                            {% placeholder 'text-exp-2 placeholder" %}
-                                            </div>
-                                    <div class="btn-group" role="group" aria-label="...">
-                                            <a href="#" target="_blank">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="media-explorer-text">
+                        {% placeholder 'text-exp-2 placeholder" %}
+                    </div>
+                    <div class="btn-group" role="group" aria-label="...">
+                        <a href="#" target="_blank">
                                                     <button type="button" class="btn explore-obi">Explore Expenditure</button>
                                             </a>
-                                    </div>
-                            </div>
-                            <div class="col-sm-3">
-                                    <div class="mr-3 expenditure-image"> {% placeholder 'image-2 placeholder" %}</div>
-                            </div>
-                          </div>
-                       
-               </div>
-               </div>
-               <div class="container">
-                    <div class="row justify-content-md-center">
-                      <div class="col col-lg-6" style="padding-top:100px">
-                            <div class="media">
-                                    {% placeholder 'image-3 placeholder" %}
-                                    <div class="media-body">
-                                            {% placeholder 'text-exp-3 placeholder" %}
-                                            <div class="btn-group" role="group" aria-label="...">
-                                                    <a href="#" target="_blank">
-                                                            <button type="button" class="btn explore-obi">Explore Expenditure</button>
-                                                    </a>
-                                            </div>
-                                        
-                                    </div>
-                                    
-                        </div>
-                      </div>
-                      <div class="col col-lg-6" style="padding-top:100px">
-                            <div class="media">
-                                    <div class="media-body">
-                                            {% placeholder 'text-exp-4 placeholder" %}
-                                            <div class="btn-group" role="group" aria-label="...">
-                                                    <a href="#" target="_blank">
-                                                            <button type="button" class="btn explore-obi">Explore Expenditure</button>
-                                                    </a>
-                                            </div>
-                                    </div>
-                                    {% placeholder 'image-4 placeholder" %}
-                                  </div>
-                      </div>
                     </div>
-                  </div>
-    </section>
-
-    <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top" aria-label="ScrollUp Button">
+                </div>
+                <div class="col-sm-3">
+                    <div class="mr-3 expenditure-image"> {% placeholder 'image-2 placeholder" %}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col col-lg-6" style="padding-top:100px">
+                <div class="media">
+                    {% placeholder 'image-3 placeholder" %}
+                    <div class="media-body">
+                        {% placeholder 'text-exp-3 placeholder" %}
+                        <div class="btn-group" role="group" aria-label="...">
+                            <a href="#" target="_blank">
+                                                            <button type="button" class="btn explore-obi">Explore Expenditure</button>
+                                                    </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-lg-6" style="padding-top:100px">
+                <div class="media">
+                    <div class="media-body">
+                        {% placeholder 'text-exp-4 placeholder" %}
+                        <div class="btn-group" role="group" aria-label="...">
+                            <a href="#" target="_blank">
+                                                            <button type="button" class="btn explore-obi">Explore Expenditure</button>
+                                                    </a>
+                        </div>
+                    </div>
+                    {% placeholder 'image-4 placeholder" %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content-section background-two" style="height: 400px">
+</section>
+<section class="content-section background-three">
+    {% placeholder 'Balance Column placeholder" %}
+</section>-->
+<a class="scroll-to-top rounded js-scroll-trigger" href="#page-top" aria-label="ScrollUp Button">
         <i class="fa fa-angle-up"></i>
     </a>
 {% endblock page-wrapper %}
-
 {% block js %}
 {{ block.super }}
 <script type="text/javascript">
-    (function($) {
-        "use strict"; // Start of use strict
+(function($) {
+    "use strict"; // Start of use strict
 
-        // Smooth scrolling using jQuery easing
-        /*$('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function() {
-          if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-            var target = $(this.hash);
-            target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-            if (target.length) {
-              $('html, body').animate({
-                scrollTop: (target.offset().top - 54)
-              }, 2000, "easeInOutExpo");
-              return false;
-            }
-          }
-        });*/
+    // Smooth scrolling using jQuery easing
+    /*$('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function() {
+      if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+        var target = $(this.hash);
+        target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+        if (target.length) {
+          $('html, body').animate({
+            scrollTop: (target.offset().top - 54)
+          }, 2000, "easeInOutExpo");
+          return false;
+        }
+      }
+    });*/
 
-        // Closes responsive menu when a scroll trigger link is clicked
-        $('.js-scroll-trigger').click(function() {
-            $('.navbar-collapse').collapse('hide');
-        });
+    // Closes responsive menu when a scroll trigger link is clicked
+    $('.js-scroll-trigger').click(function() {
+        $('.navbar-collapse').collapse('hide');
+    });
 
-        // Activate scrollspy to add active class to navbar items on scroll
-        $('body').scrollspy({
-            target: '#mainNav',
-            offset: 56
-        });
+    // Activate scrollspy to add active class to navbar items on scroll
+    $('body').scrollspy({
+        target: '#mainNav',
+        offset: 56
+    });
 
-        // Collapse Navbar
-        var navbarCollapse = function() {
-            if ($("#mainNav").offset().top > 100) {
-                $("#mainNav").addClass("navbar-shrink");
-            } else {
-                $("#mainNav").removeClass("navbar-shrink");
-            }
-            console.log("here")
-        };
-        // Collapse now if page is not at top
-        navbarCollapse();
-        // Collapse the navbar when page is scrolled
-        $(window).scroll(navbarCollapse);
+    // Collapse Navbar
+    var navbarCollapse = function() {
+        if ($("#mainNav").offset().top > 100) {
+            $("#mainNav").addClass("navbar-shrink");
+        } else {
+            $("#mainNav").removeClass("navbar-shrink");
+        }
+        console.log("here")
+    };
+    // Collapse now if page is not at top
+    navbarCollapse();
+    // Collapse the navbar when page is scrolled
+    $(window).scroll(navbarCollapse);
 
-        // Hide navbar when modals trigger
-        $('.portfolio-modal').on('show.bs.modal', function(e) {
-            $(".navbar").addClass("d-none");
-        })
-        $('.portfolio-modal').on('hidden.bs.modal', function(e) {
-            $(".navbar").removeClass("d-none");
-        })
+    // Hide navbar when modals trigger
+    $('.portfolio-modal').on('show.bs.modal', function(e) {
+        $(".navbar").addClass("d-none");
+    })
+    $('.portfolio-modal').on('hidden.bs.modal', function(e) {
+        $(".navbar").removeClass("d-none");
+    })
 
-    })(jQuery); // End of use strict
-    </script>
+})(jQuery); // End of use strict
+</script>
 {% endblock js %}

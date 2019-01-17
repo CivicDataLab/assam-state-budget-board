@@ -2,3 +2,12 @@ label.grant-select-label {
     font-weight: 700;
     font-size: 23px;
 }
+
+.section-search {
+    padding: 30px;
+}
+
+.nav-link {
+    padding: .2rem .5rem;
+    font-weight: 700;
+}

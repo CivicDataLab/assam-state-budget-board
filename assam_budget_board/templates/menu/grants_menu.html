@@ -1,7 +1,6 @@
 {% load i18n sekizai_tags menu_tags cache %}
-
-        {% for child in children %}
-        <!-- no child pages  -->
-        <option value="{{ child.get_absolute_url }}" >{{ child.get_menu_title }}</option>
-        <!-- /has child pages  -->
-        {% endfor %}
+{% for child in children %}
+	<!-- no child pages  -->
+	<option value="{{ child.get_absolute_url }}">{{ child.get_menu_title }}</option>
+	<!-- /has child pages  -->
+{% endfor %}
