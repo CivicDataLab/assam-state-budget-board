@@ -36,9 +36,10 @@ $('#grant-select').selectize({
             <div class=" section-search text-white bg-dark">
             <div class="row">
                     
-                        <div class="col-lg-6">
-                            <h3>Select a Grant to Explore</h3>
+                        <div class="col-lg-7">
+                            <h3 class="dropdown-label">Select a Grant to Explore</h3>
                         </div>
+                    
                         <div class="col-lg-6">
                             <div class="control-group">
                                 <select class="demo-default form-control" id="grant-select" placeholder="Search">
@@ -50,16 +51,21 @@ $('#grant-select').selectize({
                     </div>
                 
             </div>
-            <div class="section-list">
-                <div class="row">
-                    <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-4 d-none d-md-block">
+                    <div class="section-list ">
                         <ul class="">
                         {% show_sub_menu 1 None 120 "menu/sub_page_list.html" %}
                         </ul>
                     </div>
                 </div>
+                <div class="col-lg-8">
+                    <div class="section-content">
+                        {% placeholder "Grants - Description Text" %}
+                    </div>
+                </div>
             </div>
-            {% placeholder "All - Grants placeholder" %}
+            
             {% endblock page_content %}
         </div>
     </div>
