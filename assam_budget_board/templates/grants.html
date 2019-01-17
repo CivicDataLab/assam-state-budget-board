@@ -4,6 +4,7 @@
 {% block header-masthead %}
 {% addtoblock "css" %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/grants.css' %}">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 
 {% endaddtoblock %}
 
@@ -16,13 +17,16 @@
     <div class="col-lg-6">
         <div class="control-group">
             <label class="grant-select-label" for="grant-select">Grants</label>
-            <select class="demo-default" id="grant-select" placeholder="Select a Grant to Explore!">
+            <select class="demo-default form-control" id="grant-select" placeholder="Select a Grant to Explore!">
                 <option value="">Select a Grant to Explore!</option>
                 {% show_sub_menu 1 None 120 "menu/grants_menu.html" %}
             </select>
         </div>
     </div>
+  
+
 </div>
+
 {% addtoblock "js" %}
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.5/js/standalone/selectize.min.js"></script>
 <script type="text/javascript">
@@ -39,3 +43,14 @@ $('#grant-select').selectize({
 </script>
 {% endaddtoblock %}
 {% endblock header-masthead %}
+{% block page-wrapper %}
+<section class="dash-section">
+	<div class="container">
+	    <div class="content-main-card col-lg-12">
+	        {% block page_content %} 
+            {% placeholder "All - Grants placeholder" %}
+	        {% endblock page_content %}
+	    </div>
+	</div>
+</section>
+{% endblock page-wrapper %}
