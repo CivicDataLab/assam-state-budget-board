@@ -2,10 +2,6 @@
     padding: 1.25rem 2.5rem;
 }
 
-.content-section {
-    padding-top: 7.5rem;
-    padding-bottom: 7.5rem;
-}
 
 .content-section-heading h2 {
     font-size: 3rem;
@@ -70,7 +66,6 @@
 
 h1.masthead-head {
     color: white;
-    font-family: "Montserrat", sans-serif;
     font-size: 24px;
     font-weight: 700;
 }
@@ -79,19 +74,75 @@ h1.masthead-head {
     color: white;
     font-size: 17px;
     padding-right: 30px;
-    font-weight: 400;
+    font-weight: 300;
 }
 
 .masthead .carousel {
-    height: 100%;
+    min-height: 200px;
+}
+.section-title {
+    font-weight: 800;
+}
+.section-3{
+    padding: 50px 30px;
+    background: #ddd url(../img/bg.png);
+}
+.section-3 .card-title {
+    font-weight: 900;
+    font-size: 22px;
+    margin-bottom: .75rem;
+}
+.section-3 .card{
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.19), 0 1px 3px rgba(0, 0, 0, 0.23);
+}
+.card .button-placeholder {
+    background: black;
+    display: inline-flex;
+    color: white;
+        margin-top: 10px;
+    border-radius: 4px;
+}
+.card .button-placeholder a {
+    padding: 10px 20px;
+    box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.1);
+    font-weight: 700;
+    border-radius: inherit;
+    /* border: .05rem solid #fff; */
+}
+.card p {
+    margin-bottom: 0px;
+}
+.card-left .card-title {
+    background: #211d1d;
+    display: inline-block;
+    margin-left: -20px;
+    padding: 8px 10px;
+    color: white;
+}
+.card-left .card-text {
+    padding: 0px 50px 0px 20px;
+    text-align: justify;
 }
 
-
-.third-section{
-    background: #E9EAE5 url(../img/bg.png);
-
+.card-right .card-title {
+    background: #211d1d;
+    display: inline-block;
+    margin-right: -20px;
+    padding: 8px 10px;
+    color: white;
+}
+.card-right .card-text {
+    padding: 0px 20px 0px 50px;
+    text-align: justify;
+}
+.card-right{
+    text-align:right;
+}
+.card-text {
+    font-weight: 300;
+}
 .background-two{
-    background-color: #625b5c;
+    background-color: #211d1d;
 }
 
 .background-three{

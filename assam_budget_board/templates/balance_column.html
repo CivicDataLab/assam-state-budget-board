@@ -1,19 +1,7 @@
 
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title></title>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
     <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.6/nv.d3.min.css">
 
     <style type="text/css">
-    body {
-        font-family: Open Sans, sans-serif;
-    }
-
     .section-3col-box-wrapper .white-box {
         position: relative;
         margin: 0 0 25px;
@@ -248,15 +236,11 @@
         </div>
     </div>
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.6/nv.d3.min.js"></script> 
     <script type="text/javascript">
     d3.csv("{{ instance.url }}", function(data) {
-
-
+        
         var current_year = "Budget 2018-19"
         var previous_year = "Budget 2017-18"
         
@@ -365,6 +349,3 @@
         }
     })
     </script>
-</body>
-
-</html>
