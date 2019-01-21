@@ -148,7 +148,6 @@ select#figure-select {
 }
 
 .summary-jumbotron {
-
     margin-bottom: 0px;
     padding: 0px 40px 40px 40px;
 }
@@ -213,20 +212,8 @@ span.curreny-unit {
     background: rgb(233, 234, 229) url("../img/bg.png");
 }
 
-.grant-summary-info {
-    padding: 6px 15px 6px;
-    /* margin: 0px; */
-    cursor: pointer;
-    margin-left: -3px;
-    font-size: 1.5rem;
-    display: inline-block;
-    line-height: inherit;
-    background: #D1AE00;
-}
-
 .header-page-breadcrumb ol.breadcrumb a:hover,
 .header-page-breadcrumb ol.breadcrumb li:hover {
-
     color: white;
 }
 
@@ -313,6 +300,7 @@ span.curreny-unit {
     padding: 8px 20px 2px;
 }
 .section-side-title-help {
+    cursor:pointer;
     display: inline-block;
     padding: 6px 16px 7px;
     background: #d1ae2b;
@@ -333,4 +321,21 @@ span.curreny-unit {
 section.grant-barchart {
     border-bottom: 10px solid #211d1d;
     margin-bottom: 23px;
+}
+
+.btn-download-dataset{
+    box-shadow: 0 3px 3px 0 rgba(0,0,0,.1);
+    font-weight: 700;
+    padding: 7px 10px;
+}
+.btn i.fas.fa-download {
+    margin-right: 7px;
+}
+
+section.grant-summary {
+    padding-top: 25px;
+}
+.help-modal{
+    display: inline-block;
+    cursor: pointer;
 }

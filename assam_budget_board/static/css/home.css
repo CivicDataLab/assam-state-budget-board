@@ -141,14 +141,6 @@ h1.masthead-head {
 .card-text {
     font-weight: 400;
 }
-.background-two{
-    background-color: #211d1d;
-}
-
-.background-three{
-    background-color: #a6a6a6;
-}
-
-.background-four{
-    background-color: #d3d3d3;
+.project-contributors-logo {
+    margin-top: 20px;
 }
