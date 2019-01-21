@@ -3,6 +3,8 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/nv.d3.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/vis.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/datatable.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/introjs.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/dark.css' %}">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 {% endaddtoblock %}
 <div class="grant-content-wrapper" style="display: none">
@@ -58,7 +60,8 @@
             <div class="section-side-title">
                 <h3 class="section-side-title-text">Explore Heads </h3>
                 <div class="section-side-title-help" >
-                    <i class="fas fa-info" ></i>
+                    <a href="javascript:void(0);" onclick="javascript:introJs().start();"><i class="fas fa-info" ></i></a>
+
             </div>
         
     </div>
@@ -77,7 +80,7 @@
     
         <div class="row">
             <div class="col-md-3 side-col d-none d-md-block ">
-                <div class="side-navbar">
+                <div class="side-navbar"data-step="1" data-intro="Select to move down in hierarchy"  data-position='left'>
                     <div class="row">
                         <div class="side-navbar-head">
                             <div class="back">
@@ -95,12 +98,12 @@
             </div>
             <div class="col-md-9">
                 <div class="row">
-                    <nav aria-label="breadcrumb" class="nav-breadcrumb col-lg-12">
+                    <nav aria-label="breadcrumb" class="nav-breadcrumb col-lg-12" data-step="3" data-intro="Select to move down in hierarchy"  data-position='right'>
                 <ol class="breadcrumb">
                 </ol>
             </nav>
                 </div>
-                <div class="vis">
+                <div class="vis"data-step="2" data-intro="Click on the bars to move forward"  data-position='top'>
                     <svg></svg>
                 </div>
             </div>
@@ -134,6 +137,7 @@
 {% addtoblock "js" %}
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script src="{% static 'js/nv.d3.min.js' %}"></script>
+<script src="{% static 'js/intro.js' %}"></script>
 <script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
