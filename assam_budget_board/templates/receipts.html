@@ -1,37 +1,46 @@
 {% load sekizai_tags static %}
+
 {% addtoblock "css" %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/nv.d3.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/vis.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/datatable.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/introjs.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/dark.css' %}">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'css/introjs-modern.css' %}">s
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 {% endaddtoblock %}
-<div class="grant-content-wrapper" style="display: none">
+
+<div class="grant-content-wrapper" style="display:none">
     <section class="grant-summary">
-    <h3 class="grant-summary-title">Receipts Summary </h3>
-    <div class="grant-summary-info" data-toggle="modal" data-target="#exampleModal">
-        <i class="fas fa-info" ></i>
-    </div>
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+    <div class="container">
+            <div class="row">
+                <div class="section-side-title">
+                    <h3 class="section-side-title-text">Receipts Summary</h3>
+                    <div class="section-side-title-help" >
+                        <div class="grant-summary-info" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fas fa-info" ></i>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     <div class="summary summary-jumbotron">
         <div class="row">
             <div class="col-lg-5 offset-lg-1">
@@ -59,17 +68,12 @@
         <div class="row">
             <div class="section-side-title">
                 <h3 class="section-side-title-text">Explore Heads </h3>
-                <div class="section-side-title-help" >
-                    <a href="javascript:void(0);" onclick="javascript:introJs().start();"><i class="fas fa-info" ></i></a>
-                    
+                <div class="section-side-title-help" onclick="javascript:introJs().start();" >
+                    <a href="javascript:void(0);" ><i class="fas fa-info" ></i></a>
+                </div>
             </div>
-        
-    </div>
         </div>
-
         <div class="row section-topbar">
-           
-            
             <div class="col-lg-6 offset-lg-1 section-topbar-text">
                 Select Fiscal Year
             </div>
@@ -91,19 +95,19 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="side-navbar-list"data-step="1" data-intro="Select to move down in hierarchy"  data-position='left'>
+                        <div class="side-navbar-list"data-step="1" data-intro="Select to move down in hierarchy"  data-position='right'>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-9">
                 <div class="row">
-                    <nav aria-label="breadcrumb" class="nav-breadcrumb col-lg-12" data-step="3" data-intro="Select to move down in hierarchy"  data-position='right'>
+                    <nav aria-label="breadcrumb" class="nav-breadcrumb col-lg-12" data-step="3" data-intro="Select to move down in hierarchy"  data-position='bottom'>
                 <ol class="breadcrumb">
                 </ol>
             </nav>
                 </div>
-                <div class="vis" data-step="2" data-intro="Click on the bars to move forward"  data-position='top'>
+                <div class="vis" data-step="2" data-intro="Click on the bars to move forward"  data-position='left'>
                     <svg></svg>
                 </div>
             </div>
@@ -116,7 +120,6 @@
                         <h3 class="section-side-title-text">Data Table </h3>
                         <div class="section-side-title-help" >
                            <i class="fas fa-info" ></i>
-
                     </div>
                 </div>
         </div>
