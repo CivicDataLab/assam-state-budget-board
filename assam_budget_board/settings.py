@@ -180,7 +180,8 @@ CMS_TEMPLATES = (
     ('content_1.html', 'Content Structure 1'),
     ('content_2.html', 'content Structure 2'),
     ('grants.html', 'All Grants'),
-    ('page.html', 'Page')
+    ('simple_page.html', 'Simple Page')
+
 )
 
 CMS_PERMISSION = True
