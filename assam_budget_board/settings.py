@@ -28,7 +28,7 @@ SECRET_KEY = 'q2fi&+%y(cas)d_f@_ah9-i-#v=n^$p5)v!o0f1^qe@ud@oxx('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -179,8 +179,10 @@ CMS_TEMPLATES = (
     ('home.html', 'Homepage'),
     ('content_1.html', 'Content Structure 1'),
     ('summary.html', 'Grant Summary'),
+    ('content_2.html', 'content Structure 2'),
     ('grants.html', 'All Grants'),
-    ('page.html', 'Page')
+    ('simple_page.html', 'Simple Page')
+
 )
 
 CMS_PERMISSION = True

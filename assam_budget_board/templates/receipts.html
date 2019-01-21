@@ -1,31 +1,28 @@
 {% load sekizai_tags static %}
+
 {% addtoblock "css" %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/nv.d3.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/vis.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/datatable.css' %}">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.min.css">
-<link rel="stylesheet" type="text/css" href="{% static 'css/introjs-modern.css' %}">
-
+<link rel="stylesheet" type="text/css" href="{% static 'css/introjs-modern.css' %}">s
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-<style type="text/css">
-    
-</style>
 {% endaddtoblock %}
-<div class="grant-content-wrapper" style="display: none">
+
+<div class="grant-content-wrapper" style="display:none">
     <section class="grant-summary">
-        <div class="container">
+    <div class="container">
             <div class="row">
                 <div class="section-side-title">
-                    <h3 class="section-side-title-text">Grant Summary</h3>
-                    <div class="grant-summary-info help-modal" data-toggle="modal" data-target="#exampleModal">
-                        <div class="section-side-title-help" >
+                    <h3 class="section-side-title-text">Receipts Summary</h3>
+                    <div class="section-side-title-help" >
+                        <div class="grant-summary-info" data-toggle="modal" data-target="#exampleModal">
                             <i class="fas fa-info" ></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -40,44 +37,42 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="summary summary-jumbotron">
-            <div class="row">
-                <div class="col-lg-5 offset-lg-1">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-5 offset-lg-1">
-                    <h5 class="summary-indicator-title">{{ fiscalYear.be }}</h5>
-                    <div class="big-figures" id="be-figures"></div>
-                    <div class="summary_vis"></div>
-                </div>
-                <div class="col-lg-5 offset-lg-1">
-                    <h5 class="summary-sec-indicator-title">{{ fiscalYear.bePrev }} </h5>
-                    <div class=" secondary-big-figures" id="bePrev-figures"></div>
-                    <h5 class="summary-sec-indicator-title">{{ fiscalYear.re }} </h5>
-                    <div class=" secondary-big-figures" id="re-figures"></div>
-                    <h5 class="summary-sec-indicator-title">{{ fiscalYear.actuals }} </h5>
-                    <div class="secondary-big-figures" id="actuals-figures"></div>
-                </div>
+    <div class="summary summary-jumbotron">
+        <div class="row">
+            <div class="col-lg-5 offset-lg-1">
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-5 offset-lg-1">
+                <h5 class="summary-indicator-title">{{ fiscalYear.be }}</h5>
+                <div class="big-figures" id="be-figures"></div>
+                <div class="summary_vis"></div>
+            </div>
+            <div class="col-lg-5 offset-lg-1">
+                <h5 class="summary-sec-indicator-title">{{ fiscalYear.bePrev }} </h5>
+                <div class=" secondary-big-figures" id="bePrev-figures"></div>
+                <h5 class="summary-sec-indicator-title">{{ fiscalYear.re }} </h5>
+                <div class=" secondary-big-figures" id="re-figures"></div>
+                <h5 class="summary-sec-indicator-title">{{ fiscalYear.actuals }} </h5>
+                <div class="secondary-big-figures" id="actuals-figures"></div>
+            </div>
+        </div>
+    </div>
     </section>
     <section class="grant-barchart">
     <div class="container">
         <div class="row">
             <div class="section-side-title">
                 <h3 class="section-side-title-text">Explore Heads </h3>
-                <div class="section-side-title-help" >
-                    <a href="javascript:void(0);" onclick="javascript:introJs().start();"><i class="fas fa-info" ></i></a>
+                <div class="section-side-title-help" onclick="javascript:introJs().start();" >
+                    <a href="javascript:void(0);" ><i class="fas fa-info" ></i></a>
+                </div>
             </div>
-    </div>
         </div>
-
         <div class="row section-topbar">
             <div class="col-lg-6 offset-lg-1 section-topbar-text">
                 Select Fiscal Year
@@ -89,7 +84,7 @@
     
         <div class="row">
             <div class="col-md-3 side-col d-none d-md-block ">
-                <div class="side-navbar"data-step="1" data-intro="Select to move down in hierarchy"  data-position='right'>
+                <div class="side-navbar">
                     <div class="row">
                         <div class="side-navbar-head">
                             <div class="back">
@@ -100,7 +95,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="side-navbar-list">
+                        <div class="side-navbar-list"data-step="1" data-intro="Select to move down in hierarchy"  data-position='right'>
                         </div>
                     </div>
                 </div>
@@ -112,7 +107,7 @@
                 </ol>
             </nav>
                 </div>
-                <div class="vis"data-step="2" data-intro="Click on the bars to move forward"  data-position='left'>
+                <div class="vis" data-step="2" data-intro="Click on the bars to move forward"  data-position='left'>
                     <svg></svg>
                 </div>
             </div>
@@ -121,10 +116,10 @@
     </section>
     <div class="container">
         <div class="row">
-                <div class="section-side-title">
-                    <h3 class="section-side-title-text">Data Table </h3>
-                    <div class="section-side-title-help" >
-                        <i class="fas fa-info" ></i>
+                    <div class="section-side-title">
+                        <h3 class="section-side-title-text">Data Table </h3>
+                        <div class="section-side-title-help" >
+                           <i class="fas fa-info" ></i>
                     </div>
                 </div>
         </div>
@@ -232,7 +227,7 @@ function formatLongNumbertoString(x) {
 
 function loadGrantSummary(raw_data) {
     let data = d3.nest()
-        .key(function(d) { return d["Grant Number"]; })
+        .key(function(d) { return d["Major"]; })
         .rollup(function(v) {
             return {
                 act: d3.sum(v, function(d) { return +d[actuals]; }),
@@ -430,10 +425,13 @@ function loadHierarchyVis(data, fiscalYear) {
     }
 
     function drawVis(data, fiscalYear) {
+        for(var i = 0 ;i<data.length; i++){
+            data[i].MAJOR = ""
+            }
 
         //Change the Hardcoded attribute
         let nestedData = d3.nest()
-            .key(function(d) { return d["Grant Number"]; })
+            .key(function(d) { return d["MAJOR"]; })
             .key(function(d) { return d["Major Head"]; })
             .key(function(d) { return d["Sub-Major Head"]; })
             .key(function(d) { return d["Minor Head"]; })
@@ -790,4 +788,4 @@ function loadDataTable(data){
 })();
 </script>
 
-{% endaddtoblock %}
+{% endaddtoblock %} 

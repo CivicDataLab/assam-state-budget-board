@@ -2,3 +2,32 @@ label.grant-select-label {
     font-weight: 700;
     font-size: 23px;
 }
+
+.section-search {
+    padding: 30px;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.nav-link {
+    padding: .1rem .5rem;
+    font-weight: 700;
+}
+
+.dropdown-label {
+    font-weight: 900;
+    font-size: 20px;
+}
+
+.section-list {
+    padding: 22px;
+}
+
+.section-list {
+    border-right: 1px solid rgb(221, 221, 221);
+    background: #faf9f9;
+    padding: 22px;
+    border-radius: 0px 0px 0px 5px;
+}
+.section-content {
+    padding: 35px;
+}

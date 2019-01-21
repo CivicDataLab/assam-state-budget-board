@@ -13,16 +13,11 @@
 	        {% show_breadcrumb 'menu/custom_breadcrumb.html' %}
 	    </ol>
 	</nav>
-	<div class="row">
-		<div class="col-lg-9">
-			<h1 class="grant-title">{% page_attribute "page_title" %}</h1>
-		</div> 
-		<div class="col-lg-3">
-			<a class="dataset-download"><button class="btn btn-light btn-download-dataset"><i class="fas fa-download"></i> Download Dataset</button></a>
-		</div>
-	</div>
+	<h1 class="grant-title">{% page_attribute "page_title" %}</h1>
 {% endblock header-masthead %}
 
 {% block page_content %}
-	{% placeholder "grant placeholder" %}
+<div class="content-wrapper">
+	{% placeholder "Content" %}
+</div>
 {% endblock page_content %}
