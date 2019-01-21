@@ -3,10 +3,13 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/nv.d3.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/vis.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/datatable.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/introjs.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/dark.css' %}">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 {% endaddtoblock %}
 <div class="grant-content-wrapper" style="display: none">
-    <h3 class="grant-summary-title">Receipts Summary</h3>
+    <section class="grant-summary">
+    <h3 class="grant-summary-title">Receipts Summary </h3>
     <div class="grant-summary-info" data-toggle="modal" data-target="#exampleModal">
         <i class="fas fa-info" ></i>
     </div>
@@ -45,20 +48,36 @@
                 <div class=" secondary-big-figures" id="bePrev-figures"></div>
                 <h5 class="summary-sec-indicator-title">{{ fiscalYear.re }} </h5>
                 <div class=" secondary-big-figures" id="re-figures"></div>
-                <h5 class="summary-sec-indicator-title">{{ fiscalYear.actuals }}</h5>
+                <h5 class="summary-sec-indicator-title">{{ fiscalYear.actuals }} </h5>
                 <div class="secondary-big-figures" id="actuals-figures"></div>
             </div>
         </div>
     </div>
+    </section>
+    <section class="grant-barchart">
     <div class="container">
         <div class="row">
-            <nav aria-label="breadcrumb" class="nav-breadcrumb col-lg-12">
-                <ol class="breadcrumb">
-                </ol>
-            </nav>
-        </div>
+            <div class="section-side-title">
+                <h3 class="section-side-title-text">Explore Heads </h3>
+                <div class="section-side-title-help" >
+                    <a href="javascript:void(0);" onclick="javascript:introJs().start();"><i class="fas fa-info" ></i></a>
+                    
+            </div>
+        
     </div>
-    <div class="container">
+        </div>
+
+        <div class="row section-topbar">
+           
+            
+            <div class="col-lg-6 offset-lg-1 section-topbar-text">
+                Select Fiscal Year
+            </div>
+            <div class="col-lg-6 offset-lg-1">
+                 <div class="select-dropdown"></div>
+            </div>
+        </div>
+    
         <div class="row">
             <div class="col-md-3 side-col d-none d-md-block ">
                 <div class="side-navbar">
@@ -72,28 +91,34 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="side-navbar-list">
+                        <div class="side-navbar-list"data-step="1" data-intro="Select to move down in hierarchy"  data-position='left'>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-9">
                 <div class="row">
-                    <div class="col-lg-6 offset-lg-2">
-                         <div class="select-dropdown"></div>
-                    </div>
+                    <nav aria-label="breadcrumb" class="nav-breadcrumb col-lg-12" data-step="3" data-intro="Select to move down in hierarchy"  data-position='right'>
+                <ol class="breadcrumb">
+                </ol>
+            </nav>
                 </div>
-                <div class="vis">
+                <div class="vis" data-step="2" data-intro="Click on the bars to move forward"  data-position='top'>
                     <svg></svg>
                 </div>
             </div>
         </div>
     </div>
+    </section>
     <div class="container">
         <div class="row">
-            <div aria-label="Data Table Header" class="data-table-header col-lg-12">
-                Data Table
-            </div>
+                    <div class="section-side-title">
+                        <h3 class="section-side-title-text">Data Table </h3>
+                        <div class="section-side-title-help" >
+                           <i class="fas fa-info" ></i>
+
+                    </div>
+                </div>
         </div>
         <div class="row">
             <div class="data-table-section" id='container-data'>
@@ -113,16 +138,15 @@
 {% addtoblock "js" %}
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script src="{% static 'js/nv.d3.min.js' %}"></script>
+<script src="{% static 'js/intro.js' %}"></script>
 <script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
-<script src="{% static 'js/makeTable.js' %}"></script>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-
 <script>
 /* Variable Declarations */
 const actuals = "{{ fiscalYear.actuals }}",
     bePrev = "{{ fiscalYear.bePrev }}",
-    re = "{{ fiscalYear.re}}",
+    re = "{{ fiscalYear.re }}",
     be = "{{ fiscalYear.be }}";
 
 const hierarchy = '{{ headHierarchy }}'.split(",");
@@ -200,7 +224,7 @@ function formatLongNumbertoString(x) {
 
 function loadGrantSummary(raw_data) {
     let data = d3.nest()
-        .key(function(d) { return d["MAJOR"]; })
+        .key(function(d) { return d["Major"]; })
         .rollup(function(v) {
             return {
                 act: d3.sum(v, function(d) { return +d[actuals]; }),
@@ -219,7 +243,7 @@ function loadGrantSummary(raw_data) {
     temp["label"] = be;
     temp["value"] = data[0].values.be;
     temp["series"] = 0;
-  console.log(totalExpenditure)
+
     totalExpenditure["values"].push(temp);
     temp = {};
     temp["label"] = bePrev;
@@ -400,9 +424,7 @@ function loadHierarchyVis(data, fiscalYear) {
     function drawVis(data, fiscalYear) {
         for(var i = 0 ;i<data.length; i++){
             data[i].MAJOR = ""
-        }
-
-        
+            }
 
         //Change the Hardcoded attribute
         let nestedData = d3.nest()
@@ -452,12 +474,11 @@ function loadHierarchyVis(data, fiscalYear) {
 
     function createHeadBreadcrumb(e) {
         if (e.children) {
-          var depth = e.depth
             d3.select(".nav-breadcrumb").select(".breadcrumb")
                 .append("li")
                 .attr("class", "breadcrumb-item")
                 .attr("data-level", e.depth)
-                .text( e.name)
+                .text(e.name)
                 .style("cursor", "pointer")
                 .on("click", function() {
                     d3.select(".nav-breadcrumb").select(".breadcrumb")
@@ -520,7 +541,7 @@ function loadHierarchyVis(data, fiscalYear) {
     function down(d, i) {
         createList(d, 0)
         createHeadBreadcrumb(d)
-    console.log(d)
+
         if (!d.children || this.__transition__) return;
         let end = duration + d.children.length * delay;
 
@@ -725,8 +746,9 @@ function loadHierarchyVis(data, fiscalYear) {
 function loadDataTable(data){
 
     let tableSelect = d3.select('#container-data').append("table")
-    .attr("class", "table table-striped table-bordered")
-    .attr("id", "exp_table"); 
+    .attr("class", "table table-striped table-bordered responsive")
+    .attr("id", "exp_table")
+    .style("width","100%"); 
     
     let selectedColumns = "{{ tableColumns }}".split(",").concat(fiscalYearList);
 
@@ -740,6 +762,7 @@ function loadDataTable(data){
 
     $('#exp_table').DataTable( {
         "processing": true,
+        responsive: true,
         "bLengthChange": false, // Disable page size change
         data: data,
         columns: tableColumns
@@ -762,4 +785,4 @@ function loadDataTable(data){
 })();
 </script>
 
-{% endaddtoblock %}
+{% endaddtoblock %} 
