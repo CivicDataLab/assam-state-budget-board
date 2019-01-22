@@ -295,15 +295,17 @@ function loadGrantSummary(raw_data) {
 
         if (percentageChange > 0) {
             content += "<i class='fas fa-arrow-up positive-fig'></i> "
+            content += "<span class='percentage-num positive-fig'>" + percentageChange + "%</span></span>"
         } 
         else if(percentageChange == 0){
-            content += "<i class='fas nochange-fig'></i> "
+            
+            content += "<span class='percentage-num nochange-fig'>" + percentageChange + "%</span></span>"
         }
         else {
             content += "<i class='fas fa-arrow-down negative-fig'></i> "
+            content += "<span class='percentage-num negative-fig'>" + percentageChange + "%</span></span>"
         }
 
-        content += "<span class='percentage-num" + (percentageChange > 0 ? " positive-fig'" : " negative-fig'") + ">" + percentageChange + "%" + "</span></span>"
         return content;
     })
 
@@ -809,12 +811,6 @@ function loadDataTable(data){
 (function() {
     d3.csv("{{ instance.url }}", function(data) {
         
-        /*data.forEach(function(d){
-            d[actuals] = +d[actuals] * 100000
-
-        })*/
-
-        console.log(data)
         onDataLoad();
         
         loadGrantSummary(data);

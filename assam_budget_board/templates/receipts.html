@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 {% endaddtoblock %}
 
-<<div class="grant-content-wrapper" style="display: none">
+<div class="grant-content-wrapper" style="display: none">
     <section class="grant-summary">
         <div class="container">
             <div class="row">
@@ -281,7 +281,7 @@ function loadGrantSummary(raw_data) {
     totalExpenditure["values"].push(temp);
 
     d3.select("#be-figures").html(function(d) {
-        let content = "<span class='absolute-figure'>" + currencySymbol + " " + formatLongNumbertoString(formatUnit(data[0].values.be)) + " <span class='curreny-unit'>" + currencyUnit + "</span> </span><br>";
+        let content = "<span class='absolute-figure'>" + currencySymbol + " " + formatLongNumbertoString(formatUnit(data[0].values.be)) + " <span class='curreny-unit'>" + currentUnit + "</span> </span><br>";
 
         let percentageChange = (((data[0].values.be - data[0].values.bePrev) / data[0].values.bePrev) * 100).toFixed(1);
 
@@ -303,7 +303,7 @@ function loadGrantSummary(raw_data) {
 
     d3.select("#actuals-figures").html(currencySymbol + " " + formatLongNumbertoString(formatUnit(data[0].values.act)) + " <span class='curreny-unit'>" + currentUnit + "</span> ");
 
-    d3.select("#bePrev-figures").html(currencySymbol + " " + formatLongNumbertoString(formatUnit(data[0].values.bePrev)) + " <span class='curreny-unit'>" + currentUint+ "</span> ");
+    d3.select("#bePrev-figures").html(currencySymbol + " " + formatLongNumbertoString(formatUnit(data[0].values.bePrev)) + " <span class='curreny-unit'>" + currentUnit + "</span> ");
 
     drawbarchart([totalExpenditure], ".summary_vis");
 

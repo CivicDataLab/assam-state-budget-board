@@ -163,7 +163,9 @@ span.curreny-unit {
 .negative-fig {
     color: #8C0303;
 }
-
+.nochange-fig {
+    color: rgba(0, 0, 0, 0.58);
+}
 .secondary-big-figures {
     font-weight: 600;
     font-size: 22px;

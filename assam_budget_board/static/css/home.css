@@ -159,3 +159,6 @@ h1.masthead-head {
 .project-contributors-logo {
     margin-top: 20px;
 }
+.card .button-placeholder a:hover {
+    color: white;
+}
