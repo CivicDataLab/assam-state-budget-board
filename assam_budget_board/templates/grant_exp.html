@@ -1,4 +1,4 @@
-{% load sekizai_tags static %}
+{% load sekizai_tags static cms_tags %}
 {% addtoblock "css" %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/nv.d3.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/vis.css' %}">
@@ -74,8 +74,14 @@
                 <h3 class="section-side-title-text">Explore Heads </h3>
                 <div class="section-side-title-help" >
                     <a href="javascript:void(0);" onclick="javascript:introJs().start();"><i class="fas fa-info" ></i></a>
+                </div>
             </div>
-    </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-7 offset-lg-1 section-notes">
+                Note : 
+            </div>
         </div>
 
         <div class="row section-topbar">
@@ -129,6 +135,11 @@
                 </div>
         </div>
         <div class="row">
+                <div class="col-lg-7 offset-lg-1">
+                    Note : Figures are in Lakh(s)
+                </div>
+            </div>
+        <div class="row">
             <div class="data-table-section" id='container-data'>
                 
             </div>
@@ -161,7 +172,10 @@ const hierarchy = '{{ headHierarchy }}'.split(",");
 
 const currencySymbol = "&#8377;";
 
-const currencyUnit = "Lakhs";
+const currencyUnit = "Lakh(s)";
+
+const convertedUnit = "Crore";
+var currentUint = currencyUnit;
 
 const fiscalYearList = [be, bePrev, re, actuals];
 
@@ -230,6 +244,18 @@ function formatLongNumbertoString(x) {
     return arr.reverse().join("");
 };
 
+function formatUnit(d){
+    if(d<100)
+    {
+        currentUnit = currencyUnit;
+        return d.toFixed(2);
+    }
+    else{
+        currentUnit = convertedUnit;
+        return (d / 100).toFixed(2);
+    }
+}
+
 function loadGrantSummary(raw_data) {
     let data = d3.nest()
         .key(function(d) { return d["Grant Number"]; })
@@ -258,8 +284,10 @@ function loadGrantSummary(raw_data) {
     temp["value"] = data[0].values.bePrev;
     totalExpenditure["values"].push(temp);
 
+    /* The way to display unit has been implemented with a not so good hack. Please fix in future*/
+
     d3.select("#be-figures").html(function(d) {
-        let content = "<span class='absolute-figure'>" + currencySymbol + " " + formatLongNumbertoString(data[0].values.be.toFixed(2)) + " <span class='curreny-unit'>" + currencyUnit + "</span> </span><br>";
+        let content = "<span class='absolute-figure'>" + currencySymbol + " " + formatLongNumbertoString(formatUnit(data[0].values.be)) + " <span class='curreny-unit'>" + currentUnit + "</span> </span><br>";
 
         let percentageChange = (((data[0].values.be - data[0].values.bePrev) / data[0].values.bePrev) * 100).toFixed(1);
 
@@ -267,7 +295,11 @@ function loadGrantSummary(raw_data) {
 
         if (percentageChange > 0) {
             content += "<i class='fas fa-arrow-up positive-fig'></i> "
-        } else {
+        } 
+        else if(percentageChange == 0){
+            content += "<i class='fas nochange-fig'></i> "
+        }
+        else {
             content += "<i class='fas fa-arrow-down negative-fig'></i> "
         }
 
@@ -275,11 +307,11 @@ function loadGrantSummary(raw_data) {
         return content;
     })
 
-    d3.select("#re-figures").html(currencySymbol + " " + formatLongNumbertoString(data[0].values.re.toFixed(2)) + " <span class='curreny-unit'>" + currencyUnit + "</span> ");
+    d3.select("#re-figures").html(currencySymbol + " " + formatLongNumbertoString(formatUnit(data[0].values.re)) + " <span class='curreny-unit'>" + currentUnit + "</span> ");
 
-    d3.select("#actuals-figures").html(currencySymbol + " " + formatLongNumbertoString(data[0].values.act.toFixed(2)) + " <span class='curreny-unit'>" + currencyUnit + "</span> ");
+    d3.select("#actuals-figures").html(currencySymbol + " " + formatLongNumbertoString(formatUnit(data[0].values.act)) + " <span class='curreny-unit'>" + currentUnit + "</span> ");
 
-    d3.select("#bePrev-figures").html(currencySymbol + " " + formatLongNumbertoString(data[0].values.bePrev.toFixed(2)) + " <span class='curreny-unit'>" + currencyUnit + "</span> ");
+    d3.select("#bePrev-figures").html(currencySymbol + " " + formatLongNumbertoString(formatUnit(data[0].values.bePrev)) + " <span class='curreny-unit'>" + currentUnit + "</span> ");
 
     drawbarchart([totalExpenditure], ".summary_vis");
 
@@ -288,7 +320,7 @@ function loadGrantSummary(raw_data) {
         nv.addGraph(function() {
             chart = nv.models.multiBarHorizontalChart()
                 .x(function(d) { return d.label })
-                .y(function(d) { return +d.value })
+                .y(function(d) { return +d.value * 100000 }) //Fix Unit Issue
                 .barColor(["#183152", "#D0A825"])
                 .duration(250)
                 .margin({ left: 130, right: 75, top: 20, bottom: 30 })
@@ -297,7 +329,7 @@ function loadGrantSummary(raw_data) {
                 .showLegend(false);
 
             chart.height(130)
-            chart.yAxis.ticks(5).tickFormat(function(d) {
+            chart.yAxis.ticks(2).tickFormat(function(d) {
                 return formatCurrency(d)
             });
 
@@ -442,7 +474,7 @@ function loadHierarchyVis(data, fiscalYear) {
             .key(function(d) { return d["Object Head"]; })
             .key(function(d) { return d["Voucher Head"]; })
             .rollup(function(leaves) { 
-                return d3.sum( leaves, function(d) { return +d[fiscalYear]; }); 
+                return d3.sum( leaves, function(d) { return +d[fiscalYear] * 100000; }); 
             })
             .entries(data);
 
@@ -473,7 +505,7 @@ function loadHierarchyVis(data, fiscalYear) {
         down(root, 0);
 
         tip.html(function(d) {
-            return "<strong>" + fiscalYear + "</strong> : <span>" + d.value + "</span>";
+            return "<strong>" + fiscalYear + "</strong> : <span>" + formatCurrency(d.value) + "</span>";
         })
     }
 
@@ -777,6 +809,12 @@ function loadDataTable(data){
 (function() {
     d3.csv("{{ instance.url }}", function(data) {
         
+        /*data.forEach(function(d){
+            d[actuals] = +d[actuals] * 100000
+
+        })*/
+
+        console.log(data)
         onDataLoad();
         
         loadGrantSummary(data);

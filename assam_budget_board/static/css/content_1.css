@@ -339,3 +339,7 @@ section.grant-summary {
     display: inline-block;
     cursor: pointer;
 }
+
+.section-notes{
+    margin-bottom: 20px;
+}
