@@ -5,14 +5,12 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/datatable.css' %}">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.css">
-<link rel="stylesheet" type="text/css" href="{% static 'css/naznin.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/introjs-modern.css' %}">
 
 {% endaddtoblock %}
 <div class="grant-content-wrapper" style="display: none">
     <h3 class="grant-summary-title">Grant Summary</h3>
-    <div class="grant-summary-info" data-toggle="modal" data-target="#exampleModal">
-        <i class="fas fa-info" ></i>
-    </div>
+    
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -149,10 +147,6 @@ function loadGrantSummary(raw_data) {
         re : d3.sum(raw_data.map(function(d){ return +d[re]}))};
 
 
-    console.log(data)
-//console.log(data)
-    //add_grant_summary(nested_data);
-
     let totalExpenditure = {};
     totalExpenditure["key"] = "Total Expenditure";
     totalExpenditure["values"] = [];
@@ -160,7 +154,7 @@ function loadGrantSummary(raw_data) {
     temp["label"] = be;
     temp["value"] = data.be;
     temp["series"] = 0;
- // console.log(totalExpenditure)
+
     totalExpenditure["values"].push(temp);
     temp = {};
     temp["label"] = bePrev;

@@ -12,7 +12,6 @@ class ExpenditureGrantPlugin(CMSPluginBase):
     render_template = "grant_exp.html"
     cache = True
 
-   
     def render(self, context, instance, placeholder):
         context = super(ExpenditureGrantPlugin, self).render(context, instance, placeholder)
         headHierarchy = "Grant Number, Major Head, Sub Major Head, Minor Head, Sub Head, Sub Sub Head, Detail Head, Sub detail Head"
@@ -51,9 +50,7 @@ class GrantSummaryPlugin(CMSPluginBase):
 
         return context
 
-
 @plugin_pool.register_plugin
-
 class ReceiptsPlugin(CMSPluginBase):
     model = Receipts
     name = _("Receipts")
@@ -95,6 +92,7 @@ class SmallMultiplesExpPlugin(CMSPluginBase):
         		'tableColumns' : tableColumns
         	})
         return context
+
 @plugin_pool.register_plugin
 class DataTablePlugin(CMSPluginBase):
     model = Datatable
