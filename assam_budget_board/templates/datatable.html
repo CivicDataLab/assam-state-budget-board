@@ -1,12 +1,8 @@
 {% load sekizai_tags static %}
 {% addtoblock "css" %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/nv.d3.min.css' %}">
+
 <link rel="stylesheet" type="text/css" href="{% static 'css/vis.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/datatable.css' %}">
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.min.css">
-<link rel="stylesheet" type="text/css" href="{% static 'css/introjs-modern.css' %}">
-
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 <style type="text/css">
     
 </style>
@@ -30,14 +26,9 @@
 </div>
 {% addtoblock "js" %}
 <script src="https://d3js.org/d3.v3.min.js"></script>
-<script src="{% static 'js/nv.d3.min.js' %}"></script>
-<script src="{% static 'js/intro.js' %}"></script>
 <script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
-<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 <script>
-/* Variable Declarations */
-let w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 function onDataLoad() {
     d3.select(".grant-content-wrapper")
         .style("display", "block")
@@ -50,6 +41,7 @@ function onDataLoad() {
         .style("display", "none");
 }
  function loadDataTable(data){
+    console.log(data)
 
     let tableSelect = d3.select('#container-data').append("table")
     .attr("class", "table table-striped table-bordered responsive")
@@ -58,7 +50,7 @@ function onDataLoad() {
     
  
     let selectedColumn = "{{ instance.columns }}".split(",");
-    console.log(selectedColumn)
+
     let tableColumns = [];
     for(let i in selectedColumn){
         let temp = {}
@@ -68,9 +60,9 @@ function onDataLoad() {
     }
 
     $('#exp_table').DataTable( {
-        "processing": true,
+        processing: true,
         responsive: true,
-        "bLengthChange": false, // Disable page size change
+        bLengthChange: false, // Disable page size change
         data: data,
         columns: tableColumns
     });
