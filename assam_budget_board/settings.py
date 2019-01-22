@@ -178,6 +178,7 @@ CMS_TEMPLATES = (
     ('sidebar_right.html', 'Sidebar Right'),
     ('home.html', 'Homepage'),
     ('content_1.html', 'Content Structure 1'),
+    ('summary.html', 'Grant Summary'),
     ('content_2.html', 'content Structure 2'),
     ('grants.html', 'All Grants'),
     ('simple_page.html', 'Simple Page')
