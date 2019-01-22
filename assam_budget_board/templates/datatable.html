@@ -1,0 +1,79 @@
+{% load sekizai_tags static %}
+{% addtoblock "css" %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/vis.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/datatable.css' %}">
+<style type="text/css">
+    
+</style>
+{% endaddtoblock %}
+<div class="grant-content-wrapper" style="display: none">
+    <div class="container">
+        <div class="row">
+            <div class="data-table-section" id='container-data'>
+                
+            </div>
+        </div>
+        
+    </div>
+</div>
+<div class="d-flex justify-content-center">
+    <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</div>
+{% addtoblock "js" %}
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script>
+function onDataLoad() {
+    d3.select(".grant-content-wrapper")
+        .style("display", "block")
+        .style("opacity", 0)
+        .transition()
+        .delay(700)
+        .style("opacity", 1);
+
+    d3.select(".spinner")
+        .style("display", "none");
+}
+ function loadDataTable(data){
+    console.log(data)
+
+    let tableSelect = d3.select('#container-data').append("table")
+    .attr("class", "table table-striped table-bordered responsive")
+    .attr("id", "exp_table")
+    .style("width","100%"); 
+    
+ 
+    let selectedColumn = "{{ instance.columns }}".split(",");
+
+    let tableColumns = [];
+    for(let i in selectedColumn){
+        let temp = {}
+        temp["data"] = selectedColumn[i]
+        temp["title"] = selectedColumn[i]
+        tableColumns.push(temp)
+    }
+
+    $('#exp_table').DataTable( {
+        processing: true,
+        responsive: true,
+        bLengthChange: false, // Disable page size change
+        data: data,
+        columns: tableColumns
+    });
+}
+
+(function() {
+    d3.csv("{{ instance.url }}", function(data) {
+        onDataLoad();
+    loadDataTable(data);
+    });
+})();
+</script>
+
+{% endaddtoblock %}

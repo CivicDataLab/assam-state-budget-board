@@ -25,4 +25,5 @@ div.dataTables_wrapper div.dataTables_paginate {
 
 div#exp_table_filter {
     margin-right: 20px;
+    float:right;
 }
