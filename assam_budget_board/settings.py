@@ -143,6 +143,7 @@ INSTALLED_APPS = (
     'djangocms_snippet',
     'djangocms_googlemap',
     'djangocms_video',
+    'django_extensions',
     'compressor',
     'corsheaders',
     'assam_budget_board'
