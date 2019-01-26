@@ -25,8 +25,10 @@ label.grant-select-label {
 .section-list {
     border-right: 1px solid rgb(221, 221, 221);
     background: #faf9f9;
-    padding: 22px;
+    padding: 25px 15px;
     border-radius: 0px 0px 0px 5px;
+    max-height:450px; 
+    overflow-y:scroll;
 }
 .section-content {
     padding: 35px;
