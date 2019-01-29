@@ -65,14 +65,14 @@ s h3.grant-summary-title {
 }
 
 .big-figures {
-    font-size: 30px;
+    font-size: 26px;
     font-weight: 700;
 }
 
 h5.summary-indicator-title {
     font-weight: 300;
     font-size: 17px;
-    margin-top: 30px;
+    margin-top: 50px;
     color: #797575;
     margin-bottom: 0px;
 }
