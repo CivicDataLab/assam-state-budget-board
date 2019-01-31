@@ -304,6 +304,8 @@
     </script>
     <script type="text/javascript">
     "use strict";
+    const bePrev = "{{ fiscalYear.bePrev }}",
+    be = "{{ fiscalYear.be }}";
 
     var width = 700,
         height = 500,
@@ -553,9 +555,7 @@ console.log(nodes)
     .key(function(d) { return d['GRANT NUMBER'];})
     .rollup(function(d) { 
    return {
-     ACTUALS_2016_17 : d3.sum(d, function(g) {return g['ACTUALS 2016-17']; }),
      BUDGET_2017_18 : d3.sum(d, function(g) {return g['BUDGET 2017-18']; }),
-     REVISED_2017_18 : d3.sum(d, function(g) {return g['REVISED 2017-18']; }),
      BUDGET_2018_19 : d3.sum(d, function(g) {return g['BUDGET 2018-19']; }),
    }
   }).entries(data);
@@ -565,9 +565,7 @@ console.log(nodes)
      //console.log(Object.values(d).slice(1)[0].BUDGET_2017_18)
      return{
      GRANT_NUMBER : d.key,
-     ACTUALS_2016_17 : Object.values(d).slice(1)[0].ACTUALS_2016_17,
      BUDGET_2017_18 : Object.values(d).slice(1)[0].BUDGET_2017_18,
-     REVISED_2017_18 : Object.values(d).slice(1)[0].REVISED_2017_18,
      BUDGET_2018_19 : Object.values(d).slice(1)[0].BUDGET_2018_19
      }
   });
