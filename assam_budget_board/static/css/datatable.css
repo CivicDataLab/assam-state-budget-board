@@ -1,10 +1,13 @@
-.data-table-section {
+.data-table-section  {
 	overflow-x:scroll; 
     font-size: 13px;
     padding-bottom: 30px;
-    max-width: 100%;
+   
+  
 }
-
+.data-table-section col-lg-12{
+  width: 1050px;
+}
 div.dataTables_wrapper div.dataTables_info {
     margin-left: 20px;
 }
@@ -23,7 +26,3 @@ div.dataTables_wrapper div.dataTables_paginate {
     color: white;
 }
 
-div.dataTables_filter {
-    margin-right: 20px;
-    float:right;
-}
