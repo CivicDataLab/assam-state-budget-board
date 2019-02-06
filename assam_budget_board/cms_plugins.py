@@ -18,10 +18,10 @@ class ExpenditureGrantPlugin(CMSPluginBase):
         tableColumns = "Head Of Account,Budget Entity,Head Description,Head Description Assamese"
         context.update({
         	"fiscalYear" : {
-        		"be" : "2018-19 Budget Estimates", 
-        		"actuals" : "2016-17 Actuals",
-				"bePrev" : "2017-18 Budget Estimates",
-				"re" : "2017-18 Revised Estimates"
+        		"be" : "Budget 2019-20", 
+        		"actuals" : "Actuals 2017-18",
+				"bePrev" : "Budget 2018-19",
+				"re" : "Revised 2018-19"
         		},
         		'headHierarchy' : headHierarchy,
         		'tableColumns' : tableColumns,
