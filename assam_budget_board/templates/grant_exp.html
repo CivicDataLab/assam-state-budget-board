@@ -70,7 +70,10 @@ font-weight: bolder;
                             This section provides a snapshot of the budget allocations made and spending incurred under this grant for 2019-20 Assam Budget.
 
                     </div>
-                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -109,14 +112,14 @@ font-weight: bolder;
             <div class="section-side-title">
                 <h3 class="section-side-title-text">Explore Heads </h3>
                 <div class="section-side-title-help" >
-                    <a href="javascript:void(0);" onclick="javascript:introJs().start();"> <span class="glyphicon glyphicon-envelope">?</span></a>
+                    <a href="javascript:void(0);" onclick="javascript:introJs().start();"> <span class="glyphicon glyphicon-envelope" style="color:black">?</span></a>
                 </div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-7 offset-lg-1 section-notes">
-                Note : The Null values in this section have been retained from the source data of Assam Budget 2019-20
+                Note : 
             </div>
         </div>
 
@@ -165,11 +168,9 @@ font-weight: bolder;
             <div class="row">
                     <div class="section-side-title">
                         <h3 class="section-side-title-text">Data Table </h3>
-                                        <div class="section-side-title-help" >
-                                        <i class="fas fa-info" ></i>
-                                    </div>
+                   
                          
-                        </div>
+                        
                     </div>
             </div>
             <div class="row">
@@ -395,7 +396,8 @@ function loadGrantSummary(raw_data) {
                 .stacked(false)
                 .showControls(false)
                 .showLegend(false);
-
+             
+            chart.yAxis.tickPadding(8);
             chart.height(160)
             chart.yAxis.ticks(2).tickFormat(function(d) {
                 return formatCurrency(d)
