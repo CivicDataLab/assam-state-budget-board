@@ -43,7 +43,7 @@ div.dataTables_filter{
                     <h3 class="section-side-title-text">Grant Summary</h3>
                     <div class="grant-summary-info help-modal" data-toggle="modal" data-target="#exampleModal">
                         <div class="section-side-title-help" >
-                            <i class="fas fa-info" ></i>
+                                <span class="glyphicon glyphicon-envelope">?</span>
                         </div>
                     </div>
                 </div>
@@ -104,7 +104,7 @@ div.dataTables_filter{
             <div class="section-side-title">
                 <h3 class="section-side-title-text">Explore Heads </h3>
                 <div class="section-side-title-help" >
-                    <a href="javascript:void(0);" onclick="javascript:introJs().start();"><i class="fas fa-info" ></i></a>
+                    <a href="javascript:void(0);" onclick="javascript:introJs().start();"> <span class="glyphicon glyphicon-envelope">?</span></a>
                 </div>
             </div>
         </div>
@@ -160,8 +160,7 @@ div.dataTables_filter{
         <div class="row">
                 <div class="section-side-title">
                     <h3 class="section-side-title-text">Data Table </h3>
-                    <div class="section-side-title-help" >
-                        <i class="fas fa-info" ></i>
+                    
                     </div>
                 </div>
         </div>
@@ -316,27 +315,28 @@ function loadGrantSummary(raw_data) {
     totalExpenditure["key"] = "Total Expenditure";
     totalExpenditure["values"] = [];
     let temp = {};
-    temp["label"] = be;
-    temp["value"] = data[0].values.be;
-    temp["series"] = 0;
-
-    totalExpenditure["values"].push(temp);
-    temp = {};
-    temp["label"] = bePrev;
-    temp["value"] = data[0].values.bePrev;
-    
-
-    totalExpenditure["values"].push(temp);
-    temp = {};
-    temp["label"] =re;
-    temp["value"] = data[0].values.re;
-    
-
-    totalExpenditure["values"].push(temp);
-    temp = {};
     temp["label"] = actuals;
     temp["value"] = data[0].values.act;
     totalExpenditure["values"].push(temp);
+
+    temp = {};
+    temp["label"] =bePrev;
+    temp["value"] = data[0].values.re;
+    totalExpenditure["values"].push(temp);
+
+    temp = {};
+    temp["label"] = re;
+    temp["value"] = data[0].values.bePrev;
+    totalExpenditure["values"].push(temp);
+
+    
+    temp = {};
+    temp["label"] = be;
+    temp["value"] = data[0].values.be;
+    temp["series"] = 0;
+    totalExpenditure["values"].push(temp);
+
+
 
     console.log(totalExpenditure)
 
@@ -379,7 +379,7 @@ function loadGrantSummary(raw_data) {
             chart = nv.models.multiBarHorizontalChart()
                 .x(function(d) { return d.label })
                 .y(function(d) { return +d.value * 100000 }) //Fix Unit Issue
-                .barColor(["#004358", "#1F8A70",'#BEDB39','#FD7400'])
+                .barColor(["#f46d43", "#d64700",'#74add1','#4575b4'])
                 
                 .duration(250)
                 .margin({ left:125, right : 10 , top: 20, bottom: 30 })

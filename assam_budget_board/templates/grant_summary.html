@@ -1,257 +1,581 @@
-{% load sekizai_tags static %}
-{% addtoblock "css" %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/nv.d3.min.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/vis.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/datatable.css' %}">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.css">
-<link rel="stylesheet" type="text/css" href="{% static 'css/introjs-modern.css' %}">
+{% load sekizai_tags static cms_tags %}
+<!DOCTYPE html>
+<html>
 
-{% endaddtoblock %}
-<div class="grant-content-wrapper" style="display: none">
-    <h3 class="grant-summary-title">Grant Summary</h3>
-    
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+<head>
+    <title></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    <style type="text/css">
+    #vis {
+        width: 100%;
+        height: 400px;
+
+        margin: 0px auto;
+        margin-bottom: 0px;
+    }
+
+
+    body {
+        background-color: transparent;
+        font-family: Open Sans, sans-serif;
+    }
+
+    .tooltip {
+        position: absolute;
+        top: 100px;
+        left: 100px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        border: 1px solid grey;
+        /* background: #222222; */
+        background: #fff;
+        opacity: 1;
+        /* color: #eeeeee; */
+        color: black;
+        padding: 10px;
+        text-align: center;
+        width: 400px;
+        font-size: 14px;
+        z-index: 10;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.19), 0 1px 3px rgba(0, 0, 0, 0.23);
+    }
+
+    .tooltip .dept-name {
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .tooltip .name {
+        font-weight: bold;
+    }
+
+    .tooltip-hr {
+        margin: 5px 0px;
+        border-top: 1px solid rgba(128, 128, 128, 0.64);
+    }
+
+    .tooltip-hr-sec {
+        border-top: 1px solid rgba(128, 128, 128, 0.54);
+    }
+
+    .tooltipcurrent-year {
+        margin-right: 10px;
+        font-weight: 600;
+        font-size: 17px;
+    }
+
+    #tooltip-percent {
+        font-weight: 600;
+        font-size: 17px;
+    }
+
+    .tooltip .positive {
+        color: green;
+    }
+
+    .tooltip .negative {
+        color: red;
+    }
+
+    .vis-title {
+        padding-bottom: 20px;
+    }
+
+    .vis-title h1 {
+        font-weight: 600;
+        color: #515B5E;
+        /* word-spacing: 0px; */
+        letter-spacing: -1px;
+        font-family: Open Sans;
+    }
+
+    .vis-table {
+        margin-bottom: 50px;
+        font-size: 12px;
+    }
+
+    h4.vis-table-title {
+        font-weight: 600;
+        color: grey;
+        font-size: 15px;
+    }
+
+
+    .col-md-3.left-panel {
+        padding-top: 50px;
+    }
+
+    h4.total-exp {
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .total-exp-val {
+        color: black;
+        font-weight: 600;
+        font-size: 25px;
+        padding: 5px;
+    }
+
+    .total-exp {
+        font-size: 18px;
+        font-weight: 800;
+        color: grey;
+    }
+
+    .total-exp-per-change {
+        color: rgb(10, 128, 10);
+        margin-left: 15px;
+        white-space: nowrap;
+    }
+
+    #obi-colorKey {
+        text-align: center;
+        top: 210px;
+        left: 10px;
+        padding: 20px;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    #obi-colorKey ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    #obi-colorKey p {
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+
+    #obi-colorKey li {
+        background-image: none;
+        padding: 0;
+        margin: 0;
+        float: left;
+        display: block;
+        height: 100%;
+    }
+
+
+
+    .change-decrease3 {
+        background-color: #d73027;
+    }
+
+    .change-decrease2 {
+        background-color: #f46d43;
+    }
+
+    .change-decrease1 {
+        background-color: #fdae61;
+    }
+
+    .change-same {
+        background-color: #CCC;
+    }
+
+    .change-increase1 {
+        background-color: #abd9e9;
+    }
+
+    .change-increase2 {
+        background-color: #74add1;
+    }
+
+    .change-increase3 {
+        background-color: #4575b4;
+    }
+
+    .obi-colorSwatches {
+        width: 100%;
+        height: 10px;
+    }
+
+    .obi-colorSwatches li {
+        width: 16%;
+        border-right: solid white 1px;
+    }
+
+    .obi-colorTicks {
+        height: 6px;
+    }
+
+    .obi-colorTicks li {
+        width: 16%;
+        border-right: solid #CCC 1px;
+    }
+
+    .obi-colorLabels {
+        margin-top: 3px;
+        height: 20px;
+        position: relative;
+        left: 8%;
+    }
+
+    .obi-colorLabels li {
+        width: 16%;
+        text-align: center;
+        font-size: 10px;
+        line-height: 1em;
+        padding: 4px 0 0 0!important;
+        margin: 0;
+    }
+
+    .left-panel-text {
+        padding: 20px;
+    }
+
+    p.help-text-1,
+    p.help-text-2 {
+        font-weight: 100;
+    }
+
+    p.help-text-2 {
+        font-size: 12px;
+        margin-top: 15px;
+        margin-bottom: 8px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row text-center vis-title" style="padding-left:20px;padding-top: 30px">
+            <h1> Expenditure 2018-19</h1>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 left-panel ">
+                <div class="row">
+                    <div class="total-exp text-center" style="padding-left:20px; padding-top:20px">
+                        Total Expenditure Budget
+                        <div class="total-exp-val">
+                            <span class="total-exp-num"></span>
+                            <span class="total-exp-per-change"></span>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    ...
+                <div class="row">
+                    <div class="left-panel-text">
+                        This section presents the ministry-wise allocations presented in the Union Budget 2018-19. In this year's budget there are 99 Demands in total.
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                <div class="row">
+                    <div id="obi-colorKey">
+                        <p class="help-text-1">Colour represents increase and cut in allocation in comparison with 2017-2018 </p>
+                        <ul class="obi-colorSwatches">
+                            <li class="change-decrease3"></li>
+                            <li class="change-decrease2"></li>
+                            <li class="change-decrease1"></li>
+                            <li class="change-increase1"></li>
+                            <li class="change-increase2"></li>
+                            <li class="change-increase3"></li>
+                        </ul>
+                        <ul class="obi-colorTicks">
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                        <ul class="obi-colorLabels">
+                            <li>&ndash;25%</li>
+                            <li>&ndash;10%</li>
+                            <li>0</li>
+                            <li>+10%</li>
+                            <li>+25%</li>
+                        </ul>
+                        <p class="help-text-2">The size of the bubble represents the amount of allocations relative to other departments/ministry. </p>
+                    </div>
                 </div>
             </div>
+            <div class="col-lg-8 right-panel">
+                <div id="vis"></div>
+            </div>
+
         </div>
     </div>
-    <div class="summary summary-jumbotron">
-        <div class="row">
-            <div class="col-lg-5 offset-lg-1">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-5 offset-lg-1">
-                <h5 class="summary-indicator-title">{{ fiscalYear.be }}</h5>
-                <div class="big-figures" id="be-figures"></div>
-                <div class="summary_vis"></div>
-            </div>
-            <div class="col-lg-5 offset-lg-1">
-                <h5 class="summary-sec-indicator-title">{{ fiscalYear.bePrev }} </h5>
-                <div class=" secondary-big-figures" id="bePrev-figures"></div>
-                <h5 class="summary-sec-indicator-title">{{ fiscalYear.re }} </h5>
-                <div class=" secondary-big-figures" id="re-figures"></div>
-                <h5 class="summary-sec-indicator-title">{{ fiscalYear.actuals }}</h5>
-                <div class="secondary-big-figures" id="actuals-figures"></div>
-            </div>
-        </div>
-    </div>
-    
-{% addtoblock "js" %}
-<script src="https://d3js.org/d3.v3.min.js"></script>
-<script src="{% static 'js/nv.d3.min.js' %}"></script>
-<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
-<script src="{% static 'js/makeTable.js' %}"></script>
-<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{% static 'js/CustomTooltip.js' %}"></script>
 
-<script>
-/* Variable Declarations */
-const actuals = "{{ fiscalYear.actuals }}",
-    bePrev = "{{ fiscalYear.bePrev }}",
-    re = "{{ fiscalYear.re}}",
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
+    </script>
+    </script>
+    <script type="text/javascript">
+    "use strict";
+    const bePrev = "{{ fiscalYear.bePrev }}",
     be = "{{ fiscalYear.be }}";
 
+    var width = 700,
+        height = 500,
+        tooltip = CustomTooltip("obi_tooltip", 260),
+        layout_gravity = -0.01,
+        selected_year = "BUDGET_2018_19",
+        previous_year = "BUDGET_2017_18",
+        damper = 0.1,
+        nodes = [],
+        defaultGravity = 0.1,
+        totalValue = 37000000,
+        vis, force, circles, radius_scale;
 
-const currencySymbol = "&#8377;";
 
-const currencyUnit = "Crore";
 
-const fiscalYearList = [be, bePrev, re, actuals];
+    var center = { x: width / 2, y: (height * 5.5 / 10) };
 
-let w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    var fillColor = d3.scale.ordinal().domain([-3, -2, -1, 0, 1, 2, 3]).range(['#d73027', '#f46d43', '#fdae61', '#fdae61', '#abd9e9', '#74add1', '#4575b4'])
+    var strokeColor = d3.scale.ordinal().domain([-3, -2, -1, 0, 1, 2, 3]).range(['#d73027', '#f46d43', '#fdae61', '#fdae61', '#abd9e9', '#74add1', '#4575b4'])
 
-const maxTickLength = 35;
 
-function onDataLoad() {
-    d3.select(".grant-content-wrapper")
-        .style("display", "block")
-        .style("opacity", 0)
-        .transition()
-        .delay(700)
-        .style("opacity", 1);
+    function categorizeChange(c, p) {
 
-    d3.select(".spinner")
-        .style("display", "none");
-}
-
-const formatLongNumber = d3.format(".1f"),
-    formatLakh = function(x) {
-        return formatLongNumber(x / 1e5) + "Cr";
-    },
-    formatThousand = function(x) {
-        return formatLongNumber(x / 1e3) + "k";
-    },
-    formatLowerDenom = function(x) {
-        return x;
-    };
-
-function formatCurrency(x) {
-    let v = Math.abs(x);
-    return (v >= .9995e7 ? formatCrore : v >= .9995e5 ? formatLakh : v >= .999e3 ? formatThousand : formatLowerDenom)(x);
-}
-
-function formatLongNumbertoString(x) {
-    let negative = x < 0,
-        str = String(negative ? -x : x),
-        arr = [],
-        i = str.indexOf("."),
-        j;
-
-    if (i === -1) {
-        i = str.length;
-    } else {
-        for (j = str.length - 1; j > i; j--) {
-            arr.push(str[j]);
-        }
-        arr.push(".");
-    }
-    i--;
-
-    for (j = 0; i >= 0; i--, j++) {
-        if (j > 2 && (j % 2 === 1)) {
-            arr.push(",");
-        }
-        arr.push(str[i]);
+        if (isNaN(c) || c == 0) {
+            return 0;
+        } else if (c < -0.25) {
+            return -3;
+        } else if (c < -0.10) {
+            return -2;
+        } else if (c < -0.001) {
+            return -1;
+        } else if (c <= 0.001) {
+            return 0;
+        } else if (c <= 0.10) {
+            return 1;
+        } else if (c <= 0.25) {
+            return 2;
+        } else { return 3; }
     }
 
-    if (negative) {
-        arr.push("-");
-    }
-    return arr.reverse().join("");
-};
+    function custom_chart(data) {
+        var sum_2018 = [d3.sum(data.map(function(d){ return d['BUDGET_2018_19']})),
+                        d3.sum(data.map(function(d){ return d['BUDGET_2017_18']}))];
+        console.log(sum_2018)
+        var grand_total = data.pop()
+        console.log(grand_total)
+        var max_amount = d3.max(data, function(d) { return parseInt(d[selected_year], 10); });
 
-function loadGrantSummary(raw_data) {
-    var data = {
-        
-        act : d3.sum(raw_data.map(function(d){ return (+d[actuals])})),
-        be : d3.sum(raw_data.map(function(d){ return +d[be]})),
-        bePrev : d3.sum(raw_data.map(function(d){ return +d[bePrev]})),
-        re : d3.sum(raw_data.map(function(d){ return +d[re]}))};
+        radius_scale = d3.scale.pow().exponent(0.5).domain([0, max_amount]).range([2, 60]);
 
 
-    let totalExpenditure = {};
-    totalExpenditure["key"] = "Total Expenditure";
-    totalExpenditure["values"] = [];
-    let temp = {};
-    temp["label"] = be;
-    temp["value"] = data.be;
-    temp["series"] = 0;
 
-    totalExpenditure["values"].push(temp);
-    temp = {};
-    temp["label"] = bePrev;
-    temp["value"] = data.bePrev;
-    totalExpenditure["values"].push(temp);
+        //create node objects from original data
+        //that will serve as the data behind each
+        //bubble in the vis, then add each node
+        //to nodes to be used later
+        data.forEach(function(d) {
 
-    d3.select("#be-figures").html(function(d) {
-        let content = "<span class='absolute-figure'>" + currencySymbol + " " + formatLongNumbertoString(data.be.toFixed(2)) + " <span class='curreny-unit'>" + currencyUnit + "</span> </span><br>";
-
-        let percentageChange = (((data.be - data.bePrev) / data.bePrev) * 100).toFixed(1);
-
-        content += "<span class='percentage-figures'>";
-
-        if (percentageChange > 0) {
-            content += "<i class='fas fa-arrow-up positive-fig'></i> "
-        } else {
-            content += "<i class='fas fa-arrow-down negative-fig'></i> "
-        }
-
-        content += "<span class='percentage-num" + (percentageChange > 0 ? " positive-fig'" : " negative-fig'") + ">" + percentageChange + "%" + "</span></span>"
-        return content;
-    })
-
-    d3.select("#re-figures").html(currencySymbol + " " + formatLongNumbertoString(data.re.toFixed(2)) + " <span class='curreny-unit'>" + currencyUnit + "</span> ");
-
-    d3.select("#actuals-figures").html(currencySymbol + " " + formatLongNumbertoString(data.act.toFixed(2)) + " <span class='curreny-unit'>" + currencyUnit + "</span> ");
-
-    d3.select("#bePrev-figures").html(currencySymbol + " " + formatLongNumbertoString(data.bePrev.toFixed(2)) + " <span class='curreny-unit'>" + currencyUnit + "</span> ");
-
-    drawbarchart([totalExpenditure], ".summary_vis");
-
-    function drawbarchart(data, selection) {
-
-        nv.addGraph(function() {
-            chart = nv.models.multiBarHorizontalChart()
-                .x(function(d) { return d.label })
-                .y(function(d) { return +d.value })
-                .barColor(["#183152", "#D0A825"])
-                .duration(250)
-                .margin({ left: 130, right: 75, top: 20, bottom: 30 })
-                .stacked(false)
-                .showControls(false)
-                .showLegend(false);
-
-            chart.height(130)
-            chart.yAxis.ticks(5).tickFormat(function(d) {
-                return formatCurrency(d)
-            });
-
-            chart.yAxis.axisLabel("Figures in " + currencyUnit)
-
-            /*
-                Incase, one needs to enable the tooltip. 
-            chart.tooltip.valueFormatter(function(d) {
-                    return d.toFixed(1) + " " + currencyUnit;
-                })
-
-            chart.tooltip.contentGenerator(function(obj) {
-                console.log(obj)
-                var header = obj.series[0].key
-                var headerhtml = "<div class='row'><div class='col-lg-12'><div class='tooltip-point-title'>" + header + "</div></div></div>"
-
-                var bodyhtml = "<div class='row'><div class='col-lg-12 text-center'><div class='tooltip-point-body'><span class='legend-color-guide'><div style='background-color: " + obj.color + ";'></div></span><span class='tooltip-x-val'>" + obj.data.label + "</span><span class='tooltip-y-value'>" + obj.data.value.toFixed(1) + " " + currencyUnit + "</span></div></div>";
-
-                return headerhtml + '' + bodyhtml;
-            });*/
-
-            chart.tooltip.enabled(false)
-
-
-            if (w < 400) {
-                chart.yAxis.ticks(2)
-            }
-
-            d3.select(selection).append("svg")
-                .datum(data)
-                .call(chart);
-            nv.utils.windowResize(chart.update);
-
-            return chart;
+            var node = {
+                id: d["GRANT_NUMBER"],
+                radius: radius_scale(parseInt(d[selected_year], 12)),
+                value: d[selected_year],
+                name: d["GRANT_NUMBER"],
+                previous_value: d[previous_year],
+                percent_change: ((d[selected_year] - d[previous_year]) / d[previous_year] * 100),
+                change: categorizeChange(((d[selected_year] - d[previous_year]) / d[previous_year]), d["GRANT_NUMBER"]),
+                total_share: (d[selected_year] / grand_total[selected_year] * 100),
+                x: Math.random() * 900,
+                y: Math.random() * 800
+            };
+            nodes.push(node);
         });
+console.log(nodes)
+
+
+        nodes.sort(function(a, b) { return b.value - a.value; });
+
+        vis = d3.select("#vis").append("svg")
+            .attr("width", '100%')
+            .attr("height", '600px')
+            .style('margin-top', '-50px')
+            .attr("viewBox","150 0 450, 600") 
+            .attr('max-width', '100%')
+            .attr("id", "svg_vis");
+
+        circles = vis.selectAll("circle")
+            .data(nodes, function(d) { return d.id; });
+
+        var color = d3.scale.category20();
+        circles.enter().append("circle")
+            .attr("r", 0)
+            .attr("fill", function(d, i) { return fillColor(d.change); })
+            .attr("stroke-width", 1)
+            .attr("stroke", function(d) { return /*strokeColor(d.change)*/ "grey" })
+            .attr("id", function(d) { return "bubble_" + d.id; })
+            .on("mouseover", function(d, i) { show_details(d, i, this); })
+            .on("mouseout", function(d, i) { hide_details(d, i, this); });
+
+        circles.transition().duration(2000).attr("r", function(d) { return d.radius; });
+
+        function tabulate(data, columns, table_selector) {
+            var table_div = d3.select(table_selector)
+
+            var table = table_div.append("table")
+                .attr("class", "table ")
+
+            var table_body = table.append("tbody")
+
+
+            var table_row = table_body.selectAll("tr")
+                .data(data).enter()
+                .append("tr");
+
+            var cells = table_row.selectAll('td')
+                .data(function(row) {
+                    return columns.map(function(column) {
+                        return { column: column, value: row[column] };
+                    });
+                })
+                .enter()
+                .append('td')
+                .text(function(d, i) {
+                    if (i == 1) {
+                        return d.value.toFixed(2);
+                    } else {
+                        return d.value;
+                    }
+                })
+                .style("font-weight", function(d, i, j) {
+                    if (j == 0) {
+                        return 600;
+                    } else {
+                        return 300;
+                    }
+                })
+                .style("color", function(d, i, j) {
+                    if (j == 0) {
+                        return "#000";
+                    } else {
+                        return "rgba( 0, 0, 0 , 0.7 )";
+                    }
+
+                })
+                .style("font-size", function(d, i, j) {
+                    if (j == 0) {
+                        return "14px";
+                    } else {
+                        return "12px";
+                    }
+
+                })
+            return table;
+        }
+
+
+        tabulate(nodes.slice(0, 4), ['id', 'total_share'], ".table-max-share");
+        tabulate(nodes.sort(function(b, a) { return b.value - a.value; }).slice(0, 4), ['id', 'total_share'], ".table-min-share");
+        tabulate(nodes.sort(function(a, b) { return b.percent_change - a.percent_change; }).slice(0, 4), ['id', 'percent_change'], ".table-max-increase");
+        tabulate(nodes.sort(function(b, a) { return b.percent_change - a.percent_change; }).slice(0, 4), ['id', 'percent_change'], ".table-max-decrease");
+
+        d3.select(".total-exp-num")
+            .html(function(d) {
+                return "&#8377; " + 90269.91 + " Cr.";
+            })
+            console.log(sum_2018)
+        d3.select(".total-exp-per-change")
+            .html(function(d) {
+                var value = (((sum_2018[0] - sum_2018[1]) / sum_2018[1]) * 100).toFixed(2)
+                if (value > 0) {
+                    return value + " %";
+                } else {
+                    return value;
+                }
+            })
+            .style("color", "rgb(10, 128, 10)")
     }
-}
+
+    function charge(d) {
+        return -Math.pow(d.radius, 2.0) / 8;
+    }
+
+    function start() {
+        force = d3.layout.force()
+            .nodes(nodes)
+            .size([width, height]);
+    }
+
+    function display_group_all() {
+        force.gravity(layout_gravity)
+            .charge(charge)
+            .friction(0.9)
+            .on("tick", function(e) {
+                circles.each(move_towards_center(e.alpha))
+                    .each(buoyancy(e.alpha))
+                    .attr("cx", function(d) { return d.x; })
+                    .attr("cy", function(d) { return d.y; });
+            });
+        force.start();
+    }
 
 
-(function() {
+    function buoyancy(alpha) {
+        var that = this;
+        var boundingRadius = radius_scale(totalValue);
+        return function(d) {
+            var targetY = center.y - (d.change / 10) * boundingRadius
+            d.y = d.y + (targetY - d.y) * (defaultGravity) * alpha * alpha * alpha * 100
+        };
+    }
+
+    function move_towards_center(alpha) {
+        return function(d) {
+            d.x = d.x + (center.x - d.x) * (damper + 0.02) * alpha;
+            d.y = d.y + (center.y - d.y) * (damper + 0.02) * alpha;
+        };
+    }
+
+    var formatComma = d3.format(",")
+
+    function show_details(data, i, element) {
+
+        d3.select(element).attr("stroke-width", 3).attr("z-index", 10000).attr("stroke", "black");
+        var content = "<span class='dept-name'>  " + data.id + "  </span><hr class='tooltip-hr' />";
+        content += "<span class='tooltipcurrent-year'> <span class=\"value\">  &#8377; " + formatComma(data.value) + " Cr.</span></span>";
+        var percent_class = data.percent_change > 0 ? 'positive ' : 'negative'
+        content += "<span id ='tooltip-percent'  class=" + percent_class + ">" + (isNaN(data.percent_change) ? "N.A." : (data.percent_change.toFixed(2) < 0 ? -1 * data.percent_change.toFixed(2) : data.percent_change.toFixed(2)) + " %") + "</span>";
+        tooltip.showTooltip(content, d3.event);
+    }
+
+    function hide_details(data, i, element) {
+        d3.select(element).attr("stroke-width", 1)
+            .attr("z-index", 1000)
+            .attr("stroke", function(d) { return "grey" });
+        tooltip.hideTooltip();
+    } 
+    var sum_2018 = []
+    var grant_data = []
     d3.csv("{{ instance.url }}", function(data) {
-        
-        onDataLoad();
-        
-        loadGrantSummary(data);
+       
+        data.forEach(function(d){
+            d['BUDGET 2018-19'] = d['BUDGET 2018-19']*0.01
+            d['BUDGET 2017-18'] = d['BUDGET 2017-18']*0.01
+        })
+        var sum_2018 = [d3.sum(data.map(function(d){ return d['BUDGET 2018-19']}))];
+        console.log(sum_2018)
+    var nested_data = d3.nest()
+    .key(function(d) { return d['GRANT NUMBER'];})
+    .rollup(function(d) { 
+   return {
+     BUDGET_2017_18 : d3.sum(d, function(g) {return g['BUDGET 2017-18']; }),
+     BUDGET_2018_19 : d3.sum(d, function(g) {return g['BUDGET 2018-19']; }),
+   }
+  }).entries(data);
+ 
+     grant_data = nested_data.map(function(d)
+  {  //console.log(d.key)
+     //console.log(Object.values(d).slice(1)[0].BUDGET_2017_18)
+     return{
+     GRANT_NUMBER : d.key,
+     BUDGET_2017_18 : Object.values(d).slice(1)[0].BUDGET_2017_18,
+     BUDGET_2018_19 : Object.values(d).slice(1)[0].BUDGET_2018_19
+     }
+  });
+  console.log(grant_data)
 
-        d3.select(".dataset-download").attr("href", "{{ instance.url }}");
-
-    
+        custom_chart(grant_data)
+        start()
+        display_group_all();
     });
-})();
-</script>
+    </script>
+</body>
 
-{% endaddtoblock %}
+</html>
