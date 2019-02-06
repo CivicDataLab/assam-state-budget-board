@@ -31,7 +31,14 @@ div.dataTables_filter{
     float: left;
     padding-top: 20px
 }
-
+.nv-x text{
+font-weight: bolder;
+  fill: black;
+}
+.nv-y text{
+    font-weight: bolder;
+  fill:black;
+}
     
 </style>
 {% endaddtoblock %}
@@ -54,25 +61,23 @@ div.dataTables_filter{
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                            <span aria-hidden="true"></span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        ...
+                            This section provides a snapshot of the budget allocations made and spending incurred under this grant for 2019-20 Assam Budget.
+
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
+                    
                 </div>
             </div>
         </div>
         <div class="summary summary-jumbotron">
   
             <div class="row">
-                <div class="col-lg-4 offset-lg-1">
+                <div class="col-lg-4 ">
                         <div class="summary_vis"></div>
                 </div>
                 <div class="col-lg-5 offset-lg-1">
@@ -111,7 +116,7 @@ div.dataTables_filter{
 
         <div class="row">
             <div class="col-lg-7 offset-lg-1 section-notes">
-                Note : 
+                Note : The Null values in this section have been retained from the source data of Assam Budget 2019-20
             </div>
         </div>
 
@@ -157,25 +162,27 @@ div.dataTables_filter{
     </div>
     </section>
     <div class="container">
-        <div class="row">
-                <div class="section-side-title">
-                    <h3 class="section-side-title-text">Data Table </h3>
-                    
+            <div class="row">
+                    <div class="section-side-title">
+                        <h3 class="section-side-title-text">Data Table </h3>
+                        <div class="section-side-title-help" >
+                         
+                        </div>
+                    </div>
+            </div>
+            <div class="row">
+                    <div class="col-lg-7 offset-lg-1">
+                        Note : Figures are in Lakh(s)
                     </div>
                 </div>
-        </div>
-        <div class="row">
-                <div class="col-lg-7 offset-lg-1">
-                    Note : Figures are in Lakh(s)
+            <div class="row">
+                <div class="data-table-section" id='container-data'>
+                    
                 </div>
             </div>
-        <div class="row">
-            <div class="data-table-section" id='container-data'>
-                
-            </div>
+            
         </div>
-        
-    </div>
+
 </div>
 <div class="d-flex justify-content-center">
     <div class="spinner">
@@ -382,7 +389,7 @@ function loadGrantSummary(raw_data) {
                 .barColor(["#f46d43", "#d64700",'#74add1','#4575b4'])
                 
                 .duration(250)
-                .margin({ left:125, right : 10 , top: 20, bottom: 30 })
+                .margin({ left:125, right :50 , top: 20, bottom: 30 })
                 .stacked(false)
                 .showControls(false)
                 .showLegend(false);
