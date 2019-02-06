@@ -17,13 +17,7 @@
         <div class="masthead-intro-description">{% placeholder "Masthead - Introductory Description" %}</div>
     </div>
 </div>
-<div class="row justify-content-md-center collaborators text-center">
-    <div class="col">
-        <div class="project-contributors-logo">
-            {% placeholder 'contributors' %}
-        </div>
-    </div>
-</div>
+
 {% endblock header-masthead %}
 {% block page-wrapper %}
 <section class="content-section section-2 rounded bg-dark">
@@ -70,7 +64,19 @@
           </div>
         </div>
     </div>
-    <!--
+</section>
+<section class="content-section section-4">
+<div class = "container">
+        <div class="row justify-content-md-center collaborators text-center">
+                <div class="col">
+                    <div class="project-contributors-logo">
+                        {% placeholder 'contributors' %}
+                    </div>
+                </div>
+            </div>
+</div>
+
+</section>    <!--
     <div class="media">
         <div class="container">
             <div class="row">
