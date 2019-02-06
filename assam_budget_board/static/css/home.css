@@ -102,6 +102,10 @@ h1.masthead-head {
     padding: 50px 30px;
     background: #ddd url(../img/bg.png);
 }
+.section-4{
+    padding: 50px 30px;
+    background: #f2f2f2 url(../img/bg.png);
+}
 .section-3 .card-title {
     font-weight: 900;
     font-size: 22px;

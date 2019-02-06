@@ -19,5 +19,8 @@ class Datatable(CMSPlugin):
     url = models.URLField(max_length=300)
     columns = models.CharField(max_length=500, default='None')
 
+class ReceiptsExpenditure(CMSPlugin):
+    url = models.URLField(max_length=300)
+   
 
 

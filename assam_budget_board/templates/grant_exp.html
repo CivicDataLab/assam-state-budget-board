@@ -8,6 +8,37 @@
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 <style type="text/css">
+div.dt-buttons{
+    float: right;
+    padding-top: 30px;
+}
+.buttons-excel {
+    background-color:#2db55d;
+    color: white;
+    font-style: bold
+  }
+.buttons-csv {
+    background-color: #dfb100;
+    color: white;
+    font-style: bold
+  }
+.buttons-pdf{
+    background-color: #e0051e;
+    color: white;
+    font-style: bold
+}
+div.dataTables_filter{
+    float: left;
+    padding-top: 20px
+}
+.nv-x text{
+font-weight: bolder;
+  fill: black;
+}
+.nv-y text{
+    font-weight: bolder;
+  fill:black;
+}
     
 </style>
 {% endaddtoblock %}
@@ -19,7 +50,7 @@
                     <h3 class="section-side-title-text">Grant Summary</h3>
                     <div class="grant-summary-info help-modal" data-toggle="modal" data-target="#exampleModal">
                         <div class="section-side-title-help" >
-                            <i class="fas fa-info" ></i>
+                                <span class="glyphicon glyphicon-envelope">?</span>
                         </div>
                     </div>
                 </div>
@@ -30,13 +61,14 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                            <span aria-hidden="true"></span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        ...
+                            This section provides a snapshot of the budget allocations made and spending incurred under this grant for 2019-20 Assam Budget.
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -46,24 +78,31 @@
             </div>
         </div>
         <div class="summary summary-jumbotron">
+  
             <div class="row">
-                <div class="col-lg-5 offset-lg-1">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-5 offset-lg-1">
-                    <h5 class="summary-indicator-title">{{ fiscalYear.be }}</h5>
-                    <div class="big-figures" id="be-figures"></div>
-                    <div class="summary_vis"></div>
+                <div class="col-lg-4 ">
+                        <div class="summary_vis"></div>
                 </div>
                 <div class="col-lg-5 offset-lg-1">
-                    <h5 class="summary-sec-indicator-title">{{ fiscalYear.bePrev }} </h5>
+                        <h5 class="summary-indicator-title">{{ fiscalYear.be }}</h5>
+                        <div class="big-figures" id="be-figures"></div>
+                        
+                        </div>
+            </div>            
+            <div class="row justify-content-md-center">
+                <div class="col-lg-3">
+                        <h5 class="summary-sec-indicator-title">{{ fiscalYear.re }} </h5>
+                        <div class=" secondary-big-figures" id="re-figures"></div>
+                </div>
+                <div class="col-lg-3 ">
+                        <h5 class="summary-sec-indicator-title">{{ fiscalYear.actuals }} </h5>
+                        <div class="secondary-big-figures" id="actuals-figures"></div>    
+                </div>
+                <div class="col-lg-3">
+                <h5 class="summary-sec-indicator-title">{{ fiscalYear.bePrev }} </h5>
                     <div class=" secondary-big-figures" id="bePrev-figures"></div>
-                    <h5 class="summary-sec-indicator-title">{{ fiscalYear.re }} </h5>
-                    <div class=" secondary-big-figures" id="re-figures"></div>
-                    <h5 class="summary-sec-indicator-title">{{ fiscalYear.actuals }} </h5>
-                    <div class="secondary-big-figures" id="actuals-figures"></div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -73,7 +112,7 @@
             <div class="section-side-title">
                 <h3 class="section-side-title-text">Explore Heads </h3>
                 <div class="section-side-title-help" >
-                    <a href="javascript:void(0);" onclick="javascript:introJs().start();"><i class="fas fa-info" ></i></a>
+                    <a href="javascript:void(0);" onclick="javascript:introJs().start();"> <span class="glyphicon glyphicon-envelope" style="color:black">?</span></a>
                 </div>
             </div>
         </div>
@@ -126,26 +165,27 @@
     </div>
     </section>
     <div class="container">
-        <div class="row">
-                <div class="section-side-title">
-                    <h3 class="section-side-title-text">Data Table </h3>
-                    <div class="section-side-title-help" >
-                        <i class="fas fa-info" ></i>
+            <div class="row">
+                    <div class="section-side-title">
+                        <h3 class="section-side-title-text">Data Table </h3>
+                   
+                         
+                        
+                    </div>
+            </div>
+            <div class="row">
+                    <div class="col-lg-7 offset-lg-1">
+                        Note : Figures are in Lakh(s)
                     </div>
                 </div>
-        </div>
-        <div class="row">
-                <div class="col-lg-7 offset-lg-1">
-                    Note : Figures are in Lakh(s)
+            <div class="row">
+                <div class="data-table-section" id='container-data'>
+                    
                 </div>
             </div>
-        <div class="row">
-            <div class="data-table-section" id='container-data'>
-                
-            </div>
+            
         </div>
-        
-    </div>
+
 </div>
 <div class="d-flex justify-content-center">
     <div class="spinner">
@@ -161,6 +201,16 @@
 <script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src = "https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+
+
 <script>
 /* Variable Declarations */
 const actuals = "{{ fiscalYear.actuals }}",
@@ -268,26 +318,42 @@ function loadGrantSummary(raw_data) {
             };
         })
         .entries(raw_data);
+        console.log(data)
     //add_grant_summary(nested_data);
 
     let totalExpenditure = {};
     totalExpenditure["key"] = "Total Expenditure";
     totalExpenditure["values"] = [];
     let temp = {};
+    temp["label"] = actuals;
+    temp["value"] = data[0].values.act;
+    totalExpenditure["values"].push(temp);
+
+    temp = {};
+    temp["label"] =bePrev;
+    temp["value"] = data[0].values.re;
+    totalExpenditure["values"].push(temp);
+
+    temp = {};
+    temp["label"] = re;
+    temp["value"] = data[0].values.bePrev;
+    totalExpenditure["values"].push(temp);
+
+    
+    temp = {};
     temp["label"] = be;
     temp["value"] = data[0].values.be;
     temp["series"] = 0;
+    totalExpenditure["values"].push(temp);
 
-    totalExpenditure["values"].push(temp);
-    temp = {};
-    temp["label"] = bePrev;
-    temp["value"] = data[0].values.bePrev;
-    totalExpenditure["values"].push(temp);
+
+
+    console.log(totalExpenditure)
 
     /* The way to display unit has been implemented with a not so good hack. Please fix in future*/
 
     d3.select("#be-figures").html(function(d) {
-        let content = "<span class='absolute-figure'>" + currencySymbol + " " + formatLongNumbertoString(formatUnit(data[0].values.be)) + " <span class='curreny-unit'>" + currentUnit + "</span> </span><br>";
+        let content = "<span class='absolute-figure'>" + currencySymbol + " " + formatLongNumbertoString(formatUnit(data[0].values.be)) + " <span class='curreny-unit'>" + currentUnit + "</span> </span>";
 
         let percentageChange = (((data[0].values.be - data[0].values.bePrev) / data[0].values.bePrev) * 100).toFixed(1);
 
@@ -323,14 +389,16 @@ function loadGrantSummary(raw_data) {
             chart = nv.models.multiBarHorizontalChart()
                 .x(function(d) { return d.label })
                 .y(function(d) { return +d.value * 100000 }) //Fix Unit Issue
-                .barColor(["#183152", "#D0A825"])
+                .barColor(["#f46d43", "#d64700",'#74add1','#4575b4'])
+                
                 .duration(250)
-                .margin({ left: 130, right: 75, top: 20, bottom: 30 })
+                .margin({ left:125, right :50 , top: 20, bottom: 30 })
                 .stacked(false)
                 .showControls(false)
                 .showLegend(false);
-
-            chart.height(130)
+             
+            chart.yAxis.tickPadding(8);
+            chart.height(160)
             chart.yAxis.ticks(2).tickFormat(function(d) {
                 return formatCurrency(d)
             });
@@ -451,7 +519,7 @@ function loadHierarchyVis(data, fiscalYear) {
             .attr("id", "figure-select")
             .on("change", function() {
                 let year = d3.select("#figure-select").property("value");
-                drawVis(data, year)
+                
             })
             .selectAll("option")
             .data(fiscalYearList)
@@ -462,7 +530,9 @@ function loadHierarchyVis(data, fiscalYear) {
                 return d;
             });
     }
+    year = ['2016-17 Actuals', '2017-18 Budget Estimates', '2017-18 Revised Estimates', '2018-19 Budget Estimates']
 
+    drawVis(data, year)
     function drawVis(data, fiscalYear) {
 
         //Change the Hardcoded attribute
@@ -783,7 +853,11 @@ function loadHierarchyVis(data, fiscalYear) {
 }
 
 function loadDataTable(data){
+    data.forEach(function(d){
+        d['Head Description'] =   d['Head Description'].split("$").join(" | ")
+        d['Head Description Assamese'] =   d['Head Description Assamese'].split("$").join(" | ")
 
+    })
     let tableSelect = d3.select('#container-data').append("table")
     .attr("class", "table table-striped table-bordered responsive")
     .attr("id", "exp_table")
@@ -804,8 +878,14 @@ function loadDataTable(data){
         responsive: true,
         "bLengthChange": false, // Disable page size change
         data: data,
-        columns: tableColumns
+        columns: tableColumns,
+        dom: 'Bfrtip',
+        buttons :['csvHtml5',
+        'excelHtml5',
+        'pdfHtml5']
+        
     });
+    $.fn.dataTable.ext.errMode = 'none';
 }
 
 (function() {
