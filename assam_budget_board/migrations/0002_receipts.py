@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('cms', '0020_old_tree_cleanup'),
-        ('assam_budget_board', '0001_initial'),
+        ('assam_budget_board', '0002_grantsummary'),
     ]
 
     operations = [
