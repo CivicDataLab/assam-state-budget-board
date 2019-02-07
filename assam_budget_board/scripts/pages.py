@@ -17,7 +17,7 @@ for y in title:
   
 def run():
     for i in range(0,81):
-       page = api.create_page(title= titles[i],language='en',template='content_1.html',parent= Page.objects.get(pk=12))
+       page = api.create_page(title= titles[i],language='en',template='content_1.html',parent= Page.objects.get(pk=11))
        placeholder = page.placeholders.get(slot='grant placeholder')
        api.add_plugin(placeholder,'ExpenditureGrantPlugin', language = 'en', position = 'first-sibling', **{'url': url[i]})
   
