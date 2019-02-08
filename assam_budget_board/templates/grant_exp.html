@@ -72,7 +72,7 @@ font-weight: bolder;
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                     
                     </div>
                 </div>
             </div>
@@ -389,7 +389,7 @@ function loadGrantSummary(raw_data) {
             chart = nv.models.multiBarHorizontalChart()
                 .x(function(d) { return d.label })
                 .y(function(d) { return +d.value * 100000 }) //Fix Unit Issue
-                .barColor(["#f46d43", "#d64700",'#74add1','#4575b4'])
+                .barColor(["#d64700", "#fdba38",'#21405d','#rgb(116, 173, 209)'])
                 
                 .duration(250)
                 .margin({ left:125, right :50 , top: 20, bottom: 30 })

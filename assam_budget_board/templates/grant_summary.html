@@ -5,10 +5,12 @@
 <head>
     <title></title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
     <style type="text/css">
     #vis {
         width: 100%;
-        height: 400px;
+        height: 350px;
 
         margin: 0px auto;
         margin-bottom: 0px;
@@ -241,13 +243,13 @@
 
 <body>
     <div class="container-fluid">
-        <div class="row text-center vis-title" style="padding-left:20px;padding-top: 30px">
+        <div class="row text-center vis-title">
             <h1> Expenditure 2019-20</h1>
         </div>
         <div class="row">
-            <div class="col-lg-4 left-panel ">
+            <div class="col-lg-6 left-panel ">
                 <div class="row">
-                    <div class="total-exp text-center" style="padding-left:20px; padding-top:20px">
+                    <div class="total-exp text-center">
                         Total Expenditure Budget
                         <div class="total-exp-val">
                             <span class="total-exp-num"></span>
@@ -257,12 +259,12 @@
                 </div>
                 <div class="row">
                     <div class="left-panel-text">
-                            The bubble chart provides an overview of grant-wise allocations made by the Government of Assam in financial year 2019-20. The bubbles also depict the percentage changes in allocations as compared to the budget estimates of 2018-19.
+                            The bubble chart provides an overview of grant-wise allocations made by the Government of Assam in financial year 2019-20. The bubbles also depict the percentage changes in allocations as compared to the budget estimates of 2018-19. 
                     </div>
                 </div>
                 <div class="row">
                     <div id="obi-colorKey">
-                        <p class="help-text-1">Colour represents increase and cut in allocation in comparison with 2017-2018 </p>
+                        <p class="help-text-1">Colour represents increase and cut in allocation in comparison with 2018-2019 </p>
                         <ul class="obi-colorSwatches">
                             <li class="change-decrease3"></li>
                             <li class="change-decrease2"></li>
@@ -289,7 +291,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8 right-panel">
+            <div class="col-lg-6 right-panel">
                 <div id="vis"></div>
             </div>
 
@@ -304,19 +306,17 @@
     </script>
     <script type="text/javascript">
     "use strict";
-    const bePrev = "{{ fiscalYear.bePrev }}",
-    be = "{{ fiscalYear.be }}";
-
+    const formatLongNumber = d3.format(".2f")
     var width = 700,
         height = 500,
         tooltip = CustomTooltip("obi_tooltip", 260),
         layout_gravity = -0.01,
-        selected_year = "BUDGET_2018_19",
-        previous_year = "BUDGET_2017_18",
+        selected_year = "BUDGET_2019_20",
+        previous_year = "BUDGET_2018_19",
         damper = 0.1,
         nodes = [],
         defaultGravity = 0.1,
-        totalValue = 37000000,
+        totalValue = 37000000   ,
         vis, force, circles, radius_scale;
 
 
@@ -347,9 +347,9 @@
     }
 
     function custom_chart(data) {
-        var sum_2018 = [d3.sum(data.map(function(d){ return d['BUDGET_2018_19']})),
-                        d3.sum(data.map(function(d){ return d['BUDGET_2017_18']}))];
-        console.log(sum_2018)
+        var sum_2019 = [d3.sum(data.map(function(d){ return d['BUDGET_2019_20']})),
+                        d3.sum(data.map(function(d){ return d['BUDGET_2018_19']}))];
+       // console.log(sum_2018)
         var grand_total = data.pop()
         console.log(grand_total)
         var max_amount = d3.max(data, function(d) { return parseInt(d[selected_year], 10); });
@@ -378,7 +378,7 @@
             };
             nodes.push(node);
         });
-console.log(nodes)
+//console.log(nodes)
 
 
         nodes.sort(function(a, b) { return b.value - a.value; });
@@ -386,8 +386,7 @@ console.log(nodes)
         vis = d3.select("#vis").append("svg")
             .attr("width", '100%')
             .attr("height", '600px')
-            .style('margin-top', '-50px')
-            .attr("viewBox","150 0 450, 600") 
+            .attr("viewBox","0 0 700 600") 
             .attr('max-width', '100%')
             .attr("id", "svg_vis");
 
@@ -468,12 +467,12 @@ console.log(nodes)
 
         d3.select(".total-exp-num")
             .html(function(d) {
-                return "&#8377; " + 90269.91 + " Cr.";
+                return "&#8377; " + formatLongNumber(sum_2019[0]) + " Cr.";
             })
-            console.log(sum_2018)
+            console.log(sum_2019)
         d3.select(".total-exp-per-change")
             .html(function(d) {
-                var value = (((sum_2018[0] - sum_2018[1]) / sum_2018[1]) * 100).toFixed(2)
+                var value = (((sum_2019[0] - sum_2019[1]) / sum_2019[1]) * 100).toFixed(2)
                 if (value > 0) {
                     return value + " %";
                 } else {
@@ -511,7 +510,7 @@ console.log(nodes)
         var that = this;
         var boundingRadius = radius_scale(totalValue);
         return function(d) {
-            var targetY = center.y - (d.change / 10) * boundingRadius
+            var targetY = center.y - (d.change / 15) * boundingRadius
             d.y = d.y + (targetY - d.y) * (defaultGravity) * alpha * alpha * alpha * 100
         };
     }
@@ -541,21 +540,21 @@ console.log(nodes)
             .attr("stroke", function(d) { return "grey" });
         tooltip.hideTooltip();
     } 
-    var sum_2018 = []
+    var sum_2019 = []
     var grant_data = []
-    d3.csv("{{ instance.url }}", function(data) {
-       
+    d3.csv("{{instance.url}}", function(data) {
+       console.log(data)
         data.forEach(function(d){
-            d['BUDGET 2018-19'] = d['BUDGET 2018-19']*0.01
-            d['BUDGET 2017-18'] = d['BUDGET 2017-18']*0.01
+            d['BUDGET 2019-20'] = +d['Budget 2019-20']*0.01
+            d['BUDGET 2018-19'] = +d['Budget 2018-19']*0.01
         })
-        var sum_2018 = [d3.sum(data.map(function(d){ return d['BUDGET 2018-19']}))];
-        console.log(sum_2018)
+        var sum_2019 = [d3.sum(data.map(function(d){ return d['Budget 2019-20']}))];
+        //console.log(sum_2018)
     var nested_data = d3.nest()
-    .key(function(d) { return d['GRANT NUMBER'];})
+    .key(function(d) { return d['Grant Number'];})
     .rollup(function(d) { 
    return {
-     BUDGET_2017_18 : d3.sum(d, function(g) {return g['BUDGET 2017-18']; }),
+     BUDGET_2019_20 : d3.sum(d, function(g) {return g['BUDGET 2019-20']; }),
      BUDGET_2018_19 : d3.sum(d, function(g) {return g['BUDGET 2018-19']; }),
    }
   }).entries(data);
@@ -565,8 +564,8 @@ console.log(nodes)
      //console.log(Object.values(d).slice(1)[0].BUDGET_2017_18)
      return{
      GRANT_NUMBER : d.key,
-     BUDGET_2017_18 : Object.values(d).slice(1)[0].BUDGET_2017_18,
-     BUDGET_2018_19 : Object.values(d).slice(1)[0].BUDGET_2018_19
+     BUDGET_2019_20 : formatLongNumber(Object.values(d).slice(1)[0].BUDGET_2019_20),
+     BUDGET_2018_19 : formatLongNumber(Object.values(d).slice(1)[0].BUDGET_2018_19)
      }
   });
   console.log(grant_data)
