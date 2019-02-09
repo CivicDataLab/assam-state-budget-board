@@ -59,14 +59,14 @@ class ReceiptsPlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context = super(ReceiptsPlugin, self).render(context, instance, placeholder)
-        headHierarchy =  "MAJOR, Major Head, Sub-Major Head, Minor Head, Sub-Minor Head, Detailed Head, Object Head, Voucher Head"
-        tableColumns = "HEAD OF ACCOUNT,HEAD DESCRIPTION"
+        headHierarchy =  "MAJOR, Major Head, Sub-Major Head, Minor Head, Sub-Minor Head, Detailed Head"
+        tableColumns = "Head Of Account,Head Description in English"
         context.update({
         	"fiscalYear" : {
-        		"be" : "BUDGET 2018-19", 
-        		"actuals" : "ACTUALS 2016-17",
-				"bePrev" : "BUDGET 2017-18",
-				"re" : "REVISED 2017-18"
+        		"be" : "Budget 2019-20", 
+        		"actuals" : "Actuals 2017-18",
+				"bePrev" : "Budget 2018-19",
+				"re" : "Revised 2018-19"
         		},
         		'headHierarchy' : headHierarchy,
         		'tableColumns' : tableColumns,
