@@ -838,7 +838,10 @@ function loadHierarchyVis(data, fiscalYear) {
 }
 
 function loadDataTable(data){
+    data.forEach(function(d){
+        d['Head Description in English'] =   d['Head Description in English'].split("$").join(" | ")
 
+    })
     let tableSelect = d3.select('#container-data').append("table")
     .attr("class", "table table-striped table-bordered responsive")
     .attr("id", "exp_table")
