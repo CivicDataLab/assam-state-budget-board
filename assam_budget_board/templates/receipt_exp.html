@@ -38,7 +38,7 @@
           </div>
         <script>
          d3.csv("{{instance.url}}", function(consdata) {
-
+            console.log(consdata)
             var receipts = consdata.filter(function(d, i) 
             { 
 
@@ -51,13 +51,13 @@
             return{
                 particulars: k.Particulars,
               
-                 'Budget 2017-18' : +k['Budget 2017-2018'],
+                 'Budget 2019-20' : +k['Budget 2019-20'],
                 
                  'Budget 2018-19' : +k['Budget 2018-19']
                
                 }
             })
-            console.log(receipts)
+//            console.log(receipts)
 
         var expenditure = consdata.filter(function(d, i) 
             { 
@@ -71,14 +71,15 @@
             return{
                 particulars: k.Particulars,
              
-                 'Budget 2017-18' : +k['Budget 2017-2018'],
+                 'Budget 2019-20' : +k['Budget 2019-20'],
                
                  'Budget 2018-19' : +k['Budget 2018-19']
                
                 }
             })
 
-            console.log(expenditure)
+          //
+          //  console.log(expenditure)
           
         
 
@@ -93,7 +94,7 @@
            }
           })}
         })
-        console.log(dataToPlot)
+      //  console.log(dataToPlot)
         nv.addGraph(function() {
     var chart = nv.models.multiBarHorizontalChart()
         .margin({ right:40, left: 250})
@@ -125,7 +126,7 @@
            }
           })}
         })
-        console.log(dataToPlot)
+      //  console.log(dataToPlot)
         nv.addGraph(function() {
     var chart = nv.models.multiBarHorizontalChart()
         
