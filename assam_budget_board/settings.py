@@ -182,6 +182,7 @@ CMS_TEMPLATES = (
     ('summary.html', 'Grant Summary'),
     ('content_2.html', 'content Structure 2'),
     ('grants.html', 'All Grants'),
+    ('budget_highlights.html', 'Budget Highlights'),
     ('simple_page.html', 'Simple Page')
 
 )

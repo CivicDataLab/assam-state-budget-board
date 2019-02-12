@@ -22,5 +22,7 @@ class Datatable(CMSPlugin):
 class ReceiptsExpenditure(CMSPlugin):
     url = models.URLField(max_length=300)
    
+class BudgetTrends(CMSPlugin):
+    url = models.URLField(max_length=500)
 
 
