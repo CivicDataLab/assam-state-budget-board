@@ -17,6 +17,10 @@
     color: rgba(255, 255, 255, 0.7);
 }
 
+header.masthead{
+    background: white !important
+}
+
 .scroll-to-top {
     position: fixed;
     right: 15px;

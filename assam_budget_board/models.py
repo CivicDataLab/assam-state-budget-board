@@ -25,4 +25,8 @@ class ReceiptsExpenditure(CMSPlugin):
 class BudgetTrends(CMSPlugin):
     url = models.URLField(max_length=500)
 
+class BudgetProfile(CMSPlugin):
+    data = models.URLField(max_length=500)
+    links = models.URLField(max_length=500)
+
 

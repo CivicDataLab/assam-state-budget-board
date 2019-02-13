@@ -1,25 +1,13 @@
-{% extends "page.html" %}
+{% extends "page_2.html" %}
 {% load cms_tags menu_tags staticfiles %}
 {% block css_files %}
 {{ block.super }}
 <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
 {% endblock css_files %}
-{% block title %}
-{% page_attribute "page_title" %}
-{% endblock title %}
-{% block header-masthead %}
-<div class="row">
-    <div class="col-lg-7">
-        {% placeholder "Carousel - Content" %}
-    </div>
-    <div class="col-lg-5">
-        <h1 class="masthead-head">{% placeholder "Masthead - Heading" %}</h1>
-        <div class="masthead-intro-description">{% placeholder "Masthead - Introductory Description" %}</div>
-    </div>
-</div>
-
-{% endblock header-masthead %}
 {% block page-wrapper %}
+<section class="content-section section-1">
+{% placeholder "Budget Profile" %}
+</section>
 <section class="content-section section-2 rounded bg-dark">
     <div class="container">
         <div class="row">
