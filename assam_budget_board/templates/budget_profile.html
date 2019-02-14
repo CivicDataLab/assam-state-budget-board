@@ -160,12 +160,12 @@ p.notes {
 <body>
     <div class="container-fluid">
         <div class="col-lg-5">
-        <div class="row text-center vis-title" style="padding-top:100px;padding-left:75px">
+        <div class="row text-center vis-title" style="padding-top:100px;padding-left:100px">
             <h1>Budget Profile</h1>
         </div>
     </div>
         <div class="row text-center">
-            <div class="col-sm-4 left-panel" style="padding-top:50px">
+            <div class="col-sm-3 left-panel" style="padding-top:50px;padding-left:50px">
                 <div class="row">
                     <div class="total-exp text-center">
                         Total Budgetary Expenditure
@@ -176,7 +176,7 @@ p.notes {
                     </div>
                 </div>
                 <div class="row">
-                    <div class="left-panel-text" style="width:400px">
+                    <div class="left-panel-text" style="width:300px">
                         This section presents the comprehensive money flow data of the Assam Budget 2019-20. It presents both the sources of revenue of the Assam Government and the expenditure commitments it has made on different heads.
                     </div>
                 </div>
@@ -190,7 +190,7 @@ p.notes {
                     </div>
                 </div>
             </div>
-            <div class="col-sm-7" style="margin-top:-100px">
+            <div class="col-sm-8" style="margin-top:-100px">
                 
                 <div class="visualization-container">
                     <svg></svg>
@@ -323,12 +323,12 @@ p.notes {
             },
 
             "Public Debt(Exp)": {
-                x: width * 42/ 50,
-                y: height * 40/ 50
+                x: width * 44/ 50,
+                y: height * 43/ 50
             },
             "Loans & Advances": {
                 x: width * 40/ 50,
-                y: height * 43/ 50
+                y: height * 45/ 50
             },
       
             
@@ -376,7 +376,7 @@ p.notes {
         d3.select(".total-receipt-num").html("&#8377; " + receipt_figures.value + " Cr.")
         d3.select(".total-receipt-per-change").html(receipt_figures.change.toFixed(2) + "%")
 
-        var max_amount = d3.max(nodes, function(d) { return parseInt(d.radius_value, 10); });
+        var max_amount = d3.max(nodes, function(d) { return parseInt(d.radius_value, 9); });
         var radius_scale = d3.scale.pow().exponent(0.5).domain([0, max_amount]).range([2, 35]);
 
         var links = [];
