@@ -1,5 +1,5 @@
-{% load sekizai_tags static cms_tags %}
 
+{% load sekizai_tags static cms_tags %}
 <style>
 body {
     font-family: Open Sans, sans-serif;
@@ -96,6 +96,7 @@ body {
     /* word-spacing: 0px; */
     letter-spacing: -1px;
     font-family: Open Sans;
+    padding-left: 55px;
 }
 
 .left-panel-text {
@@ -158,14 +159,14 @@ p.notes {
 </style>
 
 <body>
-    <div class="container-fluid">
-        <div class="col-lg-5">
-        <div class="row text-center vis-title" style="padding-top:100px;padding-left:100px">
+    <div class="container-fluid" style = "margin-top:50px">
+        <div class="col-sm-4">
+        <div class="row text-center vis-title" style="padding-top: 50px">
             <h1>Budget Profile</h1>
         </div>
     </div>
-        <div class="row text-center">
-            <div class="col-sm-3 left-panel" style="padding-top:50px;padding-left:50px">
+        <div class="row text-center" style="padding-top:30px">
+            <div class="col-md-3 left-panel ">
                 <div class="row">
                     <div class="total-exp text-center">
                         Total Budgetary Expenditure
@@ -190,8 +191,7 @@ p.notes {
                     </div>
                 </div>
             </div>
-            <div class="col-sm-8" style="margin-top:-100px">
-                
+            <div class="col-md-8" style="margin-top: -20px">
                 <div class="visualization-container">
                     <svg></svg>
                 </div>
@@ -204,17 +204,17 @@ p.notes {
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://d3js.org/d3.v3.min.js"></script>
+  
     <script src="{% static 'js/CustomTooltip.js' %}"></script>
     <script src="{% static 'js/queue.v1.min.js' %}"></script>
 
-   
     <script>
     var width = 800,
-        height = 550,
+        height = 370,
         root;
 
     var force = d3.layout.force()
-        .size([width, '100%'])
+        .size([width, 500])
         .on("end", function() {
             rendercircle();
         });
@@ -224,7 +224,7 @@ p.notes {
     var svg = d3.select(".visualization-container").select("svg")
         .attr("width", '100%')
         .attr("height", height)
-        .attr("viewBox","0 0 1000 600") 
+        .attr("viewBox","0 0 1000 350") 
        
         
 
@@ -240,7 +240,7 @@ p.notes {
     };
     queue()
         .defer(d3.csv, '{{ instance.data }}')
-        .defer(d3.csv, '{{ instance.links }}')
+        .defer(d3.csv, "{{ instance.links }}")
         .await(update);
 
     var gb_data;
@@ -323,12 +323,12 @@ p.notes {
             },
 
             "Public Debt(Exp)": {
-                x: width * 44/ 50,
-                y: height * 43/ 50
+                x: width * 42/ 50,
+                y: height * 40/ 50
             },
             "Loans & Advances": {
                 x: width * 40/ 50,
-                y: height * 45/ 50
+                y: height * 43/ 50
             },
       
             
@@ -376,7 +376,7 @@ p.notes {
         d3.select(".total-receipt-num").html("&#8377; " + receipt_figures.value + " Cr.")
         d3.select(".total-receipt-per-change").html(receipt_figures.change.toFixed(2) + "%")
 
-        var max_amount = d3.max(nodes, function(d) { return parseInt(d.radius_value, 9); });
+        var max_amount = d3.max(nodes, function(d) { return parseInt(d.radius_value, 10); });
         var radius_scale = d3.scale.pow().exponent(0.5).domain([0, max_amount]).range([2, 35]);
 
         var links = [];
@@ -477,8 +477,8 @@ p.notes {
                 return d.id
             })
             .attr("text-anchor", "middle")
-            .style("font-size", "11px")
-            .style('font-weight','500')
+            .style("font-size", "10px")
+            .style('font-weight', '550')
             .style("opacity", 0)
 
         node_labels.attr("x", function(d){ 
