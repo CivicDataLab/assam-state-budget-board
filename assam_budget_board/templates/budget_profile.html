@@ -1,5 +1,5 @@
-
 {% load sekizai_tags static cms_tags %}
+
 <style>
 body {
     font-family: Open Sans, sans-serif;
@@ -91,12 +91,11 @@ body {
 }
 
 .vis-title h1 {
-    font-weight: 600;
+    font-weight: 500;
     color: #515B5E;
     /* word-spacing: 0px; */
     letter-spacing: -1px;
     font-family: Open Sans;
-    padding-left: 55px;
 }
 
 .left-panel-text {
@@ -157,42 +156,11 @@ p.notes {
     }
 }
 </style>
-
-<body>
-    <div class="container-fluid" style = "margin-top:50px">
-        <div class="col-sm-4">
-        <div class="row text-center vis-title" style="padding-top: 50px">
-            <h1>Budget Profile</h1>
-        </div>
-    </div>
-        <div class="row text-center" style="padding-top:30px">
-            <div class="col-md-3 left-panel ">
-                <div class="row">
-                    <div class="total-exp text-center">
-                        Total Budgetary Expenditure
-                        <div class="total-exp-val">
-                            <span class="total-exp-num"></span>
-                            <span class="total-exp-per-change"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="left-panel-text" style="width:300px">
-                        This section presents the comprehensive money flow data of the Assam Budget 2019-20. It presents both the sources of revenue of the Assam Government and the expenditure commitments it has made on different heads.
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="total-receipt text-center">
-                        Total Receipts Budget
-                        <div class="total-receipt-val">
-                            <span class="total-receipt-num"></span>
-                            <span class="total-receipt-per-change"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-8" style="margin-top: -20px">
+                
+      
+    <div class="container-fluid" style="padding-top:150px">
                 <div class="visualization-container">
+
                     <svg></svg>
                 </div>
             </div>
@@ -207,10 +175,9 @@ p.notes {
   
     <script src="{% static 'js/CustomTooltip.js' %}"></script>
     <script src="{% static 'js/queue.v1.min.js' %}"></script>
-
     <script>
     var width = 800,
-        height = 370,
+        height = 450,
         root;
 
     var force = d3.layout.force()
@@ -224,7 +191,8 @@ p.notes {
     var svg = d3.select(".visualization-container").select("svg")
         .attr("width", '100%')
         .attr("height", height)
-        .attr("viewBox","0 0 1000 350") 
+        .attr("viewBox","100 0 600 450") 
+       
        
         
 
@@ -251,7 +219,7 @@ p.notes {
 
         var fixed_notes = {
             "Total Expenditure": {
-                x: width * 24 / 35,
+                x: width * 23 / 35,
                 y: height * 27 / 50
             },
             "Total Receipts": {
@@ -277,7 +245,7 @@ p.notes {
                 y: height * 22.5 / 50
             },
             "Share of Central Taxes": {
-                x: width * 6 / 50,
+                x: width * 7 / 50,
                 y: height * 15 / 50
             },
 
@@ -306,29 +274,30 @@ p.notes {
             },
 
             "General Services": {
-                x: width * 40 / 50,
-                y: height * 10 / 50
+                x: width * 42 / 50,
+                y: height * 34 / 50
             },
             "Social Services": {
-                x: width * 45 / 50,
-                y: height * 15 / 50
+                x: width * 42 / 50,
+                y: height * 16 / 50
             },
             "Economic Services": {
-                x: width * 47 / 50,
+                x: width * 43 / 50,
                 y: height * 25 / 50
             },
             "Grants-in-Aid & Contributions": {
-                x: width * 45 / 50,
-                y: height * 34 / 50
+                x: width * 40 / 50,
+                y: height * 10 / 50
             },
 
             "Public Debt(Exp)": {
-                x: width * 42/ 50,
+                x: width * 40/ 50,
                 y: height * 40/ 50
             },
             "Loans & Advances": {
-                x: width * 40/ 50,
-                y: height * 43/ 50
+
+                x: width * 38/ 50,
+                y: height * 45/ 50
             },
       
             
@@ -348,7 +317,6 @@ p.notes {
                 label_display: +d["label_display"],
                 label_pos: d["label_pos"],
                 color_group: +d["color_group"],
-                notes: d["Notes"],
                 change: ((d[app_config["selected_year"]] - d[app_config["previous_year"]]) / d[app_config["previous_year"]] * 100)
             };
 
@@ -478,7 +446,6 @@ p.notes {
             })
             .attr("text-anchor", "middle")
             .style("font-size", "10px")
-            .style('font-weight', '550')
             .style("opacity", 0)
 
         node_labels.attr("x", function(d){ 
@@ -591,9 +558,6 @@ p.notes {
         var percent_class = isNaN(data.change) ? "n-a" : data.change > 0 ? 'positive ' : 'negative'
 
         content += "<span id ='tooltip-percent'  class=" + percent_class + ">" + (isNaN(data.change) ? "N.A." : (data.change.toFixed(2) < 0 ? -1 * data.change.toFixed(2) : data.change.toFixed(2)) + " %") + "</span>";
-        if(data.notes != "..."){
-            content += "<hr class='tooltip-hr' /><span class='tooltip-notes'> Note: " + data.notes + "  </span>";
-        }
         tooltip.showTooltip(content, d3.event);
     }
 

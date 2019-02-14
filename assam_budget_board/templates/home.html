@@ -5,9 +5,22 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
 {% endblock css_files %}
 {% block page-wrapper %}
-<section class="content-section section-1">
-{% placeholder "Budget Profile" %}
-</section>
+
+<section class="content-section section-1 rounded">
+        <div class="container">
+                         <div class="row">
+                      <div class=" col-lg-4 lead my-3 section-2-text " style="padding-top:80px">
+                            <div class="row text-center vis-title">
+                                    <h1>Budget Profile</h1>
+                                </div>{% placeholder "Budget Text"%}
+                      </div>
+                      <div class="col-lg-8">
+                            {% placeholder "Budget Profile" %}
+                        
+                    </div>
+                </div>
+        
+        </div>
 <section class="content-section section-2 rounded bg-dark">
     <div class="container">
         <div class="row">
