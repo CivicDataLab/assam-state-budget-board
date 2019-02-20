@@ -39,7 +39,32 @@ font-weight: bolder;
     font-weight: bolder;
   fill:black;
 }
+
+.legend{
+    padding-left: 100px;
+    width: 100px
+} 
+.tooltip-y-value{
+    padding-left: 10px;
+    font-weight : bold;
+    padding-right: 10px
+}
+.tooltip-point-title{
+    padding-left: 10px;
+    font-weight : bold;
+    color : white
+}
+.tooltip-x-val{
+    padding-right: 10px;
+    padding-left : 10px
+}
+.body-tooltip{
+    width: 175px
     
+}
+div.legend-tooltip{
+    padding-right: 10px
+}
 </style>
 {% endaddtoblock %}
 
@@ -51,7 +76,7 @@ font-weight: bolder;
                         <h3 class="section-side-title-text">Receipts Summary</h3>
                         <div class="grant-summary-info help-modal" data-toggle="modal" data-target="#exampleModal">
                             <div class="section-side-title-help" >
-                                    <span class="glyphicon glyphicon-envelope">?</span>
+                                    <i class="fas fa-info"></i>
                             </div>
                         </div>
                     </div>
@@ -111,7 +136,7 @@ font-weight: bolder;
                 <div class="section-side-title">
                     <h3 class="section-side-title-text">Explore Heads </h3>
                     <div class="section-side-title-help" >
-                        <a href="javascript:void(0);" onclick="javascript:introJs().start();"> <span class="glyphicon glyphicon-envelope" style="color:black">?</span></a>
+                        <a href="javascript:void(0);" onclick="javascript:introJs().start();"><i class="fas fa-info"></i></a>
                     </div>
                 </div>
             </div>
@@ -391,24 +416,26 @@ function loadGrantSummary(raw_data) {
 
             chart.yAxis.axisLabel("Figures in " + currencyUnit)
 
-            /*
-                Incase, one needs to enable the tooltip. 
+            
+                
             chart.tooltip.valueFormatter(function(d) {
                     return d.toFixed(1) + " " + currencyUnit;
                 })
 
             chart.tooltip.contentGenerator(function(obj) {
                 console.log(obj)
+                console.log(obj.color)
                 var header = obj.series[0].key
-                var headerhtml = "<div class='row'><div class='col-lg-12'><div class='tooltip-point-title'>" + header + "</div></div></div>"
+                var headerhtml = "<div class='row'><div class='col-lg-12'><div class='tooltip-point-title'style='background-color: " + obj.color + ";'>" + obj.data.label+ "</div></div></div>"
 
-                var bodyhtml = "<div class='row'><div class='col-lg-12 text-center'><div class='tooltip-point-body'><span class='legend-color-guide'><div style='background-color: " + obj.color + ";'></div></span><span class='tooltip-x-val'>" + obj.data.label + "</span><span class='tooltip-y-value'>" + obj.data.value.toFixed(1) + " " + currencyUnit + "</span></div></div>";
+                var bodyhtml = "<div class='row'><div class='col-lg-12 text-center'><div class='tooltip-point-body'><span class='tooltip-x-val'>" + header + "</span><span class='tooltip-y-value'>"+ "₹"+ " " + obj.data.value.toFixed(1) + " " + currencyUnit + "</span></div></div>";
 
                 return headerhtml + '' + bodyhtml;
-            });*/
+            })
 
-            chart.tooltip.enabled(false)
-
+            chart.tooltip.enabled(true)
+            
+            
 
             if (w < 400) {
                 chart.yAxis.ticks(2)
