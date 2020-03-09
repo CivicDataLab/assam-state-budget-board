@@ -204,8 +204,8 @@ p.notes {
 
 
     var app_config = {
-        selected_year: "Budget Estimates 2019-2020",
-        previous_year: "Budget Estimates 2018-2019"
+        selected_year: "{{fiscalYear.be}}",
+        previous_year: "{{fiscalYear.bePrev}}"
     };
     queue()
         .defer(d3.csv, '{{ instance.data }}')

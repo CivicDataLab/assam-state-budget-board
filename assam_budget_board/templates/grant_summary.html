@@ -306,8 +306,8 @@
         height = 500,
         tooltip = CustomTooltip("obi_tooltip", 265),
         layout_gravity = -0.01,
-        selected_year = "BUDGET_2019_20",
-        previous_year = "BUDGET_2018_19",
+        selected_year = "{{fiscalYear.be}}",
+        previous_year = "{{fiscalYear.bePrev}}",
         damper = 0.1,
         nodes = [],
         defaultGravity = 0.1,
@@ -342,8 +342,8 @@
     }
 
     function custom_chart(data) {
-        var sum_2019 = [d3.sum(data.map(function(d){ return d['BUDGET_2019_20']})),
-                        d3.sum(data.map(function(d){ return d['BUDGET_2018_19']}))];
+        var sum_2019 = [d3.sum(data.map(function(d){ return d[selected_year]})),
+                        d3.sum(data.map(function(d){ return d[previous_year ]}))];
        // console.log(sum_2018)
         var grand_total = data.pop()
         console.log(grand_total)

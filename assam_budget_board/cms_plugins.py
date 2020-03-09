@@ -3,7 +3,7 @@ from cms.plugin_pool import plugin_pool
 from cms.models.pluginmodel import CMSPlugin
 from django.utils.translation import ugettext_lazy as _
 from .models import ExpenditureGrant, GrantSummary, Receipts, AllGrants, Datatable, ReceiptsExpenditure, BudgetTrends, BudgetProfile
-
+import variables
 
 @plugin_pool.register_plugin
 class ExpenditureGrantPlugin(CMSPluginBase):
@@ -18,10 +18,10 @@ class ExpenditureGrantPlugin(CMSPluginBase):
         tableColumns = "Head Of Account,Budget Entity,Head Description,Head Description Assamese"
         context.update({
         	"fiscalYear" : {
-        		"be" : "Budget 2019-20", 
-        		"actuals" : "Actuals 2017-18",
-				"bePrev" : "Budget 2018-19",
-				"re" : "Revised 2018-19"
+                "be" : variables.be, 
+                "actuals" : variables.actuals,
+                "bePrev" : variables.bePrev,
+                "re" : variables.re
         		},
         		'headHierarchy' : headHierarchy,
         		'tableColumns' : tableColumns,
@@ -41,10 +41,8 @@ class GrantSummaryPlugin(CMSPluginBase):
         context = super(GrantSummaryPlugin, self).render(context, instance, placeholder)
         context.update({
         	"fiscalYear" : {
-        		"be" : "Budget 2018-19", 
-        		"actuals" : "Actuals 2016-17",
-				"bePrev" : "Budget 2017-18",
-				"re" : "Revised 2017-18"
+                "be" : variables.grantsum_be, 
+                "bePrev" : variables.grantsum_bePrev,
         		}
         	})
 
@@ -63,10 +61,10 @@ class ReceiptsPlugin(CMSPluginBase):
         tableColumns = "Head Of Account,Head Description in English"
         context.update({
         	"fiscalYear" : {
-        		"be" : "Budget 2019-20", 
-        		"actuals" : "Actuals 2017-18",
-				"bePrev" : "Budget 2018-19",
-				"re" : "Revised 2018-19"
+        		"be" : variables.be, 
+        		"actuals" : variables.actuals,
+				"bePrev" : variables.bePrev,
+				"re" : variables.re
         		},
         		'headHierarchy' : headHierarchy,
         		'tableColumns' : tableColumns,
@@ -137,4 +135,10 @@ class BudgetProfilePlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context = super(BudgetProfilePlugin, self).render(context, instance, placeholder)
+        context.update({
+            "fiscalYear" : {
+                "be" : variables.budgetPro_be, 
+                "bePrev" : variables.budgetPro_bePrev,
+                }
+            })
         return context
