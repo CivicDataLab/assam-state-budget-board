@@ -343,7 +343,7 @@
 
     function custom_chart(data) {
         var sum_2019 = [d3.sum(data.map(function(d){ return d[selected_year]})),
-                        d3.sum(data.map(function(d){ return d[previous_year ]}))];
+                        d3.sum(data.map(function(d){ return d[previous_year]}))];
        // console.log(sum_2018)
         var grand_total = data.pop()
         console.log(grand_total)
