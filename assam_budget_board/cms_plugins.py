@@ -26,7 +26,6 @@ class ExpenditureGrantPlugin(CMSPluginBase):
         		'headHierarchy' : headHierarchy,
         		'tableColumns' : tableColumns,
         	})
-        print("Budget %s-%s" % (settings.FISCAL_YEAR, (settings.FISCAL_YEAR+1)%1000))
         return context
 
 
@@ -45,7 +44,6 @@ class GrantSummaryPlugin(CMSPluginBase):
                 "bePrev" : "BUDGET_%s_%s" % (settings.FISCAL_YEAR-1, (settings.FISCAL_YEAR)%1000)
         		}
         	})
-        print("BUDGET_%s_%s" % (settings.FISCAL_YEAR, (settings.FISCAL_YEAR+1)%1000))
         return context
 
 @plugin_pool.register_plugin
