@@ -540,10 +540,10 @@
     d3.csv("{{instance.url}}", function(data) {
        console.log(data)
         data.forEach(function(d){
-            d['{{fiscalYear.be}}'] = +d['{{fiscalYear.beTemp}}']*0.01
-            d['{{fiscalYear.bePrev}}'] = +d['{{fiscalYear.bePrevTemp}}']*0.01
+            d['{{fiscalYear.be}}'] = +d['{{fiscalYear.be}}']*0.01
+            d['{{fiscalYear.bePrev}}'] = +d['{{fiscalYear.bePrev}}']*0.01
         })
-        var sum_2019 = [d3.sum(data.map(function(d){ return d['{{fiscalYear.beTemp}}']}))];
+        var sum_2019 = [d3.sum(data.map(function(d){ return d['{{fiscalYear.be}}']}))];
         //console.log(sum_2018)
     var nested_data = d3.nest()
     .key(function(d) { return d['Grant Number'];})
