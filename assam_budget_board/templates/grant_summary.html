@@ -363,17 +363,17 @@
                 id: d["GRANT_NUMBER"],
                 radius: radius_scale(parseInt(d[selected_year], 12)),
                 value: d[selected_year],
-                name: d["GRANT_NUMBER"],
+                name: d[selected_year],
                 previous_value: d[previous_year],
                 percent_change: ((d[selected_year] - d[previous_year]) / d[previous_year] * 100),
                 change: categorizeChange(((d[selected_year] - d[previous_year]) / d[previous_year]), d["GRANT_NUMBER"]),
-                total_share: (d[selected_year] / grand_total[selected_year] * 100),
+                total_share: (d[selected_year] / grand_total[selected_year]  * 100),
                 x: Math.random() * 900,
                 y: Math.random() * 800
             };
             nodes.push(node);
         });
-//console.log(nodes)
+        console.log(selected_year)
 
 
         nodes.sort(function(a, b) { return b.value - a.value; });
@@ -540,17 +540,17 @@
     d3.csv("{{instance.url}}", function(data) {
        console.log(data)
         data.forEach(function(d){
-            d['BUDGET 2019-20'] = +d['Budget 2019-20']*0.01
-            d['BUDGET 2018-19'] = +d['Budget 2018-19']*0.01
+            d['{{fiscalYear.be}}'] = +d['{{fiscalYear.beTemp}}']*0.01
+            d['{{fiscalYear.bePrev}}'] = +d['{{fiscalYear.bePrevTemp}}']*0.01
         })
-        var sum_2019 = [d3.sum(data.map(function(d){ return d['Budget 2019-20']}))];
+        var sum_2019 = [d3.sum(data.map(function(d){ return d['{{fiscalYear.beTemp}}']}))];
         //console.log(sum_2018)
     var nested_data = d3.nest()
     .key(function(d) { return d['Grant Number'];})
     .rollup(function(d) { 
    return {
-     BUDGET_2019_20 : d3.sum(d, function(g) {return g['BUDGET 2019-20']; }),
-     BUDGET_2018_19 : d3.sum(d, function(g) {return g['BUDGET 2018-19']; }),
+     {{fiscalYear.be}} : d3.sum(d, function(g) {return g['{{fiscalYear.be}}']; }),
+    {{fiscalYear.bePrev}} : d3.sum(d, function(g) {return g['{{fiscalYear.bePrev}}']; }),
    }
   }).entries(data);
  
@@ -559,8 +559,9 @@
      //console.log(Object.values(d).slice(1)[0].BUDGET_2017_18)
      return{
      GRANT_NUMBER : d.key,
-     BUDGET_2019_20 : formatLongNumber(Object.values(d).slice(1)[0].BUDGET_2019_20),
-     BUDGET_2018_19 : formatLongNumber(Object.values(d).slice(1)[0].BUDGET_2018_19)
+     {{fiscalYear.be}} : formatLongNumber(Object.values(d).slice(1)[0].{{fiscalYear.be}}),
+     {{fiscalYear.bePrev}} : formatLongNumber(Object.values(d).slice(1)[0].
+        {{fiscalYear.bePrev}})
      }
   });
   console.log(grant_data)

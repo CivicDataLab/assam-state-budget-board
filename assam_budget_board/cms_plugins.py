@@ -41,7 +41,10 @@ class GrantSummaryPlugin(CMSPluginBase):
         context.update({
         	"fiscalYear" : {
                 "be" : "BUDGET_%s_%s" % (settings.FISCAL_YEAR, (settings.FISCAL_YEAR+1)%1000), 
-                "bePrev" : "BUDGET_%s_%s" % (settings.FISCAL_YEAR-1, (settings.FISCAL_YEAR)%1000)
+                "bePrev" : "BUDGET_%s_%s" % (settings.FISCAL_YEAR-1, (settings.FISCAL_YEAR)%1000),
+                "beTemp" : "Budget %s-%s" % (settings.FISCAL_YEAR, (settings.FISCAL_YEAR+1)%1000), 
+                "bePrevTemp" : "Budget %s-%s" % (settings.FISCAL_YEAR-1, (settings.FISCAL_YEAR)%1000)
+
         		}
         	})
         return context
