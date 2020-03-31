@@ -40,9 +40,9 @@ class GrantSummaryPlugin(CMSPluginBase):
         context = super(GrantSummaryPlugin, self).render(context, instance, placeholder)
         context.update({
         	"fiscalYear" : {
-                "be" : "BUDGET_%s_%s" % (settings.FISCAL_YEAR, (settings.FISCAL_YEAR+1)%1000), 
-                "bePrev" : "BUDGET_%s_%s" % (settings.FISCAL_YEAR-1, (settings.FISCAL_YEAR)%1000),
-        		}
+                "be"  : "BUDGET_%s_%s" % (settings.FISCAL_YEAR, (settings.FISCAL_YEAR+1)%1000),
+                "bePrev" : "BUDGET_%s_%s"% (settings.FISCAL_YEAR-1, (settings.FISCAL_YEAR)%1000),
+                }
         	})
         return context
 
