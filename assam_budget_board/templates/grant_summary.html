@@ -254,12 +254,12 @@
                 </div>
                 <div class="row">
                     <div class="left-panel-text">
-                            The bubble chart provides an overview of grant-wise allocations made by the Government of Assam in financial year 2020-21. The bubbles also depict the percentage changes in allocations as compared to the budget estimates of 2019-20. 
+                            The bubble chart provides an overview of grant-wise allocations made by the Government of Assam in financial year <span class ="fiscalYear"></span>. The bubbles also depict the percentage changes in allocations as compared to the budget estimates of <span class="fiscalYear_Prev"></span> 
                     </div>
                 </div>
                 <div class="row">
                     <div id="obi-colorKey">
-                        <p class="help-text-1">Colour of the bubbles represent increases / cuts in allocations in 2019-20 as compared the budget estimates of 2019-20.</p>
+                        <p class="help-text-1">Colour of the bubbles represent increases / cuts in allocations in <span class ="fiscalYear"></span> as compared the budget estimates of <span class="fiscalYear_Prev"></span>.</p>
                         <ul class="obi-colorSwatches">
                             <li class="change-decrease3"></li>
                             <li class="change-decrease2"></li>
@@ -314,7 +314,15 @@
         totalValue = 37000000   ,
         vis, force, circles, radius_scale;
 
+    var elements_fiscalYear = document.getElementsByClassName("fiscalYear")
+    var elements_fiscalYear_Prev = document.getElementsByClassName("fiscalYear_Prev")
 
+    for(var i=0; i<elements_fiscalYear.length; i++){
+    elements_fiscalYear[i].innerHTML = selected_year.split("_")[1] + "-" + selected_year.split("_")[2];
+}
+    for(var i=0; i<elements_fiscalYear_Prev.length; i++){
+    elements_fiscalYear_Prev[i].innerHTML = previous_year.split("_")[1] + "-" + previous_year.split("_")[2];
+}
 
     var center = { x: width / 2, y: (height * 5.5 / 10) };
 
@@ -342,11 +350,9 @@
     }
 
     function custom_chart(data) {
-        var sum_2019 = [d3.sum(data.map(function(d){ return d[selected_year]})),
+        var sum_fiscalYear = [d3.sum(data.map(function(d){ return d[selected_year]})),
                         d3.sum(data.map(function(d){ return d[previous_year]}))];
-       // console.log(sum_2018)
         var grand_total = data.pop()
-        console.log(grand_total)
         var max_amount = d3.max(data, function(d) { return parseInt(d[selected_year], 10); });
 
         radius_scale = d3.scale.pow().exponent(0.5).domain([0, max_amount]).range([2, 60]);
@@ -363,18 +369,16 @@
                 id: d["GRANT_NUMBER"],
                 radius: radius_scale(parseInt(d[selected_year], 12)),
                 value: d[selected_year],
-                name: d[selected_year],
+                name: d["GRANT_NUMBER"],
                 previous_value: d[previous_year],
                 percent_change: ((d[selected_year] - d[previous_year]) / d[previous_year] * 100),
                 change: categorizeChange(((d[selected_year] - d[previous_year]) / d[previous_year]), d["GRANT_NUMBER"]),
-                total_share: (d[selected_year] / grand_total[selected_year]  * 100),
+                total_share: (d[selected_year] / grand_total[selected_year] * 100),
                 x: Math.random() * 900,
                 y: Math.random() * 800
             };
             nodes.push(node);
         });
-        console.log(selected_year)
-
 
         nodes.sort(function(a, b) { return b.value - a.value; });
 
@@ -462,12 +466,11 @@
 
         d3.select(".total-exp-num")
             .html(function(d) {
-                return "&#8377; " + formatLongNumber(sum_2019[0]) + " Cr.";
+                return "&#8377; " + formatLongNumber(sum_fiscalYear[0]) + " Cr.";
             })
-            console.log(sum_2019)
         d3.select(".total-exp-per-change")
             .html(function(d) {
-                var value = (((sum_2019[0] - sum_2019[1]) / sum_2019[1]) * 100).toFixed(2)
+                var value = (((sum_fiscalYear[0] - sum_fiscalYear[1]) / sum_fiscalYear[1]) * 100).toFixed(2)
                 if (value > 0) {
                     return value + " %";
                 } else {
@@ -535,37 +538,31 @@
             .attr("stroke", function(d) { return "grey" });
         tooltip.hideTooltip();
     } 
-    var sum_2019 = []
+    var sum_fiscalYear = []
     var grant_data = []
     d3.csv("{{instance.url}}", function(data) {
-       console.log(data)
         data.forEach(function(d){
-            d['{{fiscalYear.be}}'] = +d['{{fiscalYear.be}}']*0.01
-            d['{{fiscalYear.bePrev}}'] = +d['{{fiscalYear.bePrev}}']*0.01
+            d["{{fiscalYear.be}}"] = +d["{{fiscalYear.be}}"]*0.01
+            d["{{fiscalYear.bePrev}}"] = +d["{{fiscalYear.bePrev}}"]*0.01
         })
-        var sum_2019 = [d3.sum(data.map(function(d){ return d['{{fiscalYear.be}}']}))];
-        //console.log(sum_2018)
+        var sum_fiscalYear= [d3.sum(data.map(function(d){ return d["{{fiscalYear.be}}"]}))];
     var nested_data = d3.nest()
     .key(function(d) { return d['Grant Number'];})
     .rollup(function(d) { 
    return {
-     {{fiscalYear.be}} : d3.sum(d, function(g) {return g['{{fiscalYear.be}}']; }),
-    {{fiscalYear.bePrev}} : d3.sum(d, function(g) {return g['{{fiscalYear.bePrev}}']; }),
+     {{fiscalYear.be}} : d3.sum(d, function(g) {return g["{{fiscalYear.be}}"]; }),
+     {{fiscalYear.bePrev}} : d3.sum(d, function(g) {return g["{{fiscalYear.bePrev}}"]; }),
    }
   }).entries(data);
  
      grant_data = nested_data.map(function(d)
-  {  //console.log(d.key)
-     //console.log(Object.values(d).slice(1)[0].BUDGET_2017_18)
+  {  
      return{
      GRANT_NUMBER : d.key,
-     {{fiscalYear.be}} : formatLongNumber(Object.values(d).slice(1)[0].{{fiscalYear.be}}),
-     {{fiscalYear.bePrev}} : formatLongNumber(Object.values(d).slice(1)[0].
-        {{fiscalYear.bePrev}})
+     {{fiscalYear.be}}: formatLongNumber(Object.values(d).slice(1)[0].{{fiscalYear.be}}),
+     {{fiscalYear.bePrev}} : formatLongNumber(Object.values(d).slice(1)[0].{{fiscalYear.bePrev}})
      }
   });
-  console.log(grant_data)
-
         custom_chart(grant_data)
         start()
         display_group_all();
