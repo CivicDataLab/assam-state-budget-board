@@ -226,4 +226,4 @@ CORS_ORIGIN_ALLOW_ALL = True
     'localhost:8000',
     '127.0.0.1:9000'
 )"""
-FISCAL_YEAR = 2020
+FISCAL_YEAR = 2021
