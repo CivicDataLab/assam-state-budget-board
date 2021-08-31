@@ -195,7 +195,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-            'read_default_file': '/etc/mysql/my.cnf',
+            'read_default_file': '/etc/mysql/assam_budget_board_2021.cnf',
         },
     }
 }
@@ -226,4 +226,5 @@ CORS_ORIGIN_ALLOW_ALL = True
     'localhost:8000',
     '127.0.0.1:9000'
 )"""
+
 FISCAL_YEAR = 2021
