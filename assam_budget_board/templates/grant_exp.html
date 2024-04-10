@@ -16,17 +16,20 @@ div.dt-buttons{
 .buttons-excel {
     background-color:#2db55d;
     color: white;
-    font-style: bold
+    font-style: bold;
+    cursor: pointer;
   }
 .buttons-csv {
     background-color: #dfb100;
     color: white;
-    font-style: bold
+    font-style: bold;
+    cursor: pointer;
   }
 .buttons-pdf{
     background-color: #e0051e;
     color: white;
-    font-style: bold
+    font-style: bold;
+    cursor: pointer;
 }
 div.dataTables_filter{
     float: left;
@@ -93,7 +96,7 @@ div.legend-tooltip{
                         </button>
                     </div>
                     <div class="modal-body">
-                            This section provides a snapshot of the budget allocations made and spending incurred under this grant for 2019-20 Assam Budget.
+                            This section provides a snapshot of the budget allocations made and spending incurred under this grant for 2022-23 Assam Budget.
 
                     </div>
                     <div class="modal-footer">
@@ -145,7 +148,7 @@ div.legend-tooltip{
 
         <div class="row">
             <div class="col-lg-12 offset-lg-1 section-notes">
-                Note : The Null values in this section have been retained from the source data of Assam Budget 2019-20
+                Note : The Null values in this section have been retained from the source data of Assam Budget 2022-23
             </div>
         </div>
 
@@ -201,13 +204,16 @@ div.legend-tooltip{
             </div>
             <div class="row">
                     <div class="col-lg-12 offset-lg-1" style="text-align:right;padding-right: 135px">
-                        Note : Figures are in Lakh(s)
+                        Note : Figures are in Rs. Lakh
                     </div>
                 </div>
             <div class="row" style="padding-right:30px;padding-left:30px">
                 <div class="data-table-section" id='container-data'>
                     
                 </div>
+                <p style="width:100%; text-align: right;">Source:<u><a href="{{ instance.url }}" style="color: rgb(255, 127, 14);">Grant Wise Expediture</a></u>
+                </p>
+
             </div>
             
         </div>
@@ -563,13 +569,13 @@ function loadHierarchyVis(data, fiscalYear) {
         //Change the Hardcoded attribute
         let nestedData = d3.nest()
             .key(function(d) { return d["Grant Number"]; })
-            .key(function(d) { return d["Major Head"]; })
-            .key(function(d) { return d["Sub-Major Head"]; })
-            .key(function(d) { return d["Minor Head"]; })
-            .key(function(d) { return d["Sub-Minor Head"]; })
-            .key(function(d) { return d["Detailed Head"]; })
-            .key(function(d) { return d["Object Head"]; })
-            .key(function(d) { return d["Voucher Head"]; })
+            .key(function(d) { return d["Major Head Description"]; })
+            .key(function(d) { return d["Sub Major Head Description"]; })
+            .key(function(d) { return d["Minor Head Description"]; })
+            .key(function(d) { return d["Sub Head Description"]; })
+            .key(function(d) { return d["Sub Sub Head Description"]; })
+            .key(function(d) { return d["Detail Head Description"]; })
+            .key(function(d) { return d["Sub Detail Head Description"]; })
             .rollup(function(leaves) { 
                 return d3.sum( leaves, function(d) { return +d[fiscalYear] * 100000; }); 
             })
@@ -879,8 +885,7 @@ function loadHierarchyVis(data, fiscalYear) {
 
 function loadDataTable(data){
     data.forEach(function(d){
-        d['Head Description'] =   d['Head Description in English'].split("$").join(" | ")
-        d['Head Description Assamese'] =   d['Head Description in Assamese'].split("$").join(" | ")
+        d['Head Description'] = d['Head Description in English'].split("$").join(" | ")
 
     })
     let tableSelect = d3.select('#container-data').append("table")

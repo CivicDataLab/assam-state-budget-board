@@ -28,7 +28,7 @@ SECRET_KEY = 'q2fi&+%y(cas)d_f@_ah9-i-#v=n^$p5)v!o0f1^qe@ud@oxx('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', 'assam.openbudgetsindia.org', 'assam2023.openbudgetsindia.org']
 
 
 # Application definition
@@ -195,7 +195,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-            'read_default_file': '/etc/mysql/assam_budget_board_2021.cnf',
+            'read_default_file': '/etc/mysql/assam_budget_board_2023.cnf',
         },
     }
 }
@@ -227,4 +227,4 @@ CORS_ORIGIN_ALLOW_ALL = True
     '127.0.0.1:9000'
 )"""
 
-FISCAL_YEAR = 2021
+FISCAL_YEAR = 2023

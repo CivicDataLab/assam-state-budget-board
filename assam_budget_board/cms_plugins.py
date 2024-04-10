@@ -15,7 +15,7 @@ class ExpenditureGrantPlugin(CMSPluginBase):
     def render(self, context, instance, placeholder):
         context = super(ExpenditureGrantPlugin, self).render(context, instance, placeholder)
         headHierarchy = "Grant Number, Major Head, Sub Major Head, Minor Head, Sub Head, Sub Sub Head, Detail Head, Sub detail Head"
-        tableColumns = "Head Of Account,Budget Entity,Head Description,Head Description Assamese"
+        tableColumns = "Head of Account,Budget Entity,Head Description in English"
         context.update({
         	"fiscalYear" : {
                     "be"  : "Budget %s-%s" % (settings.FISCAL_YEAR, (settings.FISCAL_YEAR+1)%1000),
