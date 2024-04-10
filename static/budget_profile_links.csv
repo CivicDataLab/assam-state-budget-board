@@ -1,0 +1,18 @@
+source,source_name,target,destination_name,value,type
+0,Total Receipts,1,Total Revenue Receipts,5,reverse
+0,Total Receipts,10,Total Capital Receipts,5,reverse
+1,Total Revenue Receipts,2,State's Own Tax,3,reverse
+1,Total Revenue Receipts,3,Non-Tax Revenue,3,reverse
+1,Total Revenue Receipts,4,Share of Central Taxes,3,reverse
+1,Total Revenue Receipts,5,Centrally Sponsored Schemes,3,reverse
+1,Total Revenue Receipts,6,Finance Commission Grants,3,reverse
+1,Total Revenue Receipts,7,Other Transfer/Grants to States with Legislature,3,reverse
+1,Total Revenue Receipts,8,Public Debt,3,reverse
+1,Total Revenue Receipts,9,Recoveries of Loans & Advances,3,reverse
+0,Total Receipts,11,Total Budgetary Expenditure,8,
+11,Total Budgetary Expenditure,12,General Services,5,
+11,Total Budgetary Expenditure,13,Social Services,5,
+11,Total Budgetary Expenditure,14,Economic Services,5,
+11,Total Budgetary Expenditure,15,Grants-in-Aid & Contributions,5,
+11,Total Budgetary Expenditure,16,Repayment of Public Debt,5,
+11,Total Budgetary Expenditure,17,Loans & Advances,5,

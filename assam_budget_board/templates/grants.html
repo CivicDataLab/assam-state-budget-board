@@ -1,0 +1,73 @@
+{% extends "page.html" %}
+{% load sekizai_tags cms_tags menu_tags staticfiles %}
+<!-- Header -->
+{% block header-masthead %}
+{% addtoblock "css" %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/grants.css' %}">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+{% endaddtoblock %}
+<nav aria-label="breadcrumb" class="header-page-breadcrumb">
+    <ol class="breadcrumb">
+        {% show_breadcrumb 'menu/custom_breadcrumb.html' %}
+    </ol>
+</nav>
+<h2 class="page-title">{% page_attribute "page_title" %}</h2>
+{% addtoblock "js" %}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.5/js/standalone/selectize.min.js"></script>
+<script type="text/javascript">
+console.log("here")
+$('#grant-select').selectize({
+    sortField: {
+        field: 'text',
+        direction: 'asc'
+    },
+    onChange: function(value) {
+        window.location = value;
+    }
+});
+</script>
+{% endaddtoblock %}
+{% endblock header-masthead %}
+{% block page-wrapper %}
+<section class="dash-section">
+    <div class="container">
+        <div class="content-main-card ">
+            {% block page_content %}
+            <div class=" section-search text-white bg-dark">
+            <div class="row">
+                    
+                        <div class="col-lg-7">
+                            <h3 class="dropdown-label">Select a Grant to Explore</h3>
+                        </div>
+                    
+                        <div class="col-lg-6">
+                            <div class="control-group">
+                                <select class="demo-default form-control" id="grant-select" placeholder="Search">
+                                    <option value="">Select a Grant to Explore!</option>
+                                    {% show_sub_menu 1 None 120 "menu/grants_menu.html" %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-lg-4 d-none d-md-block">
+                    <div class="section-list">
+                        <ul class="">
+                        {% show_sub_menu 1 None 120 "menu/sub_page_list.html" %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="section-content">
+                        {% placeholder "Grants - Description Text" %}
+                    </div>
+                </div>
+            </div>
+            
+            {% endblock page_content %}
+        </div>
+    </div>
+</section>
+{% endblock page-wrapper %}

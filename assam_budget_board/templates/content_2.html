@@ -1,0 +1,26 @@
+{% extends "page.html" %}
+{% load cms_tags menu_tags staticfiles %}
+
+{% block css_files %}
+	{{ block.super }}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/content_1.css' %}">
+{% endblock css_files %}
+
+<!-- Header -->
+{% block header-masthead %}
+	<nav aria-label="breadcrumb" class="header-page-breadcrumb">
+	    <ol class="breadcrumb">
+	        {% show_breadcrumb 'menu/custom_breadcrumb.html' %}
+	    </ol>
+	</nav>
+	<div class="row">
+		<div class="col-lg-9">
+			<h1 class="grant-title">{% page_attribute "page_title" %}</h1>
+		</div> 
+
+	</div>
+{% endblock header-masthead %}
+
+{% block page_content %}
+	{% placeholder "receipts placeholder" %}
+{% endblock page_content %}

@@ -1,0 +1,19 @@
+no.,Type,Category,Particular,color_group,label_display,label_pos,Notes,Budget Estimates 2022-2023,Budget Estimates 2023-2024 (in Lakhs),Budget Estimates 2023-2024
+0,Receipts,...,Total Receipts,1,1,bottom,...,119028,13944388.31,139443.8831
+1,Receipts,Revenue Receipts,Total Revenue Receipts,2,1,"bottom,right",...,99663,11408469.34,114084.6934
+2,Receipts,Revenue Receipts,State's Own Tax,3,1,bottom,...,22385,3000200,30002
+3,Receipts,Revenue Receipts,Non-Tax Revenue,3,1,,,6677,701083.93,7010.8393
+4,Receipts,Revenue Receipts,Share of Central Taxes,3,1,,,25545,3195100,31951
+5,Receipts,Revenue Receipts,Centrally Sponsored Schemes,3,1,top,,30413,3113000,31130
+6,Receipts,Revenue Receipts,Finance Commission Grants,3,1,,,10515,1018600,10186
+7,Receipts,Revenue Receipts,Other Transfer/Grants to States with Legislature,3,,top,,4128,4512130.58,45121.3058
+8,Receipts,Revenue Receipts,Public Debt,3,1,bottom right,,19354,2505230.53,25052.3053
+9,Receipts,Revenue Receipts,Recoveries of Loans & Advances,3,1,,,12,30688.44,306.8844
+10,Receipts,Capital Receipts,Total Capital Receipts,2,1,bottom,,19365,2535918.97,25359.1897
+11,Expenditure,,Total Expenditure,6,1,bottom,,119551,13975526.95,139755.2695
+12,Expenditure,Total Budgetary Expenditure,General Services,5,1,top,,36900,4269031.94,42690.3194
+13,Expenditure,Total Budgetary Expenditure,Social Services,5,1,top,,43479,5191152,51911.52
+14,Expenditure,Total Budgetary Expenditure,Economic Services,5,1,top,,15251,1573177.76,15731.7776
+15,Expenditure,Total Budgetary Expenditure,Grants-in-Aid & Contributions,5,1,top,,737,100297.4,1002.974
+16,Expenditure,Total Budgetary Expenditure,Repayment of Public Debt,5,1,top,,2723,440708.94,4407.0894
+17,Expenditure,Total Budgetary Expenditure,Loans & Advances,5,1,,,290,18912.29,189.1229

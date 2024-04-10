@@ -28,7 +28,7 @@ SECRET_KEY = 'q2fi&+%y(cas)d_f@_ah9-i-#v=n^$p5)v!o0f1^qe@ud@oxx('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*', 'assam.openbudgetsindia.org', 'assam2023.openbudgetsindia.org']
 
 
 # Application definition
@@ -56,6 +56,8 @@ USE_L10N = True
 USE_TZ = True
 
 
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
@@ -63,12 +65,14 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(DATA_DIR, 'media')
 STATIC_ROOT = os.path.join(DATA_DIR, 'static')
-
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'assam_budget_board', 'static'),
 )
 SITE_ID = 1
 
+COMPRESS_ENABLED = False
+COMPRESS_ROOT = STATIC_ROOT   ##django compressor 
+COMPRESS_OFFLINE = True
 
 TEMPLATES = [
     {
@@ -99,6 +103,7 @@ TEMPLATES = [
 
 
 MIDDLEWARE = (
+    'corsheaders.middleware.CorsMiddleware',
     'cms.middleware.utils.ApphookReloadMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -110,7 +115,7 @@ MIDDLEWARE = (
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
-    'cms.middleware.language.LanguageCookieMiddleware'
+    'cms.middleware.language.LanguageCookieMiddleware',
 )
 
 INSTALLED_APPS = (
@@ -138,6 +143,9 @@ INSTALLED_APPS = (
     'djangocms_snippet',
     'djangocms_googlemap',
     'djangocms_video',
+    'django_extensions',
+    'compressor',
+    'corsheaders',
     'assam_budget_board'
 )
 
@@ -168,7 +176,15 @@ CMS_TEMPLATES = (
     ## Customize this
     ('fullwidth.html', 'Fullwidth'),
     ('sidebar_left.html', 'Sidebar Left'),
-    ('sidebar_right.html', 'Sidebar Right')
+    ('sidebar_right.html', 'Sidebar Right'),
+    ('home.html', 'Homepage'),
+    ('content_1.html', 'Content Structure 1'),
+    ('summary.html', 'Grant Summary'),
+    ('content_2.html', 'content Structure 2'),
+    ('grants.html', 'All Grants'),
+    ('budget_highlights.html', 'Budget Highlights'),
+    ('simple_page.html', 'Simple Page')
+
 )
 
 CMS_PERMISSION = True
@@ -179,7 +195,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-            'read_default_file': '/etc/mysql/my.cnf',
+            'read_default_file': '/etc/mysql/assam_budget_board_2023.cnf',
         },
     }
 }
@@ -194,3 +210,21 @@ THUMBNAIL_PROCESSORS = (
     'filer.thumbnail_processors.scale_and_crop_with_subject_location',
     'easy_thumbnails.processors.filters'
 )
+
+STATICFILES_FINDERS = (                                       
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
+
+
+CORS_ORIGIN_ALLOW_ALL = True
+#CORS_ALLOW_CREDENTIALS = False
+
+"""CORS_ORIGIN_WHITELIST = (
+    'https://openbudgetsindia.org/',
+    'localhost:8000',
+    '127.0.0.1:9000'
+)"""
+
+FISCAL_YEAR = 2023

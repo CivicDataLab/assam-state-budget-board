@@ -1,0 +1,574 @@
+{% load sekizai_tags static cms_tags %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    <style type="text/css">
+    #vis {
+        width: 100%;
+        height: 350px;
+        margin: 0px auto;
+        margin-bottom: 0px;
+        margin-top : -100px;
+    }
+
+
+    body {
+        background-color: transparent;
+        font-family: Open Sans, sans-serif;
+    }
+
+    .tooltip {
+        position: absolute;
+        top: 100px;
+        left: 100px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        border: 1px solid grey;
+        /* background: #222222; */
+        background: #fff;
+        opacity: 1;
+        /* color: #eeeeee; */
+        color: black;
+        padding: 10px;
+        text-align: center;
+        width: 400px;
+        font-size: 14px;
+        z-index: 10;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.19), 0 1px 3px rgba(0, 0, 0, 0.23);
+    }
+
+    .tooltip .dept-name {
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .tooltip .name {
+        font-weight: bold;
+    }
+
+    .tooltip-hr {
+        margin: 5px 0px;
+        border-top: 1px solid rgba(128, 128, 128, 0.64);
+    }
+
+    .tooltip-hr-sec {
+        border-top: 1px solid rgba(128, 128, 128, 0.54);
+    }
+
+    .tooltipcurrent-year {
+        margin-right: 10px;
+        font-weight: 600;
+        font-size: 17px;
+    }
+
+    #tooltip-percent {
+        font-weight: 600;
+        font-size: 17px;
+    }
+
+    .tooltip .positive {
+        color: green;
+    }
+
+    .tooltip .negative {
+        color: red;
+    }
+
+    .vis-title {
+        padding-bottom: 20px;
+    }
+
+    .vis-title h1 {
+        font-weight: 600;
+        color: #515B5E;
+        /* word-spacing: 0px; */
+        letter-spacing: -1px;
+        font-family: Open Sans;
+    }
+
+    .vis-table {
+        margin-bottom: 50px;
+        font-size: 12px;
+    }
+
+    h4.vis-table-title {
+        font-weight: 600;
+        color: grey;
+        font-size: 15px;
+    }
+
+
+    .col-md-3.left-panel {
+        padding-top: 50px;
+    }
+
+    h4.total-exp {
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .total-exp-val {
+        color: black;
+        font-weight: 600;
+        font-size: 25px;
+        padding: 5px;
+    }
+
+    .total-exp {
+        font-size: 18px;
+        font-weight: 800;
+        color: grey;
+    }
+
+    .total-exp-per-change {
+        color: rgb(10, 128, 10);
+        margin-left: 15px;
+        white-space: nowrap;
+    }
+
+    #obi-colorKey {
+        text-align: center;
+        top: 210px;
+        left: 10px;
+        padding: 20px;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    #obi-colorKey ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    #obi-colorKey p {
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+
+    #obi-colorKey li {
+        background-image: none;
+        padding: 0;
+        margin: 0;
+        float: left;
+        display: block;
+        height: 100%;
+    }
+
+
+
+    .change-decrease3 {
+        background-color: #d73027;
+    }
+
+    .change-decrease2 {
+        background-color: #f46d43;
+    }
+
+    .change-decrease1 {
+        background-color: #fdae61;
+    }
+
+    .change-same {
+        background-color: #CCC;
+    }
+
+    .change-increase1 {
+        background-color: #abd9e9;
+    }
+
+    .change-increase2 {
+        background-color: #74add1;
+    }
+
+    .change-increase3 {
+        background-color: #4575b4;
+    }
+
+    .obi-colorSwatches {
+        width: 100%;
+        height: 10px;
+    }
+
+    .obi-colorSwatches li {
+        width: 16%;
+        border-right: solid white 1px;
+    }
+
+    .obi-colorTicks {
+        height: 6px;
+    }
+
+    .obi-colorTicks li {
+        width: 16%;
+        border-right: solid #CCC 1px;
+    }
+
+    .obi-colorLabels {
+        margin-top: 3px;
+        height: 20px;
+        position: relative;
+        left: 8%;
+    }
+
+    .obi-colorLabels li {
+        width: 16%;
+        text-align: center;
+        font-size: 10px;
+        line-height: 1em;
+        padding: 4px 0 0 0!important;
+        margin: 0;
+    }
+
+    .left-panel-text {
+        padding: 20px;
+    }
+
+    p.help-text-1,
+    p.help-text-2 {
+        font-weight: 100;
+    }
+
+    p.help-text-2 {
+        font-size: 12px;
+        margin-top: 15px;
+        margin-bottom: 8px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 left-panel" style="padding-top:30px;padding-left: 30px">
+                <div class="row">
+                    <div class="total-exp text-center" style="padding-left: 20px">
+                        Total Grant Wise Budget Allocation
+                        <div class="total-exp-val">
+                            <span class="total-exp-num"></span>
+                            <i class="fas fa-arrow-up positive-fig" style="color: #0a8011;"></i>
+                            <span class="total-exp-per-change" style="margin-left: 0"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="left-panel-text">
+                            The bubble chart provides an overview of grant-wise allocations made by the Government of Assam in financial year <span class ="fiscalYear"></span>. The bubbles also depict the percentage changes in allocations as compared to the budget estimates of <span class="fiscalYear_Prev"></span> 
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="obi-colorKey">
+                        <p class="help-text-1">Colour of the bubbles represent increases / cuts in allocations in <span class ="fiscalYear"></span> as compared to the budget estimates of <span class="fiscalYear_Prev"></span>.</p>
+                        <ul class="obi-colorSwatches">
+                            <li class="change-decrease3"></li>
+                            <li class="change-decrease2"></li>
+                            <li class="change-decrease1"></li>
+                            <li class="change-increase1"></li>
+                            <li class="change-increase2"></li>
+                            <li class="change-increase3"></li>
+                        </ul>
+                        <ul class="obi-colorTicks">
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                        <ul class="obi-colorLabels">
+                            <li>&ndash;25%</li>
+                            <li>&ndash;10%</li>
+                            <li>0</li>
+                            <li>+10%</li>
+                            <li>+25%</li>
+                        </ul>
+                        <p class="help-text-2">The size of the bubble represents the amount of allocations relative to other departments. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 right-panel">
+                <div id="vis"></div>
+            </div>
+
+        </div>
+    </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{% static 'js/CustomTooltip.js' %}"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
+    </script>
+    </script>
+    <script type="text/javascript">
+    "use strict";
+    const formatLongNumber = d3.format(".2f")
+    var width = 700,
+        height = 500,
+        tooltip = CustomTooltip("obi_tooltip", 265),
+        layout_gravity = -0.01,
+        selected_year = "{{fiscalYear.be}}",
+        previous_year = "{{fiscalYear.bePrev}}",
+        damper = 0.1,
+        nodes = [],
+        defaultGravity = 0.1,
+        totalValue = 37000000   ,
+        vis, force, circles, radius_scale;
+
+    var elements_fiscalYear = document.getElementsByClassName("fiscalYear")
+    var elements_fiscalYear_Prev = document.getElementsByClassName("fiscalYear_Prev")
+
+    for(var i=0; i<elements_fiscalYear.length; i++){
+    elements_fiscalYear[i].innerHTML = selected_year.split("_")[1] + "-" + selected_year.split("_")[2];
+}
+    for(var i=0; i<elements_fiscalYear_Prev.length; i++){
+    elements_fiscalYear_Prev[i].innerHTML = previous_year.split("_")[1] + "-" + previous_year.split("_")[2];
+}
+
+    var center = { x: width / 2, y: (height * 5.5 / 10) };
+
+    var fillColor = d3.scale.ordinal().domain([-3, -2, -1, 0, 1, 2, 3]).range(['#d73027', '#f46d43', '#fdae61', '#fdae61', '#abd9e9', '#74add1', '#4575b4'])
+    var strokeColor = d3.scale.ordinal().domain([-3, -2, -1, 0, 1, 2, 3]).range(['#d73027', '#f46d43', '#fdae61', '#fdae61', '#abd9e9', '#74add1', '#4575b4'])
+
+
+    function categorizeChange(c, p) {
+
+        if (isNaN(c) || c == 0) {
+            return 0;
+        } else if (c < -0.25) {
+            return -3;
+        } else if (c < -0.10) {
+            return -2;
+        } else if (c < -0.001) {
+            return -1;
+        } else if (c <= 0.001) {
+            return 0;
+        } else if (c <= 0.10) {
+            return 1;
+        } else if (c <= 0.25) {
+            return 2;
+        } else { return 3; }
+    }
+
+    function custom_chart(data) {
+        var sum_fiscalYear = [d3.sum(data.map(function(d){ return d[selected_year]})),
+                        d3.sum(data.map(function(d){ return d[previous_year]}))];
+        var grand_total = data.pop()
+        var max_amount = d3.max(data, function(d) { return parseInt(d[selected_year], 10); });
+
+        radius_scale = d3.scale.pow().exponent(0.5).domain([0, max_amount]).range([2, 60]);
+
+
+
+        //create node objects from original data
+        //that will serve as the data behind each
+        //bubble in the vis, then add each node
+        //to nodes to be used later
+        data.forEach(function(d) {
+
+            var node = {
+                id: d["GRANT_NUMBER"],
+                radius: radius_scale(parseInt(d[selected_year], 12)),
+                value: d[selected_year],
+                name: d["GRANT_NUMBER"],
+                previous_value: d[previous_year],
+                percent_change: ((d[selected_year] - d[previous_year]) / d[previous_year] * 100),
+                change: categorizeChange(((d[selected_year] - d[previous_year]) / d[previous_year]), d["GRANT_NUMBER"]),
+                total_share: (d[selected_year] / grand_total[selected_year] * 100),
+                x: Math.random() * 900,
+                y: Math.random() * 800
+            };
+            nodes.push(node);
+        });
+
+        nodes.sort(function(a, b) { return b.value - a.value; });
+
+        vis = d3.select("#vis").append("svg")
+            .attr("width", '100%')
+            .attr("height", '600px')
+            .attr("viewBox","0 0 700 600") 
+            .attr('max-width', '100%')
+            .attr("id", "svg_vis");
+
+        circles = vis.selectAll("circle")
+            .data(nodes, function(d) { return d.id; });
+
+        var color = d3.scale.category20();
+        circles.enter().append("circle")
+            .attr("r", 0)
+            .attr("fill", function(d, i) { return fillColor(d.change); })
+            .attr("stroke-width", 1)
+            .attr("stroke", function(d) { return /*strokeColor(d.change)*/ "grey" })
+            .attr("id", function(d) { return "bubble_" + d.id; })
+            .on("mouseover", function(d, i) { show_details(d, i, this); })
+            .on("mouseout", function(d, i) { hide_details(d, i, this); });
+
+        circles.transition().duration(2000).attr("r", function(d) { return d.radius; });
+
+        function tabulate(data, columns, table_selector) {
+            var table_div = d3.select(table_selector)
+
+            var table = table_div.append("table")
+                .attr("class", "table ")
+
+            var table_body = table.append("tbody")
+
+
+            var table_row = table_body.selectAll("tr")
+                .data(data).enter()
+                .append("tr");
+
+            var cells = table_row.selectAll('td')
+                .data(function(row) {
+                    return columns.map(function(column) {
+                        return { column: column, value: row[column] };
+                    });
+                })
+                .enter()
+                .append('td')
+                .text(function(d, i) {
+                    if (i == 1) {
+                        return d.value.toFixed(2);
+                    } else {
+                        return d.value;
+                    }
+                })
+                .style("font-weight", function(d, i, j) {
+                    if (j == 0) {
+                        return 600;
+                    } else {
+                        return 300;
+                    }
+                })
+                .style("color", function(d, i, j) {
+                    if (j == 0) {
+                        return "#000";
+                    } else {
+                        return "rgba( 0, 0, 0 , 0.7 )";
+                    }
+
+                })
+                .style("font-size", function(d, i, j) {
+                    if (j == 0) {
+                        return "14px";
+                    } else {
+                        return "12px";
+                    }
+
+                })
+            return table;
+        }
+
+
+        tabulate(nodes.slice(0, 4), ['id', 'total_share'], ".table-max-share");
+        tabulate(nodes.sort(function(b, a) { return b.value - a.value; }).slice(0, 4), ['id', 'total_share'], ".table-min-share");
+        tabulate(nodes.sort(function(a, b) { return b.percent_change - a.percent_change; }).slice(0, 4), ['id', 'percent_change'], ".table-max-increase");
+        tabulate(nodes.sort(function(b, a) { return b.percent_change - a.percent_change; }).slice(0, 4), ['id', 'percent_change'], ".table-max-decrease");
+
+        d3.select(".total-exp-num")
+            .html(function(d) {
+                return "&#8377; " + formatLongNumber(sum_fiscalYear[0]) + " Cr.";
+            })
+        d3.select(".total-exp-per-change")
+            .html(function(d) {
+                var value = (((sum_fiscalYear[0] - sum_fiscalYear[1]) / sum_fiscalYear[1]) * 100).toFixed(2)
+                if (value > 0) {
+                    return value + " %";
+                } else {
+                    return value;
+                }
+            })
+            .style("color", "rgb(10, 128, 10)")
+    }
+
+    function charge(d) {
+        return -Math.pow(d.radius, 2.0) / 8;
+    }
+
+    function start() {
+        force = d3.layout.force()
+            .nodes(nodes)
+            .size([width, height]);
+    }
+
+    function display_group_all() {
+        force.gravity(layout_gravity)
+            .charge(charge)
+            .friction(0.9)
+            .on("tick", function(e) {
+                circles.each(move_towards_center(e.alpha))
+                    .each(buoyancy(e.alpha))
+                    .attr("cx", function(d) { return d.x; })
+                    .attr("cy", function(d) { return d.y; });
+            });
+        force.start();
+    }
+
+
+    function buoyancy(alpha) {
+        var that = this;
+        var boundingRadius = radius_scale(totalValue);
+        return function(d) {
+            var targetY = center.y - (d.change / 15) * boundingRadius
+            d.y = d.y + (targetY - d.y) * (defaultGravity) * alpha * alpha * alpha * 100
+        };
+    }
+
+    function move_towards_center(alpha) {
+        return function(d) {
+            d.x = d.x + (center.x - d.x) * (damper + 0.02) * alpha;
+            d.y = d.y + (center.y - d.y) * (damper + 0.02) * alpha;
+        };
+    }
+
+    var formatComma = d3.format(",")
+
+    function show_details(data, i, element) {
+
+        d3.select(element).attr("stroke-width", 3).attr("z-index", 10000).attr("stroke", "black");
+        var content = "<span class='dept-name'>  " + data.id + "  </span><hr class='tooltip-hr' />";
+        content += "<span class='tooltipcurrent-year'> <span class=\"value\">  &#8377; " + formatComma(data.value) + " Cr.</span></span>";
+        var percent_class = data.percent_change > 0 ? 'positive ' : 'negative'
+        content += "<span id ='tooltip-percent'  class=" + percent_class + ">" + (isNaN(data.percent_change) ? "N.A." : (data.percent_change.toFixed(2) < 0 ? -1 * data.percent_change.toFixed(2) : data.percent_change.toFixed(2)) + " %") + "</span>";
+        tooltip.showTooltip(content, d3.event);
+    }
+
+    function hide_details(data, i, element) {
+        d3.select(element).attr("stroke-width", 1)
+            .attr("z-index", 1000)
+            .attr("stroke", function(d) { return "grey" });
+        tooltip.hideTooltip();
+    } 
+    var sum_fiscalYear = []
+    var grant_data = []
+    d3.csv("{{instance.url}}", function(data) {
+        data.forEach(function(d){
+            d["{{fiscalYear.be}}"] = +d["{{fiscalYear.be}}"]*0.01
+            d["{{fiscalYear.bePrev}}"] = +d["{{fiscalYear.bePrev}}"]*0.01
+        })
+        var sum_fiscalYear= [d3.sum(data.map(function(d){ return d["{{fiscalYear.be}}"]}))];
+    var nested_data = d3.nest()
+    .key(function(d) { return d['Grant Number'];})
+    .rollup(function(d) { 
+   return {
+     {{fiscalYear.be}} : d3.sum(d, function(g) {return g["{{fiscalYear.be}}"]; }),
+     {{fiscalYear.bePrev}} : d3.sum(d, function(g) {return g["{{fiscalYear.bePrev}}"]; }),
+   }
+  }).entries(data);
+ 
+     grant_data = nested_data.map(function(d)
+  {  
+     return{
+     GRANT_NUMBER : d.key,
+     {{fiscalYear.be}}: formatLongNumber(Object.values(d).slice(1)[0].{{fiscalYear.be}}),
+     {{fiscalYear.bePrev}} : formatLongNumber(Object.values(d).slice(1)[0].{{fiscalYear.bePrev}})
+     }
+  });
+        custom_chart(grant_data)
+        start()
+        display_group_all();
+    });
+    </script>
+</body>
+
+</html>

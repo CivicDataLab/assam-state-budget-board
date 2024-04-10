@@ -1,0 +1,84 @@
+GRANT NO. 1  State Legislature
+GRANT NO. 2  Council of Ministers
+GRANT NO. 3  Administration of justice
+GRANT NO. 4  Elections
+GRANT NO. 5  Sales Tax & Other Tax
+GRANT NO. 6  Land Revenue
+GRANT NO. 7  Stamps and Registration
+GRANT NO. 8  Excise & Prohibition
+GRANT NO. 9  Transport Services
+GRANT NO. 10  Other Fiscal Service
+GRANT NO. 11  General Administration (Secretariat and Attached Offices)
+GRANT NO. 12  General Administration (District and Sub Divisions)
+GRANT NO. 13  Treasury & Accounts Administration
+GRANT NO. 14  Police
+GRANT NO. 15  Jails
+GRANT NO. 16  Printing  Stationery and Information  Publicity
+GRANT NO. 17  Administrative and functional Buildings
+GRANT NO. 18  Fire & Emergency Services
+GRANT NO. 19  Vigilance Commission & Others and Social Security & Welfare (Freedom Fighter)
+GRANT NO. 20  Civil Defence and Home Guards
+GRANT NO. 21  Guest Houses, Government Hostels
+GRANT NO. 22  Administrative Training
+GRANT NO. 23  Pension & Other Retirement Benefits
+GRANT NO. 24  Aid Materials
+GRANT NO. 25  Miscellaneous General Services & others
+GRANT NO. 26  Education (Higher)
+GRANT NO. 27  Art & Culture
+GRANT NO. 28  State Archives
+GRANT NO. 29  Medical & Public Health
+GRANT NO. 30  Water Supply & Sanitation
+GRANT NO. 31  Housing & Urban Affairs (Town and Country Planning)
+GRANT NO. 32  Housing & Urban Affairs (Housing Schemes)
+GRANT NO. 33  Residential Buildings
+GRANT NO. 34  Housing & Urban Affairs (Municipal Administration)
+GRANT NO. 35  Skill, Employment  Entrepreneurship
+GRANT NO. 36  Labour Welfare
+GRANT NO. 37  Food Storage & Warehousing
+GRANT NO. 38  Tribal Affairs (Plain)
+GRANT NO. 39  Women  Child Development
+GRANT NO. 40  Social Justice  Empowerment
+GRANT NO. 41  Natural Calamities
+GRANT NO. 42  Other Social Services (Welfare of Minorities & Development)
+GRANT NO. 43  Co Operation
+GRANT NO. 44  North Eastern Council Scheme
+GRANT NO. 45  Census, Survey & Statistics
+GRANT NO. 46  Weights & Measures
+GRANT NO. 47  Trade advisor
+GRANT NO. 48  Agriculture
+GRANT NO. 49  Irrigation
+GRANT NO. 50  Other Special Area Programmes (Border Protection & Development)
+GRANT NO. 51  Soil & Water Conservation
+GRANT NO. 52  Animal Husbandry and Veterinary
+GRANT NO. 53  Dairy Development
+GRANT NO. 54  Fisheries
+GRANT NO. 55  Environment & Forest
+GRANT NO. 56  Panchayat & Rural Development (Panchayat)
+GRANT NO. 57  Panchayat & Rural Development (Rural Development)
+GRANT NO. 58  Industries & Commerce
+GRANT NO. 59  Village & Small Industries Sericulture and Weaving
+GRANT NO. 60  Cottage Industries
+GRANT NO. 61  Mines & Minerals
+GRANT NO. 62  Power (Electricity)
+GRANT NO. 63  Water Resources
+GRANT NO. 64  Roads & Bridges
+GRANT NO. 65  Tourism
+GRANT NO. 66  Compensation & Assignment To Local Bodies & Panchayati Raj Institutions
+GRANT NO. 67  Horticulture
+GRANT NO. 68  Loans to Govt. Servant etc
+GRANT NO. 69  Science, Technology and Climate Change
+GRANT NO. 70  Hill Areas
+GRANT NO. 71  School Education
+GRANT NO. 72  Social Security & Welfare
+GRANT NO. 73  Housing & Urban Affairs (Guwahati Development)
+GRANT NO. 74  Sports & Youth Welfare
+GRANT NO. 75  Information & Technology
+GRANT NO. 76  Karbi Anglong Autonomous Council
+GRANT NO. 77  N.C. Hills Autonomous Council
+GRANT NO. 78  Bodoland Territorial Council
+GRANT NO. 79  Welfare of Bodoland
+GRANT NO. 80  Indigenous And Tribal Faith And Culture
+GRANT NO. PD  Public Debt And Servicing Of Debt
+GRANT NO. C3  Appropriation to Contingency Fund
+GRANT NO. C2  Head of State
+GRANT NO. C1  Public Service Commission

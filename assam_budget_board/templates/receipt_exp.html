@@ -1,0 +1,154 @@
+
+    <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.6/nv.d3.min.css">
+<style>
+    .nv-x text{
+
+  fill: white;
+}
+.nv-y text{
+  
+  fill:white;
+}
+.nv-axis .tick line {
+        display:none;
+}
+.nvd3 .nv-axis path {
+       fill: none;
+       stroke:white;
+       stroke-opacity: .75;
+       shape-rendering: crispEdges;
+     }
+
+
+</style>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.6/nv.d3.min.js"></script>
+    <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm" id = 'vis'>
+                <svg style="height : 150px; width : 500px; max-width : 100%;  "></svg>
+                <div class="col-sm" id = 'vis-receipt'>
+               
+                
+                <svg style="height :150px; width : 500px; max-width : 100%; padding-top:-50px" ></svg>
+              </div>
+              </div>
+             
+                      </div>
+          </div>
+        <script>
+         d3.csv("{{instance.url}}", function(consdata) {
+            console.log(consdata)
+            var receipts = consdata.filter(function(d, i) 
+            { 
+
+            if (d.Type == 'Receipts') 
+            { 
+               return d
+            } 
+
+        }).map(function(k){
+            return{
+                particulars: k.Particulars,
+              
+                 'Budget 2019-20' : +k['Budget 2019-20'],
+                
+                 'Budget 2018-19' : +k['Budget 2018-19']
+               
+                }
+            })
+//            console.log(receipts)
+
+        var expenditure = consdata.filter(function(d, i) 
+            { 
+
+            if (d.Type == 'Expenditure') 
+            { 
+               return d
+            } 
+
+        }).map(function(k){
+            return{
+                particulars: k.Particulars,
+             
+                 'Budget 2019-20' : +k['Budget 2019-20'],
+               
+                 'Budget 2018-19' : +k['Budget 2018-19']
+               
+                }
+            })
+
+          //
+          //  console.log(expenditure)
+          
+        
+
+        var dataToPlot = Object.keys(expenditure[0]).filter(function(k){return k!="particulars"})
+        .map(function(k){
+          return {"key":k,"values":expenditure.map(function(d){
+           return {
+             //let's make this a real date
+             "y":+d[k],
+             "x":d['particulars']
+             
+           }
+          })}
+        })
+      //  console.log(dataToPlot)
+        nv.addGraph(function() {
+    var chart = nv.models.multiBarHorizontalChart()
+        .margin({ right:40, left: 250})
+        .showValues(false)           //Show bar value next to each bar.            //Show tooltips on hover.
+        .showLegend(false)
+        .showControls(false);        //Allow user to switch between "Grouped" and "Stacked" mode.
+
+        chart.height(150);
+    chart.yAxis
+         .axisLabel('Total Expenditure(In Crore)')
+         .tickFormat(d3.format(',.2f'))
+         .ticks(2);
+         d3.select('#vis svg')
+        .datum(dataToPlot)
+        .call(chart);
+     
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  var dataPlot = Object.keys(receipts[0]).filter(function(k){return k!="particulars"})
+        .map(function(k){
+          return {"key":k,"values":receipts.map(function(d){
+           return {
+             //let's make this a real date
+             "x":d['particulars'],
+             "y":+d[k]
+           }
+          })}
+        })
+      //  console.log(dataToPlot)
+        nv.addGraph(function() {
+    var chart = nv.models.multiBarHorizontalChart()
+        
+        .margin({right:40, left: 235})
+        .showValues(false)           
+        
+        .showLegend(false)
+        .showControls(false)
+        ;       
+
+        chart.height(150);
+    chart.yAxis
+         .axisLabel('Total Receipts(In Crore)')
+         .tickFormat(d3.format(',.2f'))
+         .ticks(2);
+         d3.select('#vis-receipt svg')
+        .datum(dataPlot)
+        .call(chart);
+     
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+        })
+ </script>

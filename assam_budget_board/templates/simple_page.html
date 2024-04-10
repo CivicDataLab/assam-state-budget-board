@@ -1,0 +1,31 @@
+{% extends "page.html" %}
+{% load cms_tags menu_tags staticfiles %}
+
+{% block css_files %}
+	{{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/content_1.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/budget_highlights.css' %}">
+{% endblock css_files %}
+
+
+<!-- Header -->
+{% block header-masthead %}
+	<nav aria-label="breadcrumb" class="header-page-breadcrumb">
+	    <ol class="breadcrumb">
+	        {% show_breadcrumb 'menu/custom_breadcrumb.html' %}
+	    </ol>
+	</nav>
+	<h1 class="grant-title">{% page_attribute "page_title" %}</h1>
+{% endblock header-masthead %}
+
+{% block page_content %}
+
+    <div class="data_vis">
+    {% placeholder "Budget Highlights" %}
+    </div>
+    <div class="points" style="padding-top:50px;padding-left:30px;padding-right:30px">
+ 
+    {% placeholder "Budget Highlights Points" %}
+    </div>
+</div>
+{% endblock page_content %}

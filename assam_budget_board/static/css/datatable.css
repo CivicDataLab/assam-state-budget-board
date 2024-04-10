@@ -1,0 +1,28 @@
+.data-table-section  {
+	overflow-x:scroll; 
+    font-size: 13px;
+    padding-bottom: 30px;
+   
+  
+}
+.data-table-section col-lg-12{
+  width: 1050px;
+}
+div.dataTables_wrapper div.dataTables_info {
+    margin-left: 20px;
+}
+
+div.dataTables_wrapper div.dataTables_paginate {
+    margin-right: 20px;
+}
+
+.table-bordered td,
+.table-bordered th {
+    border: 0px solid #dee2e6;
+}
+
+.data-table-section thead {
+    background: #2A2C2B url(../img/bg.png);
+    color: white;
+}
+

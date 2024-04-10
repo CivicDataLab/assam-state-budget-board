@@ -1,0 +1,571 @@
+{% load sekizai_tags static cms_tags %}
+
+<style>
+body {
+    font-family: Open Sans, sans-serif;
+    background: transparent;
+}
+
+.node {
+    cursor: pointer;
+    /*stroke: #3182bd;*/
+    stroke-width: 1px;
+}
+
+.link {
+    fill: none;
+    stroke: rgba(128, 128, 128, 0.3);
+    stroke-width: 1.5px;
+}
+
+
+.tooltip {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    /* background: #222222; */
+    background: #fff;
+    opacity: 1;
+    /* color: #eeeeee; */
+    color: black;
+    padding: 10px;
+    text-align: center;
+    width: 400px;
+    font-size: 14px;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.19), 0 1px 3px rgba(0, 0, 0, 0.23);
+}
+
+.tooltip .dept-name {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.tooltip-notes {
+    font-size: 14px;
+    font-weight: 200;
+}
+
+
+.tooltip .name {
+    font-weight: bold;
+}
+
+.tooltip-hr {
+    margin: 5px 0px;
+    border-top: 1px solid rgba(128, 128, 128, 0.64);
+}
+
+.tooltip-hr-sec {
+    border-top: 1px solid rgba(128, 128, 128, 0.54);
+}
+
+.tooltipcurrent-year {
+    margin-right: 10px;
+    font-weight: 600;
+    font-size: 17px;
+}
+
+#tooltip-percent {
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.tooltip .positive {
+    color: green;
+}
+
+.tooltip .n-a {
+    color: grey;
+}
+
+.tooltip .negative {
+    color: red;
+}
+
+.vis-title {
+    padding-bottom: 20px;
+}
+
+.vis-title h1 {
+    font-weight: 500;
+    color: #515B5E;
+    /* word-spacing: 0px; */
+    letter-spacing: -1px;
+    font-family: Open Sans;
+}
+
+.left-panel-text {
+    padding: 20px;
+    font-weight: 200;
+    /* margin-top: 10px; */
+    /* margin-bottom: 20px; */
+}
+
+.left-panel {
+    margin-left: 60px;
+    margin-top: -50px;
+}
+
+.visualization-container {
+    margin-left: 15px;
+}
+
+h4.total-exp {
+    text-align: center;
+    font-weight: 600;
+}
+
+.total-exp-val,
+.total-receipt-val {
+    color: black;
+    font-weight: 700;
+    font-size: 23px;
+    padding: 5px;
+    padding-left: 12px;
+}
+
+.total-exp,
+.total-receipt {
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.63);
+    padding-left: 50px
+}
+
+.total-exp-per-change,
+.total-receipt-per-change {
+    color: rgb(10, 128, 10);
+    margin-left: 1px;
+    white-space: nowrap;
+}
+
+p.notes {
+    text-align: justify;
+    font-size: 10px;
+    color: rgba(0, 0, 0, 0.67);
+    margin-top: 20px;
+}
+
+@media (max-width: 1241px) {
+    .total-exp-val,
+    .total-receipt-val {
+        font-size: 23px;
+    }
+}
+</style>
+                
+      
+    <div class="container-fluid">
+                <div class="visualization-container">
+
+                    <svg></svg>
+                </div>
+            </div>
+        </div>
+        <div class="row text-center">
+            <p>&nbsp;</p>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+  
+    <script src="{% static 'js/CustomTooltip.js' %}"></script>
+    <script src="{% static 'js/queue.v1.min.js' %}"></script>
+    <script>
+    var width = 800,
+        height = 450,
+        root;
+
+    var force = d3.layout.force()
+        .size([width, 500])
+        .on("end", function() {
+            rendercircle();
+        });
+   
+    var tooltip = CustomTooltip("obi_tooltip", 260)
+
+    var svg = d3.select(".visualization-container").select("svg")
+        .attr("width", '100%')
+        .attr("height", '100%')
+        .attr("viewBox","50 0 700 450") 
+       
+       
+        
+
+    var link = svg.selectAll(".link"),
+        node = svg.selectAll(".node"),
+        mov_circles = svg.selectAll('.moving-circles'),
+        node_labels = svg.selectAll(".node-label")
+
+
+    var app_config = {
+        selected_year: "{{fiscalYear.be}}",
+        previous_year: "{{fiscalYear.bePrev}}"
+    };
+    queue()
+        .defer(d3.csv, '{{ instance.data }}')
+        .defer(d3.csv, "{{ instance.links }}")
+        .await(update);
+
+    var gb_data;
+
+    function update(error, nodes_data, links_data) {
+
+        gd_data = nodes_data;
+
+        var fixed_notes = {
+            "Total Expenditure": {
+                x: width * 23 / 35,
+                y: height * 27 / 50
+            },
+            "Total Receipts": {
+                x: width * 24 / 50,
+                y: height * 27 / 50
+            },
+            
+            "Total Revenue Receipts": {
+                x: width * 15 / 50,
+                y: height * 20 / 50
+            },
+            "Total Capital Receipts": {
+                x: width * 15 / 50,
+                y: height * 37 / 50
+            },
+
+            "State's Own Tax": {
+                x: width * 10 / 50,
+                y: height * 28 / 50
+            },
+            "Non-Tax Revenue": {
+                x: width * 7 / 50,
+                y: height * 22.5 / 50
+            },
+            "Share of Central Taxes": {
+                x: width * 7 / 50,
+                y: height * 15 / 50
+            },
+
+            "Centrally Sponsored Schemes": {
+                x: width * 10 / 50,
+                y: height * 6 / 50
+            },            
+            
+            "Finance Commission Grants": {
+                x: width * 8 / 50,
+                y: height * 9 / 50
+            },
+
+            "Other Transfer/Grants to States with Legislature": {
+                x: width * 13 / 50,
+                y: height * 5 / 50
+            },
+
+            "Public Debt": {
+                x: width * 20/ 50,
+                y: height * 10 / 50
+            },
+            "Recoveries of Loans & Advances": {
+                x: width * 17 / 50,
+                y: height * 5 / 50
+            },
+
+            "General Services": {
+                x: width * 42 / 50,
+                y: height * 34 / 50
+            },
+            "Social Services": {
+                x: width * 42 / 50,
+                y: height * 16 / 50
+            },
+            "Economic Services": {
+                x: width * 43 / 50,
+                y: height * 25 / 50
+            },
+            "Grants-in-Aid & Contributions": {
+                x: width * 40 / 50,
+                y: height * 10 / 50
+            },
+
+            "Repayment of Public Debt": {
+                x: width * 40/ 50,
+                y: height * 40/ 50
+            },
+            "Loans & Advances": {
+
+                x: width * 38/ 50,
+                y: height * 45/ 50
+            },
+      
+            
+            
+        }
+
+        // Restart the force layout.
+        var nodes = [];
+        nodes_data.forEach(function(d) {
+
+            var node = {
+                id: d["Particular"],
+                value: d[app_config["selected_year"]],
+                radius_value: +(d[app_config["selected_year"]] > 0 ? d[app_config["selected_year"]] : (-1 * d[app_config["selected_year"]])),
+                sno: d["no."],
+                fixed: fixed_notes[d["Particular"]] ? true : false,
+                label_display: +d["label_display"],
+                label_pos: d["label_pos"],
+                color_group: +d["color_group"],
+                change: ((d[app_config["selected_year"]] - d[app_config["previous_year"]]) / d[app_config["previous_year"]] * 100)
+            };
+
+            if (fixed_notes[d["Particular"]]) {
+                node.x = fixed_notes[d["Particular"]].x
+                node.y = fixed_notes[d["Particular"]].y
+            }
+
+            if (node.value != "...") {
+                nodes.push(node);
+            }
+        });
+
+        var expenditure_figures = nodes.find(function(element) {
+            return element.id == "Total Expenditure"
+        })
+
+        var receipt_figures = nodes.find(function(element) {
+            return element.id == "Total Receipts"
+        })
+
+        d3.select(".total-exp-num").html("&#8377; " + expenditure_figures.value + " Cr.")
+        d3.select(".total-exp-per-change").html(expenditure_figures.change.toFixed(2) + "%")
+
+        d3.select(".total-receipt-num").html("&#8377; " + receipt_figures.value + " Cr.")
+        d3.select(".total-receipt-per-change").html(receipt_figures.change.toFixed(2) + "%")
+
+        var max_amount = d3.max(nodes, function(d) { return parseInt(d.radius_value, 10); });
+        var radius_scale = d3.scale.pow().exponent(0.5).domain([0, max_amount]).range([2, 35]);
+
+        var links = [];
+        links_data.forEach(function(d) {
+            var link = {
+                source: +d.source,
+                target: +d.target,
+                source_name: d.source_name,
+                destination_name: d.destination_name,
+                value: +d.value,
+                type: d.type
+            }
+
+            links.push(link);
+        })
+
+        force
+            .nodes(nodes)
+            .links(links)
+            .start();
+
+        // Update the links…
+        link = link.data(links, function(d) { return d.target.id; });
+
+        // Exit any old links.
+        link.exit().remove();
+
+        // Enter any new links.
+        link.enter().insert("line", ".node")
+            .attr("class", "link")
+            .style("opacity", 0)
+            .style("stroke-width", function(d) { return d.value + "px"; })
+            .attr("x1", function(d) { return d.source.x; })
+            .attr("y1", function(d) { return d.source.y; })
+            .attr("x2", function(d) { return d.target.x; })
+            .attr("y2", function(d) { return d.target.y; });
+
+        mov_circles = mov_circles.data(links, function(d) { return d.target.id; });
+
+        // Exit any old links.
+        mov_circles.exit().remove();
+
+        mov_circles
+            .enter()
+            .append("circle")
+            .attr("class", "moving-circles")
+            .attr("cx", function(d) {
+                if (d.type == "reverse") {
+                    return d.target.x;
+                } else {
+                    return d.source.x
+                }
+            })
+            .attr("cy", function(d) {
+                if (d.type == "reverse") {
+                    return d.target.y;
+                } else {
+                    return d.source.y
+                }
+            })
+            .attr("r", function(d) { return 1.5 * d.value / 5 > 1.5 ? 1.5 * d.value / 5 : 1.5; })
+            .style("fill", "black")
+            .style("opacity", 0);
+
+        nodes = nodes.map(function(d, i) {
+            d.r = +radius_scale(d.radius_value)
+            return d
+        })
+
+        // Update the nodes…
+        node = node.data(nodes, function(d) {
+            return d.id;
+        });
+
+        var fillColor = d3.scale.ordinal().domain([1, 2, 3, 4, 5, 6, 7]).range(['#d73027', '#f46d43', '#fdae61', '#fdae61', '#abd9e9', '#74add1', '#4575b4'])
+
+        node.enter().append("circle")
+            .attr("id", function(d, i) {
+                return d.id.split(' ').join('-');
+            })
+            .attr("class", "node")
+            .attr("cx", function(d, i) { return d.x })
+            .attr("cy", function(d) { return d.y; })
+            .attr("r", function(d, i) { return d.r })
+            .attr("stroke", "grey")
+            .style("fill", function(d) { return fillColor(d.color_group) })
+            .style("opacity", 0)
+            .on("mouseover", function(d, i) { show_details(d, i, this); })
+            .on("mouseout", function(d, i) { hide_details(d, i, this); });
+
+        node_labels = node_labels.data(nodes, function(d) { return d.id; });
+
+        node_labels.enter().append("text")
+            .filter(function(d) { return d.label_display == 1 })
+            .attr("x", function(d) { return d.x; })
+            .attr("y", function(d) { return d.y; })
+            .text(function(d) {
+                return d.id
+            })
+            .attr("text-anchor", "middle")
+            .style("font-size", "10px")
+            .style("opacity", 0)
+
+        node_labels.attr("x", function(d){ 
+                d.x = Math.max(d.r, Math.min(width - d.r, d.x));
+                if (d.label_pos.includes("left")) {
+                    return d.x - d.r - 4
+                } else if (d.label_pos.includes("right")) {
+                    return d.x + d.r + 4
+                } else {
+                    return d.x
+                }
+            });
+
+        node_labels.attr("y", function(d){
+                d.y = Math.max(d.r, Math.min(height - d.r, d.y));
+                if (d.label_pos.includes("top")) {
+                    return d.y - d.r - 6
+                } else {
+                    return d.y + d.r + 12
+                }
+            });
+
+        node.transition()
+            .style("opacity", 1).duration(2000);
+        link.transition()
+            .style("opacity", 1).duration(2000);
+        mov_circles.transition()
+            .style("opacity", 1).duration(4000);
+        node_labels.transition()
+            .style("opacity", 1).duration(2000)
+    }
+
+    function rendercircle(data) {
+
+        mov_circles.transition()
+            .attr("cx", function(d) {
+                if (d.type == "reverse") {
+                    return d.source.x;
+                } else {
+                    return d.target.x
+                }
+            })
+            .attr("cy", function(d) {
+                if (d.type == "reverse") {
+                    return d.source.y;
+                } else {
+                    return d.target.y
+                }
+            })
+            .duration(3700);
+
+        mov_circles.attr("cx", function(d) {
+                if (d.type == "reverse") {
+                    return d.target.x;
+                } else {
+                    return d.source.x
+                }
+            })
+            .attr("cy", function(d) {
+                if (d.type == "reverse") {
+                    return d.target.y;
+                } else {
+                    return d.source.y
+                }
+            })
+
+        window.setInterval(function(d) {
+            mov_circles.transition()
+                .attr("cx", function(d) {
+                    if (d.type == "reverse") {
+                        return d.source.x;
+                    } else {
+                        return d.target.x
+                    }
+                })
+                .attr("cy", function(d) {
+                    if (d.type == "reverse") {
+                        return d.source.y;
+                    } else {
+                        return d.target.y
+                    }
+                })
+                .duration(3700);
+
+            mov_circles.attr("cx", function(d) {
+                    if (d.type == "reverse") {
+                        return d.target.x;
+                    } else {
+                        return d.source.x
+                    }
+                })
+                .attr("cy", function(d) {
+                    if (d.type == "reverse") {
+                        return d.target.y;
+                    } else {
+                        return d.source.y
+                    }
+                })
+
+        }, 4000);
+    }
+
+    var formatComma = d3.format(",")
+
+    function show_details(data, i, element) {
+
+        d3.select(element).attr("stroke-width", 3).attr("z-index", 10000).attr("stroke", "black");
+        var content = "<span class='dept-name'>  " + data.id + "  </span><hr class='tooltip-hr' />";
+        content += "<span class='tooltipcurrent-year'> <span class=\"value\">  &#8377; " + formatComma(data.value) + " Cr.</span></span>";
+        var percent_class = isNaN(data.change) ? "n-a" : data.change > 0 ? 'positive ' : 'negative'
+
+        content += "<span id ='tooltip-percent'  class=" + percent_class + ">" + (isNaN(data.change) ? "N.A." : (data.change.toFixed(2) < 0 ? -1 * data.change.toFixed(2) : data.change.toFixed(2)) + " %") + "</span>";
+        tooltip.showTooltip(content, d3.event);
+    }
+
+    function hide_details(data, i, element) {
+        d3.select(element).attr("stroke-width", 1)
+            .attr("z-index", 1000)
+            .attr("stroke", function(d) { return "grey" });
+        tooltip.hideTooltip();
+    }
+    </script>
